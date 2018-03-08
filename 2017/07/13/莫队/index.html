@@ -87,18 +87,18 @@
 
 
 
-<meta name="description" content="转载自 摘要 莫队算法是一个对于区间、树或其他结构离线（在线）维护的算法，此算法基于一些基本算法，例如暴力维护，树状数组，分块，最小曼哈顿距离生成树，对其进行揉合从而产生的一个简单易懂且短小好写的算法。此算法在很多情况下可以很轻松的切掉一些复杂而且难写的数据结构问题。  关键词   程序设计、算法、算法优化，暴力算法，">
+<meta name="description" content="转载自 摘要  莫队算法是一个对于区间、树或其他结构离线（在线）维护的算法，此算法基于一些基本算法，例如暴力维护，树状数组，分块，最小曼哈顿距离生成树，对其进行揉合从而产生的一个简单易懂且短小好写的算法。此算法在很多情况下可以很轻松的切掉一些复杂而且难写的数据结构问题。  关键词 程序设计、算法、算法优化，暴力算法，分">
 <meta name="keywords" content="ACM,暴力,数据结构,莫队">
 <meta property="og:type" content="article">
 <meta property="og:title" content="莫队">
 <meta property="og:url" content="http://sun000.cn/2017/07/13/莫队/index.html">
 <meta property="og:site_name" content="sun000&#39;s blog">
-<meta property="og:description" content="转载自 摘要 莫队算法是一个对于区间、树或其他结构离线（在线）维护的算法，此算法基于一些基本算法，例如暴力维护，树状数组，分块，最小曼哈顿距离生成树，对其进行揉合从而产生的一个简单易懂且短小好写的算法。此算法在很多情况下可以很轻松的切掉一些复杂而且难写的数据结构问题。  关键词   程序设计、算法、算法优化，暴力算法，分块算法，最小曼哈顿距离生成树。 背景 众所周知，在OI竞赛、软件的设计中都会要">
+<meta property="og:description" content="转载自 摘要  莫队算法是一个对于区间、树或其他结构离线（在线）维护的算法，此算法基于一些基本算法，例如暴力维护，树状数组，分块，最小曼哈顿距离生成树，对其进行揉合从而产生的一个简单易懂且短小好写的算法。此算法在很多情况下可以很轻松的切掉一些复杂而且难写的数据结构问题。  关键词 程序设计、算法、算法优化，暴力算法，分块算法，最小曼哈顿距离生成树。 背景 众所周知，在OI竞赛、软件的设计中都会要求">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-11-22T03:33:31.315Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="莫队">
-<meta name="twitter:description" content="转载自 摘要 莫队算法是一个对于区间、树或其他结构离线（在线）维护的算法，此算法基于一些基本算法，例如暴力维护，树状数组，分块，最小曼哈顿距离生成树，对其进行揉合从而产生的一个简单易懂且短小好写的算法。此算法在很多情况下可以很轻松的切掉一些复杂而且难写的数据结构问题。  关键词   程序设计、算法、算法优化，暴力算法，分块算法，最小曼哈顿距离生成树。 背景 众所周知，在OI竞赛、软件的设计中都会要">
+<meta name="twitter:description" content="转载自 摘要  莫队算法是一个对于区间、树或其他结构离线（在线）维护的算法，此算法基于一些基本算法，例如暴力维护，树状数组，分块，最小曼哈顿距离生成树，对其进行揉合从而产生的一个简单易懂且短小好写的算法。此算法在很多情况下可以很轻松的切掉一些复杂而且难写的数据结构问题。  关键词 程序设计、算法、算法优化，暴力算法，分块算法，最小曼哈顿距离生成树。 背景 众所周知，在OI竞赛、软件的设计中都会要求">
 
 
 
@@ -412,42 +412,48 @@
 
       
         <p><a href="http://blog.csdn.net/lqybzx/article/details/52235761" target="_blank" rel="noopener">转载自</a></p>
-<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><blockquote>
+<h2 id="摘要">摘要</h2>
+<blockquote>
 <p><strong>莫队算法是一个对于区间、树或其他结构离线（在线）维护的算法，此算法基于一些基本算法，例如暴力维护，树状数组，分块，最小曼哈顿距离生成树，对其进行揉合从而产生的一个简单易懂且短小好写的算法。此算法在很多情况下可以很轻松的切掉一些复杂而且难写的数据结构问题。</strong></p>
 </blockquote>
-<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><p>   <strong>程序设计、算法、算法优化，暴力算法，分块算法，最小曼哈顿距离生成树。</strong></p>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p> 众所周知，在OI竞赛、软件的设计中都会要求我们去处理各种各样的棘手的问题，而这些问题之中，有一大类就是维护问题：比如说对于一个序列的维护，对于棵二叉或者多叉树的维护……这些问题往往会需要我们去使用一个或多个高端的数据结构复合来完美解决，通常题目的代码十分冗长而且出错可能性十分大，是广大OIer、Acmer、Coder所害怕的题目。那么有没有一种方法可以既简单又快捷的解决这类问题（这类问题中的一大部分）呢？莫队算法就诞生辣！</p>
-<h2 id="理论1"><a href="#理论1" class="headerlink" title="理论1"></a>理论1</h2><p>序列莫队：我们现在有一个长为n的静态的序列，对于序列，我们有m次查询，我们要动态查询l到r之间大于a小于b的数的个数以及种类。遇到了这个问题我们通常需要使用书套树的数据结构，即一颗以自平衡二叉查找树为节点的线段树（时间复杂度大约是O(mlognlogn)），而且由于空间限制，我们还必须动态创建线段树的节点，这样一来十分难写，一些大约要个400-500行，调试起来也很困难。这时候我们来考虑暴力算法，如果暴力的处理题目中的问题那么复杂度是多少呢？这个不难计算，对于每个询问我们都要O(n)的时间处理,一共有m个询问，那么暴力处理的复杂度就是O(nm)的，明显处理问题花费的时间我们是不能接受的。这是我们想到可以交换询问和询问之间的先后次序，这样每次询问在前一次询问的基础上转移就可以节省一些时间了。   但是如何重新排列询问之间的顺序是一个问题。我们需要进行一些理论分析。我们再上一个询问的基础上暴力地维护一个询问（假设上一个询问询问区间为[l0,r0]，这个询问区间为[l,r]），那么我们所谓的暴力维护就是先把现有答案的右边界从r0移动到r，再把左边界从l0移动到l，那么我们的总花费是O(|l-l0|+|r-r0|)。仔细看一看，没错，这就是我们的曼哈顿距离的计算公式，有了这个思路，我们就可以从图形的角度来思考了，对于一个询问[l,r]我们可以将它映射为平面上在(l,r)位置的点，那么两个询问之间转移的代价就是询问所对应的点之间的曼哈顿距离。有了这一个结论，我们便想到可以用最小曼哈顿生成树来处理询问的顺序。由此莫队算法便诞生啦！莫队算法就是先将询问抽象成平面上的点，然后进行一边最小曼哈顿距离生成树，然后按照生成树的顺序来处理询问，这样的算法复杂度大约是O(mSqrt(n))的。如此，问题便简单了许多。</p>
-<p>   但是由于最小曼哈顿距离生成树也不是那么的好写，所以莫队算法还能再简单一点么？我们思考是否可以用一个简单而暴力的算法代替莫队算法呢。很快便能想到分块算法。我们可以使用分块算法来处理询问之间的次序问题。再去看那个询问对应的点所在的平面，我们找到它的X轴，我们把X轴平均分割成r分，然后我们把在一个块内的询问统一先处理，不在一个块内的询问我们按照左端点升序右端点升序排序依次处理。这样做有什么好处呢？对于m干个询问，如果在一个块里面，那么处理这些询问花费的复杂度是O(n/r<em>n</em>m)，如果有两个询问不在一个同一个块里面，按照我们之前的排序规则，我们把左区间和右区间在块之间移动的次数最多为r<em>(n/r)</em>r次，那么我们的复杂度就是O(r<em>(n/r)</em>r)次，经过简单的数学分析，我们可以发现r=Sqrt(n)是时间复杂度最低为O(nSqrt(n))次，是可以接受的时间复杂度。这样我们的莫队算法就又简单有强大了。但是在另一些情况下，题目会无耻的限定我们可以使用的空间（一般不会，因为这样高级数据结构的复合也难以解决这样的问题了）。那么如果空间被限定了，我们应该如何解决问题呢？其实很简单， 还记得我们之前的r么？我们为了求的时间复杂度最小令r=Sqrt(n),如果我们令r=n ^ (2 / 3)，那么便是一个时间复杂度和空间复杂度较为平衡的情况，这样可以很好的解决问题。</p>
-<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><blockquote>
-<p> 输入数据首先输入两个整数N,Q，分别代表序列的长度和询问的个数。这两个数字将单独占据一行并用一个空格分开。输入数据的第二行包含了N个由一个空格分开的正整数，代表了整个序列，从左向右依次编号为A1, A2……An。接下来Q行，每行两个整数i,j表示了一个询问区间。输入数据保证1≤i &lt;j&lt;=N</p>
+<h2 id="关键词">关键词</h2>
+<p><strong>程序设计、算法、算法优化，暴力算法，分块算法，最小曼哈顿距离生成树。</strong></p>
+<h2 id="背景">背景</h2>
+<p>众所周知，在OI竞赛、软件的设计中都会要求我们去处理各种各样的棘手的问题，而这些问题之中，有一大类就是维护问题：比如说对于一个序列的维护，对于棵二叉或者多叉树的维护……这些问题往往会需要我们去使用一个或多个高端的数据结构复合来完美解决，通常题目的代码十分冗长而且出错可能性十分大，是广大OIer、Acmer、Coder所害怕的题目。那么有没有一种方法可以既简单又快捷的解决这类问题（这类问题中的一大部分）呢？莫队算法就诞生辣！</p>
+<h2 id="理论1">理论1</h2>
+<p>序列莫队：我们现在有一个长为n的静态的序列，对于序列，我们有m次查询，我们要动态查询l到r之间大于a小于b的数的个数以及种类。遇到了这个问题我们通常需要使用书套树的数据结构，即一颗以自平衡二叉查找树为节点的线段树（时间复杂度大约是O(mlognlogn)），而且由于空间限制，我们还必须动态创建线段树的节点，这样一来十分难写，一些大约要个400-500行，调试起来也很困难。这时候我们来考虑暴力算法，如果暴力的处理题目中的问题那么复杂度是多少呢？这个不难计算，对于每个询问我们都要O(n)的时间处理,一共有m个询问，那么暴力处理的复杂度就是O(nm)的，明显处理问题花费的时间我们是不能接受的。这是我们想到可以交换询问和询问之间的先后次序，这样每次询问在前一次询问的基础上转移就可以节省一些时间了。 但是如何重新排列询问之间的顺序是一个问题。我们需要进行一些理论分析。我们再上一个询问的基础上暴力地维护一个询问（假设上一个询问询问区间为[l0,r0]，这个询问区间为[l,r]），那么我们所谓的暴力维护就是先把现有答案的右边界从r0移动到r，再把左边界从l0移动到l，那么我们的总花费是O(|l-l0|+|r-r0|)。仔细看一看，没错，这就是我们的曼哈顿距离的计算公式，有了这个思路，我们就可以从图形的角度来思考了，对于一个询问[l,r]我们可以将它映射为平面上在(l,r)位置的点，那么两个询问之间转移的代价就是询问所对应的点之间的曼哈顿距离。有了这一个结论，我们便想到可以用最小曼哈顿生成树来处理询问的顺序。由此莫队算法便诞生啦！莫队算法就是先将询问抽象成平面上的点，然后进行一边最小曼哈顿距离生成树，然后按照生成树的顺序来处理询问，这样的算法复杂度大约是O(mSqrt(n))的。如此，问题便简单了许多。</p>
+<p>但是由于最小曼哈顿距离生成树也不是那么的好写，所以莫队算法还能再简单一点么？我们思考是否可以用一个简单而暴力的算法代替莫队算法呢。很快便能想到分块算法。我们可以使用分块算法来处理询问之间的次序问题。再去看那个询问对应的点所在的平面，我们找到它的X轴，我们把X轴平均分割成r分，然后我们把在一个块内的询问统一先处理，不在一个块内的询问我们按照左端点升序右端点升序排序依次处理。这样做有什么好处呢？对于m干个询问，如果在一个块里面，那么处理这些询问花费的复杂度是O(n/r<em>n</em>m)，如果有两个询问不在一个同一个块里面，按照我们之前的排序规则，我们把左区间和右区间在块之间移动的次数最多为r<em>(n/r)</em>r次，那么我们的复杂度就是O(r<em>(n/r)</em>r)次，经过简单的数学分析，我们可以发现r=Sqrt(n)是时间复杂度最低为O(nSqrt(n))次，是可以接受的时间复杂度。这样我们的莫队算法就又简单有强大了。但是在另一些情况下，题目会无耻的限定我们可以使用的空间（一般不会，因为这样高级数据结构的复合也难以解决这样的问题了）。那么如果空间被限定了，我们应该如何解决问题呢？其实很简单， 还记得我们之前的r么？我们为了求的时间复杂度最小令r=Sqrt(n),如果我们令r=n ^ (2 / 3)，那么便是一个时间复杂度和空间复杂度较为平衡的情况，这样可以很好的解决问题。</p>
+<h3 id="例题">例题</h3>
+<blockquote>
+<p>输入数据首先输入两个整数N,Q，分别代表序列的长度和询问的个数。这两个数字将单独占据一行并用一个空格分开。输入数据的第二行包含了N个由一个空格分开的正整数，代表了整个序列，从左向右依次编号为A1, A2……An。接下来Q行，每行两个整数i,j表示了一个询问区间。输入数据保证1≤i &lt;j&lt;=N</p>
 </blockquote>
 <p>2038: [2009国家集训队]小Z的袜子(hose)</p>
-<h4 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h4><p> 作为一个生活散漫的人，小Z每天早上都要耗费很久从一堆五颜六色的袜子中找出一双来穿。终于有一天，小Z再也无法忍受这恼人的找袜子过程，于是他决定听天由命……<br>   具体来说，小Z把这N只袜子从1到N编号，然后从编号L到R(L 尽管小Z并不在意两只袜子是不是完整的一双，甚至不在意两只袜子是否一左一右，他却很在意袜子的颜色，毕竟穿两只不同色的袜子会很尴尬。</p>
+<h4 id="description">Description</h4>
+<p>作为一个生活散漫的人，小Z每天早上都要耗费很久从一堆五颜六色的袜子中找出一双来穿。终于有一天，小Z再也无法忍受这恼人的找袜子过程，于是他决定听天由命…… 具体来说，小Z把这N只袜子从1到N编号，然后从编号L到R(L 尽管小Z并不在意两只袜子是不是完整的一双，甚至不在意两只袜子是否一左一右，他却很在意袜子的颜色，毕竟穿两只不同色的袜子会很尴尬。</p>
 <p>你的任务便是告诉小Z，他有多大的概率抽到两只颜色相同的袜子。当然，小Z希望这个概率尽量高，所以他可能会询问多个(L,R)以方便自己选择。</p>
-<h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><p>   输入文件第一行包含两个正整数N和M。N为袜子的数量，M为小Z所提的询问的数量。接下来一行包含N个正整数Ci，其中Ci表示第i只袜子的颜色，相同的颜色用相同的数字表示。再接下来M行，每行两个正整数L，R表示一个询问。</p>
-<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p>   包含M行，对于每个询问在一行中输出分数A/B表示从该询问的区间[L,R]中随机抽出两只袜子颜色相同的概率。若该概率为0则输出0/1，否则输出的A/B必须为最简分数。（详见样例）</p>
-<h4 id="样例解释"><a href="#样例解释" class="headerlink" title="样例解释"></a>样例解释</h4><p>询问1：共C(5,2)=10种可能，其中抽出两个2有1种可能，抽出两个3有3种可能，概率为(1+3)/10=4/10=2/5。<br>询问2：共C(3,2)=3种可能，无法抽到颜色相同的袜子，概率为0/3=0/1。<br>询问3：共C(3,2)=3种可能，均为抽出两个3，概率为3/3=1/1。<br>注：上述C(a, b)表示组合数，组合数C(a, b)等价于在a个不同的物品中选取b个的选取方案数。</p>
-<h4 id="数据规模和约定"><a href="#数据规模和约定" class="headerlink" title="数据规模和约定"></a>数据规模和约定</h4><p>30%的数据中 N,M ≤ 5000；<br>60%的数据中 N,M ≤ 25000；<br>100%的数据中 N,M ≤ 50000，1 ≤ L &lt; R ≤ N，Ci ≤ N。<br>单个测试点时限2S</p>
+<h4 id="input">Input</h4>
+<p>输入文件第一行包含两个正整数N和M。N为袜子的数量，M为小Z所提的询问的数量。接下来一行包含N个正整数Ci，其中Ci表示第i只袜子的颜色，相同的颜色用相同的数字表示。再接下来M行，每行两个正整数L，R表示一个询问。</p>
+<h4 id="output">Output</h4>
+<p>包含M行，对于每个询问在一行中输出分数A/B表示从该询问的区间[L,R]中随机抽出两只袜子颜色相同的概率。若该概率为0则输出0/1，否则输出的A/B必须为最简分数。（详见样例）</p>
+<h4 id="样例解释">样例解释</h4>
+<p>询问1：共C(5,2)=10种可能，其中抽出两个2有1种可能，抽出两个3有3种可能，概率为(1+3)/10=4/10=2/5。 询问2：共C(3,2)=3种可能，无法抽到颜色相同的袜子，概率为0/3=0/1。 询问3：共C(3,2)=3种可能，均为抽出两个3，概率为3/3=1/1。 注：上述C(a, b)表示组合数，组合数C(a, b)等价于在a个不同的物品中选取b个的选取方案数。</p>
+<h4 id="数据规模和约定">数据规模和约定</h4>
+<p>30%的数据中 N,M ≤ 5000； 60%的数据中 N,M ≤ 25000； 100%的数据中 N,M ≤ 50000，1 ≤ L &lt; R ≤ N，Ci ≤ N。 单个测试点时限2S</p>
 <blockquote>
-<p> <strong>对于上述这道题，30%的数据我们可以对于每个询问都扫描询问区间中所存在的数然后计算，这样单次复杂度是O(N)的，但有M的询问，总复杂度是O（MN）。这就显得有点不太能接受了</strong>。</p>
+<p><strong>对于上述这道题，30%的数据我们可以对于每个询问都扫描询问区间中所存在的数然后计算，这样单次复杂度是O(N)的，但有M的询问，总复杂度是O（MN）。这就显得有点不太能接受了</strong>。</p>
 </blockquote>
-<p>但是当我们知道一个询问[l,r]的答案后，[l+1,r],[l-1,r],[l,r+1],[l,r-1]这四个区间的答案可以通过计算做到O(1)的时间内得到<br>所以我们可以考虑莫队算法，分为如下三步。<br>1、分块<br>2、把所有询问左端点排序<br>3、对于左端点在同一块内的询问按右端点排序，然后分三种情况统计。<br>而复杂度正如理论部分所说的一样，<br>一、i与i+1在同一块内，r单调递增，所以r是O(N)的。由于有sqrt(N)块,所以这一部分时间复杂度是Nsqrt(N)。<br>二、i与i+1跨越一块，r最多变化n，由于有sqrt(N)块，所以这一部分时间复杂度是Nsqrt(N)<br>三、i与i+1在同一块内时变化不超过sqrt(N)，跨越一块也不会超过2* sqrt(N)，不妨看作是sqrt(N)。由于有N个数，所以时间复杂度是O(Nsqrt(N))<br>可以证明复杂度是O(Nsqrt(N))了</p>
-<h2 id="理论2"><a href="#理论2" class="headerlink" title="理论2"></a>理论2</h2><p>可现在有很多问题都设置了修改操作，对于这类我们我们又该如何处理呢？</p>
-<h3 id="例题-1"><a href="#例题-1" class="headerlink" title="例题"></a>例题</h3><blockquote>
-<p> <strong>我们现在有一个长为n的，对于序列，我们有m次操作，操作分为两种</strong></p>
-</blockquote>
-<p>1、询问在[l,r]中抽到两个数字相同的概率<br>2、把某个位置的数ai改成x<br>100%的数据中 N,M ≤100000，1 ≤ L &lt; R ≤ N，Ci ≤ N。<br>单个测试点时限10S<br>我们会发现，加上了修改操作后。就没办法直接按照分块来处理解决询问的顺序。<br>定义B为分块的大小。</p>
+<p>但是当我们知道一个询问[l,r]的答案后，[l+1,r],[l-1,r],[l,r+1],[l,r-1]这四个区间的答案可以通过计算做到O(1)的时间内得到 所以我们可以考虑莫队算法，分为如下三步。 1、分块 2、把所有询问左端点排序 3、对于左端点在同一块内的询问按右端点排序，然后分三种情况统计。 而复杂度正如理论部分所说的一样， 一、i与i+1在同一块内，r单调递增，所以r是O(N)的。由于有sqrt(N)块,所以这一部分时间复杂度是Nsqrt(N)。 二、i与i+1跨越一块，r最多变化n，由于有sqrt(N)块，所以这一部分时间复杂度是Nsqrt(N) 三、i与i+1在同一块内时变化不超过sqrt(N)，跨越一块也不会超过2* sqrt(N)，不妨看作是sqrt(N)。由于有N个数，所以时间复杂度是O(Nsqrt(N)) 可以证明复杂度是O(Nsqrt(N))了</p>
+<h2 id="理论2">理论2</h2>
+<p>可现在有很多问题都设置了修改操作，对于这类我们我们又该如何处理呢？</p>
+<h3 id="例题-1">例题</h3>
 <blockquote>
-<p> 首先考虑没有修改操作，那么就和理论1中小Z的袜子一样，令B = sqrt(n) 。把所有询问左端点排序，对于左端点在同一块内的询问按右端点排序,然后写莫队算法，按顺序扫询问，这样是O(n sqrt(n))。如果现在加上修改操作考虑一个询问(l,r)，这样是肯定不够的。<strong>
-   </strong>于是变成：(l,r,ti)，ti是询问时的时间，即这次询问是第几次操作。把所有询问左端点l排序，对于左端点在同一块内的询问按右端点r所在的块排序，对右端点r所在块相同的我们再按照时间ti排序。</p>
+<p><strong>我们现在有一个长为n的，对于序列，我们有m次操作，操作分为两种</strong></p>
 </blockquote>
-<p>然后做莫队算法，按顺序扫询问，时间有时向前有时倒流。这样令B = n ^ (2 / 3)，因为在每一块中时间最多从1到T改变一次，设询问操作p1次，修改操作p2次，则在最差情况下的时间复杂度是O(p1 n^(2 / 3)+p2 <em>n^(1 / 3)</em> n^(1 / 3))=O(n^(5 / 3))【n与m等价】，这在时限下基本是可以得到答案的。</p>
-<blockquote>
-<p> 那么还有个遗留的问题，如何处理时间。我们只需要记录修改前和修改后该点的值就可以了。<br>   至此这个问题完美解决。</p>
-</blockquote>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p> 也许莫队是一种看起来复杂度非常高的算法，但如果合理地处理好分块的大小和询问的顺序，，它便可以变成一个极其有效的工具。</p>
-<p><strong>辞谢</strong><br><strong>Vfleaking、莫涛</strong><br><strong>参考文献</strong><br><strong>国家集训队命题《小z的袜子》</strong></p>
+<p>1、询问在[l,r]中抽到两个数字相同的概率 2、把某个位置的数ai改成x 100%的数据中 N,M ≤100000，1 ≤ L &lt; R ≤ N，Ci ≤ N。 单个测试点时限10S 我们会发现，加上了修改操作后。就没办法直接按照分块来处理解决询问的顺序。 定义B为分块的大小。 &gt; 首先考虑没有修改操作，那么就和理论1中小Z的袜子一样，令B = sqrt(n) 。把所有询问左端点排序，对于左端点在同一块内的询问按右端点排序,然后写莫队算法，按顺序扫询问，这样是O(n sqrt(n))。如果现在加上修改操作考虑一个询问(l,r)，这样是肯定不够的。<strong> &gt; </strong>于是变成：(l,r,ti)，ti是询问时的时间，即这次询问是第几次操作。把所有询问左端点l排序，对于左端点在同一块内的询问按右端点r所在的块排序，对右端点r所在块相同的我们再按照时间ti排序。</p>
+<p>然后做莫队算法，按顺序扫询问，时间有时向前有时倒流。这样令B = n ^ (2 / 3)，因为在每一块中时间最多从1到T改变一次，设询问操作p1次，修改操作p2次，则在最差情况下的时间复杂度是O(p1 n^(2 / 3)+p2 <em>n^(1 / 3)</em> n^(1 / 3))=O(n^(5 / 3))【n与m等价】，这在时限下基本是可以得到答案的。 &gt; 那么还有个遗留的问题，如何处理时间。我们只需要记录修改前和修改后该点的值就可以了。 &gt; 至此这个问题完美解决。</p>
+<h2 id="总结">总结</h2>
+<p>也许莫队是一种看起来复杂度非常高的算法，但如果合理地处理好分块的大小和询问的顺序，，它便可以变成一个极其有效的工具。</p>
+<p><strong>辞谢</strong> <strong>Vfleaking、莫涛</strong> <strong>参考文献</strong> <strong>国家集训队命题《小z的袜子》</strong></p>
 
       
     </div>
@@ -683,7 +689,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键词"><span class="nav-number">2.</span> <span class="nav-text">关键词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">3.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理论1"><span class="nav-number">4.</span> <span class="nav-text">理论1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例题"><span class="nav-number">4.1.</span> <span class="nav-text">例题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Description"><span class="nav-number">4.1.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Input"><span class="nav-number">4.1.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Output"><span class="nav-number">4.1.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#样例解释"><span class="nav-number">4.1.4.</span> <span class="nav-text">样例解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据规模和约定"><span class="nav-number">4.1.5.</span> <span class="nav-text">数据规模和约定</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理论2"><span class="nav-number">5.</span> <span class="nav-text">理论2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例题-1"><span class="nav-number">5.1.</span> <span class="nav-text">例题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键词"><span class="nav-number">2.</span> <span class="nav-text">关键词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">3.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理论1"><span class="nav-number">4.</span> <span class="nav-text">理论1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例题"><span class="nav-number">4.1.</span> <span class="nav-text">例题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#description"><span class="nav-number">4.1.1.</span> <span class="nav-text">Description</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#input"><span class="nav-number">4.1.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#output"><span class="nav-number">4.1.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#样例解释"><span class="nav-number">4.1.4.</span> <span class="nav-text">样例解释</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据规模和约定"><span class="nav-number">4.1.5.</span> <span class="nav-text">数据规模和约定</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理论2"><span class="nav-number">5.</span> <span class="nav-text">理论2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#例题-1"><span class="nav-number">5.1.</span> <span class="nav-text">例题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>

@@ -410,7 +410,7 @@
 <p>上面这个程序需要保存成.sh的格式，例如：对拍.sh直接在终端里面运行</p>
 <p>运行方法：</p>
 <p>打开终端 执行</p>
-<p>方法一： 输入命令 ./aa.sh </p>
+<p>方法一： 输入命令 ./aa.sh</p>
 <p>方法二：直接把 aa.sh 拖入到终端里面。</p>
 <p>注意事项：</p>
 <p>如果 没有成功报出问题：: Permission denied。</p>
@@ -422,7 +422,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off :</span><br><span class="line"></span><br><span class="line">loop </span><br><span class="line"></span><br><span class="line">     datamaker <span class="comment">#数据生成器 rand.exe &gt; data.in 这里的大于符号，小于符号为重定向符号 </span></span><br><span class="line">     std <span class="comment">#标准程序 std.exe &lt; data.in &gt; std.out </span></span><br><span class="line">     myprogram <span class="comment">#my.exe &lt; data.in &gt; my.out 我的程序</span></span><br><span class="line">     <span class="built_in">fc</span> ans.out std.out //比较两个程序的输出是否一致，一致则返回0</span><br><span class="line"> <span class="keyword">if</span> not errorlevel 1 goto loop </span><br><span class="line"> pause </span><br><span class="line"> goto loop</span><br></pre></td></tr></table></figure>
 <p>#最后上边的 内容 保存为.bat文件</p>
 <p>#rand.exe std.exe my.exe 以及windows下的这个 .bat文件</p>
-<p>放在同一个目录下<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>***</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p>
+<p>放在同一个目录下***************************************************************************************************</p>
 <p>这里数据生成器： 就是你自己编写一个应用程序 rand.exe，这个应用程序就是随机的生成一组符合题意的输入数据并存放到上边提到的 输入数据文件中data.in高效程序：就是上边提到的 高效算法 写的程序，即 my.exe</p>
 <p>暴力程序 ：就是指能够保证所有输入数据都能输出正确结果的 程序，即这里的std.exe上边的.</p>
 <p>bat文件</p>
