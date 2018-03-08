@@ -1,0 +1,1176 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ACM,博弈," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="有一种很有意思的游戏，就是有物体若干堆，可以是火柴棍或是围棋子等等均可。两个人轮流从堆中取物体若干，规定最后取光物体者取胜。这是我国民间很古老的一个游戏，别看这游戏极其简单，却蕴含着深刻的数学原理。下面我们来分析一下要如何才能够取胜。 （一）巴什博奕（Bash Game）：只有一堆n个物品，两个人轮流从这堆物品中取物，">
+<meta name="keywords" content="ACM,博弈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="博弈基础汇总">
+<meta property="og:url" content="http://sun000.cn/2017/05/28/博弈汇总/index.html">
+<meta property="og:site_name" content="sun000&#39;s blog">
+<meta property="og:description" content="有一种很有意思的游戏，就是有物体若干堆，可以是火柴棍或是围棋子等等均可。两个人轮流从堆中取物体若干，规定最后取光物体者取胜。这是我国民间很古老的一个游戏，别看这游戏极其简单，却蕴含着深刻的数学原理。下面我们来分析一下要如何才能够取胜。 （一）巴什博奕（Bash Game）：只有一堆n个物品，两个人轮流从这堆物品中取物，规定每次至少取一个，最多取m个。最后取光者得胜。  显然，如果n=m+1，那么由">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-22T03:33:31.313Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="博弈基础汇总">
+<meta name="twitter:description" content="有一种很有意思的游戏，就是有物体若干堆，可以是火柴棍或是围棋子等等均可。两个人轮流从堆中取物体若干，规定最后取光物体者取胜。这是我国民间很古老的一个游戏，别看这游戏极其简单，却蕴含着深刻的数学原理。下面我们来分析一下要如何才能够取胜。 （一）巴什博奕（Bash Game）：只有一堆n个物品，两个人轮流从这堆物品中取物，规定每次至少取一个，最多取m个。最后取光者得胜。  显然，如果n=m+1，那么由">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sun000.cn/2017/05/28/博弈汇总/"/>
+
+
+
+
+
+  <title> 博弈基础汇总 | sun000's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">sun000's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sun000.cn/2017/05/28/博弈汇总/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sun000">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="sun000's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                博弈基础汇总
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-28T18:45:28+08:00">
+                2017-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ACM/" itemprop="url" rel="index">
+                    <span itemprop="name">ACM</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ACM/博弈/" itemprop="url" rel="index">
+                    <span itemprop="name">博弈</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/05/28/博弈汇总/" class="leancloud_visitors" data-flag-title="博弈基础汇总">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>有一种很有意思的游戏，就是有物体若干堆，可以是火柴棍或是围棋子等等均可。两个人轮流从堆中取物体若干，规定最后取光物体者取胜。这是我国民间很古老的一个游戏，别看这游戏极其简单，却蕴含着深刻的数学原理。下面我们来分析一下要如何才能够取胜。</p>
+<h2 id="（一）巴什博奕（Bash-Game）："><a href="#（一）巴什博奕（Bash-Game）：" class="headerlink" title="（一）巴什博奕（Bash Game）："></a>（一）巴什博奕（Bash Game）：</h2><p>只有一堆n个物品，两个人轮流从这堆物品中取物，规定每次至少取一个，最多取m个。最后取光者得胜。</p>
+<blockquote>
+<p>显然，如果n=m+1，那么由于一次最多只能取m个，所以，无论先取者拿走多少个，后取者都能够一次拿走剩余的物品，后者取胜。因此我们发现了如何取胜的法则：如果n=（m+1）r+s，（r为任意自然数，s≤m),那么先取者要拿走s个物品，如果后取者拿走k（≤m)个，那么先取者再拿走m+1-k个，结果剩下（m+1）（r-1）个，以后保持这样的取法，那么先取者肯定获胜。总之，要保持给对手留下（m+1）的倍数，就能最后获胜。这个游戏还可以有一种变相的玩法：两个人轮流报数，每次至少报一个，最多报十个，谁能报到100者胜。</p>
+</blockquote>
+<h2 id="（二）威佐夫博奕（Wythoff-Game）："><a href="#（二）威佐夫博奕（Wythoff-Game）：" class="headerlink" title="（二）威佐夫博奕（Wythoff Game）："></a>（二）威佐夫博奕（Wythoff Game）：</h2><p>有两堆各若干个物品，两个人轮流从某一堆或同时从两堆中取同样多的物品，规定每次至少取一个，多者不限，最后取光者得胜。</p>
+<blockquote>
+<p>这种情况下是颇为复杂的。我们用（ak，bk）（ak ≤ bk ,k=0，1，2，…,n)表示两堆物品的数量并称其为局势，如果甲面对（0，0），那么甲已经输了，这种局势我们称为奇异局势。前几个奇异局势是：（0，0）、（1，2）、（3，5）、（4，7）、（6，10）、（8，13）、（9，15）、（11，18）、（12，20）。<br>可以看出,a0=b0=0,ak是未在前面出现过的最小自然数,而 bk= ak + k，奇异局势有如下三条性质：<br>1。任何自然数都包含在一个且仅有一个奇异局势中。<br>由于ak是未在前面出现过的最小自然数，所以有ak &gt; ak-1 ，而 bk= ak + k &gt; ak</p>
+</blockquote>
+<p>-1 + k-1 = bk-1 &gt; ak-1 。所以性质1。成立。</p>
+<blockquote>
+<p>2。任意操作都可将奇异局势变为非奇异局势。<br>事实上，若只改变奇异局势（ak，bk）的某一个分量，那么另一个分量不可能在其他奇异局势中，所以必然是非奇异局势。如果使（ak，bk）的两个分量同时减少，则由于其差不变，且不可能是其他奇异局势的差，因此也是非奇异局势。<br>3。采用适当的方法，可以将非奇异局势变为奇异局势。<br>假设面对的局势是（a,b），若 b = a，则同时从两堆中取走 a 个物体，就变为了奇异局势（0，0）；如果a = ak ，b &gt; bk，那么，取走b  – bk个物体，即变为奇异局势；如果 a = ak ，  b &lt; bk ,则同时从两堆中拿走 ak – ab + ak个物体,变为奇异局势（ ab – ak , ab – ak+ b – ak）；如果a &gt; ak ，b= ak + k,则从第一堆中拿走多余的数量a – ak 即可；如果a &lt; ak ，b= ak + k,分两种情况，第一种，a=aj （j &lt; k）,从第二堆里面拿走 b – bj 即可；第二种，a=bj （j &lt; k）,从第二堆里面拿走 b – aj 即可。<br>  从如上性质可知，两个人如果都采用正确操作，那么面对非奇异局势，先拿者必胜；反之，则后拿者取胜。<br>那么任给一个局势（a，b），怎样判断它是不是奇异局势呢？我们有如下公式：<br>ak =[k（1+√5）/2]，bk= ak + k  （k=0，1，2，…,n 方括号表示取整函数)</p>
+</blockquote>
+<p>奇妙的是其中出现了黄金分割数（1+√5）/2 = 1。618…,因此,由ak，bk组成的矩形近似为黄金矩形，由于2/（1+√5）=（√5-1）/2，可以先求出j=[a（√5-1）/2]，若a=[j（1+√5）/2]，那么a = aj，bj = aj + j，若不等于，那么a = aj+1，bj+1 = aj+1+ j + 1，若都不是，那么就不是奇异局势。然后再按照上述法则进行，一定会遇到奇异局势。</p>
+<h2 id="（三）尼姆博奕（Nimm-Game）："><a href="#（三）尼姆博奕（Nimm-Game）：" class="headerlink" title="（三）尼姆博奕（Nimm Game）："></a>（三）尼姆博奕（Nimm Game）：</h2><p>有三堆各若干个物品，两个人轮流从某一堆取任意多的物品，规定每次至少取一个，多者不限，最后取光者得胜。</p>
+<p>这种情况最有意思，它与二进制有密切关系，我们用（a，b，c）表示某种局势，首先（0，0，0）显然是奇异局势，无论谁面对奇异局势，都必然失败。第二种奇异局势是（0，n，n），只要与对手拿走一样多的物品，最后都将导致（0，0，0）。仔细分析一下，（1，2，3）也是奇异局势，无论对手如何拿，接下来都可以变为（0，n，n）的情形。</p>
+<p>计算机算法里面有一种叫做按位模2加，也叫做异或的运算，我们用符号（+）表示这种运算。这种运算和一般加法不同的一点是1+1=0。先看（1，2，3）的按位模2加的结果：</p>
+<blockquote>
+<p>1 =二进制01<br>2 =二进制10<br>3 =二进制11 （+）<br>———————<br>0 =二进制00 （注意不进位）</p>
+<p>对于奇异局势（0，n，n）也一样，结果也是0。<br>任何奇异局势（a，b，c）都有a（+）b（+）c =0。</p>
+</blockquote>
+<p>如果我们面对的是一个非奇异局势（a，b，c），要如何变为奇异局势呢？假设 a &lt; b&lt; c,我们只要将 c 变为 a（+）b,即可,因为有如下的运算结果: a（+）b（+）(a（+）b)=(a（+）a)（+）(b（+）b)=0（+）0=0。要将c 变为a（+）b，只要从 c中减去 c-（<br>a（+）b）即可。</p>
+<p>例1。（14，21，39），14（+）21=27，39-27=12，所以从39中拿走12个物体即可达到奇异局势（14，21，27）。<br>例2。（55，81，121），55（+）81=102，121-102=19，所以从121中拿走19个物品就形成了奇异局势（55，81，102）。<br>例3。（29，45，58），29（+）45=48，58-48=10，从58中拿走10个，变为（29，45，48）。<br>例4。我们来实际进行一盘比赛看看：</p>
+<blockquote>
+<p>甲:(7,8,9)-&gt;(1,8,9)奇异局势<br>乙:(1,8,9)-&gt;(1,8,4)<br>甲:(1,8,4)-&gt;(1,5,4)奇异局势<br>乙:(1,5,4)-&gt;(1,4,4)<br>甲:(1,4,4)-&gt;(0,4,4)奇异局势<br>乙:(0,4,4)-&gt;(0,4,2)<br>甲:(0.4,2)-&gt;(0,2,2)奇异局势<br>乙:(0,2,2)-&gt;(0,2,1)<br>甲:(0,2,1)-&gt;(0,1,1)奇异局势<br>乙:(0,1,1)-&gt;(0,1,0)<br>甲:(0,1,0)-&gt;(0,0,0)奇异局势<br>甲胜。</p>
+</blockquote>
+<h3 id="取火柴的游戏"><a href="#取火柴的游戏" class="headerlink" title="取火柴的游戏"></a>取火柴的游戏</h3><h3 id="题目1："><a href="#题目1：" class="headerlink" title="题目1："></a>题目1：</h3><p>今有若干堆火柴，两人依次从中拿取，规定每次只能从一堆中取若干根，<br>可将一堆全取走，但不可不取，最后取完者为胜，求必胜的方法。 </p>
+<h3 id="题目2："><a href="#题目2：" class="headerlink" title="题目2："></a>题目2：</h3><p>今有若干堆火柴，两人依次从中拿取，规定每次只能从一堆中取若干根，<br>可将一堆全取走，但不可不取，最后取完者为负，求必胜的方法。<br>嘿嘿，这个游戏我早就见识过了。小时候用珠算玩这个游戏：第一档拨一个，第二档拨两个，依次直到第五档拨五个。然后两个人就轮流再把棋子拨下来，谁要是最后一个拨谁就赢。有一次暑假看见两个小孩子在玩这个游戏，我就在想有没有一个定论呢。下面就来试着证明一下吧<br>先解决第一个问题吧。<br>定义：若所有火柴数异或为0，则该状态被称为利他态，用字母T表示；否则，<br>为利己态，用S表示。<br>[定理1]：对于任何一个S态，总能从一堆火柴中取出若干个使之成为T态。<br>证明：</p>
+<p>若有n堆火柴，每堆火柴有A(i)根火柴数，那么既然现在处于S态，<br>  c = A(1) xor A(2) xor … xor A(n) &gt; 0;<br>把c表示成二进制，记它的二进制数的最高位为第p位，则必然存在一个A(t),它二进制的第p位也是1。（否则，若所有的A(i)的第p位都是0，这与c的第p位就也为0矛盾）。<br>那么我们把x = A(t) xor c,则得到x &lt; A(t).这是因为既然A(t)的第p位与c的第p位同为1,那么x的第p位变为0,而高于p的位并没有改变。所以x &lt; A(t).而</p>
+<blockquote>
+<p>A(1) xor A(2) xor … xor x xor … xor A(n)</p>
+<p>  = A(1) xor A(2) xor … xor A(t) xor c xor … xor A(n)</p>
+<p>  = A(1) xor A(2) xor… xor A(n) xor A(1) xor A(2) xor … xor A(n)<br>  = 0</p>
+</blockquote>
+<p>这就是说从A(t)堆中取出 A(t) – x 根火柴后状态就会从S态变为T态。证毕<br>[定理2]：T态，取任何一堆的若干根，都将成为S态。<br>证明：用反证法试试。</p>
+<blockquote>
+<p>若<br>  c = A(1) xor A(2) xor … xor A(i) xor … xor A(n) = 0；<br>  c’ = A(1) xor A(2) xor … xor A(i’) xor c xor … xor A(n) = 0;<br>  则有  c xor c’ = A(1) xor A(2) xor … xor A(i) xor … xor A(n) xor A(1) xor A(2) xor … xor A(i’) xor c xor … xor A(n) = A(i) xor A(i’) =0</p>
+<p>进而推出A(i) = A(i’)，这与已知矛盾。所以命题得证。</p>
+</blockquote>
+<p>[定理 3]：S态，只要方法正确，必赢。<br>  最终胜利即由S态转变为T态，任何一个S态，只要把它变为T态，（由定理1，可以把它变成T态。）对方只能把T态转变为S态(定理2)。这样，所有S态向T态的转变都可以有己方控制，对方只能被动地实现由T态转变为S态。故S态必赢。<br>[定理4]：T态，只要对方法正确，必败。<br>  由定理3易得。<br>接着来解决第二个问题。<br>定义：若一堆中仅有1根火柴，则被称为孤单堆。若大于1根，则称为充裕堆。<br>定义：T态中，若充裕堆的堆数大于等于2，则称为完全利他态，用T2表示；若充裕堆的堆数等于0，则称为部分利他态，用T0表示。</p>
+<p>孤单堆的根数异或只会影响二进制的最后一位，但充裕堆会影响高位（非最后一位）。一个充裕堆，高位必有一位不为0，则所有根数异或不为0。故不会是T态。<br>[定理5]：S0态，即仅有奇数个孤单堆，必败。T0态必胜。<br>证明：<br>S0态，其实就是每次只能取一根。每次第奇数根都由己取，第偶数根都由对<br>方取，所以最后一根必己取。败。同理,  T0态必胜#<br>[定理6]：S1态，只要方法正确，必胜。<br>证明：<br>若此时孤单堆堆数为奇数，把充裕堆取完；否则，取成一根。这样，就变成奇数个孤单堆，由对方取。由定理5，对方必输。己必胜。  #<br>[定理7]：S2态不可转一次变为T0态。<br>证明：<br>充裕堆数不可能一次由2变为0。得证。  #<br>[定理8]：S2态可一次转变为T2态。<br>证明：<br>由定理1，S态可转变为T态，态可一次转变为T态，又由定理6，S2态不可转一次变为T0态，所以转变的T态为T2态。  #<br>[定理9]：T2态，只能转变为S2态或S1态。<br>证明：<br>由定理2，T态必然变为S态。由于充裕堆数不可能一次由2变为0，所以此时的S态不可能为S0态。命题得证。<br>[定理10]：S2态，只要方法正确，必胜.<br>证明：<br>方法如下： </p>
+<blockquote>
+<p> 1）  S2态，就把它变为T2态。（由定理8）<br>  2）  对方只能T2转变成S2态或S1态（定理9）<br> 若转变为S2,  转向1）<br> 若转变为S1,  这己必胜。（定理5）</p>
+</blockquote>
+<p>[定理11]：T2态必输。<br>证明：同10。<br>综上所述，必输态有：  T2,S0 </p>
+<p>必胜态：    S2,S1,T0. </p>
+<p>两题比较：<br>第一题的全过程其实如下：<br>S2-&gt;T2-&gt;S2-&gt;T2-&gt;  ……  -&gt;T2-&gt;S1-&gt;T0-&gt;S0-&gt;T0-&gt;……-&gt;S0-&gt;T0(全0)<br>第二题的全过程其实如下：<br>S2-&gt;T2-&gt;S2-&gt;T2-&gt;  ……  -&gt;T2-&gt;S1-&gt;S0-&gt;T0-&gt;S0-&gt;……-&gt;S0-&gt;T0(全0)<br>下划线表示胜利一方的取法。  是否发现了他们的惊人相似之处。<br>我们不难发现(见加黑部分)，S1态可以转变为S0态（第二题做法），也可以转变为<br>T0（第一题做法）。哪一方控制了S1态，他即可以有办法使自己得到最后一根（转变为<br>T0）,也可以使对方得到最后一根（转变为S0）。<br>  所以，抢夺S1是制胜的关键！<br>  为此，始终把T2态让给对方，将使对方处于被动状态，他早晚将把状态变为S1.</p>
+<p>推荐HDOJ题目<br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1907" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=1907</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=2509" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=2509</a><br>看完上面的结论，就能顺利解决上面2道了</p>
+<p>S-Nim<br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1536" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=1536</a><br><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1944" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=1944</a></p>
+<p>博弈算法入门小节 1536 1517 1907</p>
+<p>小子最近迷途于博弈之中。。。感触颇深。<br>为了让大家能够在学习博弈的时候少走弯路，最重要的也是为了加深自己的影响，温故而知新，特发此贴与大家共勉。<br>学博弈先从概念开始：<br>特别推荐LCY老师的课件：博弈入门。<br>下载地址：<a href="http://acm.hdu.edu.cn/forum/read.php?tid=6875" target="_blank" rel="noopener">http://acm.hdu.edu.cn/forum/read.php?tid=6875</a><br>这个课件个人认为从博弈的基本思想，一直到解博弈的中心算法做了很好的诠释。但是特别要注意的是。课件后面一部分英语写的讲义是重中之重。小子英语很弱，在这困扰很久。现在为大家大概介绍一下。<br>主要是后继点和SG值的问题:<br>SG值：一个点的SG值就是一个不等于它的后继点的SG的且大于等于零的最小整数。<br>后继点：也就是按照题目要求的走法（比如取石子可以取的数量，方法）能够走一步达到的那个点。<br>具体的有关SG值是怎么运用的希望大家自己多想想。<br>课件后面有一个1536的代码。可以放在后面做做<br>看到这里推荐大家做几道题：1846（最简单的博弈水题）<br>1847（求SG值）<br>有了上面的知识接下来我们来看看组合博弈（n堆石子）<br>推荐大家看个资料：<br><a href="http://acm.hdu.edu.cn/forum/read.php?fid=20&amp;tid=5748%20http://hi.baidu.com/netnode/blog/item/30932c2edc7384514fc226ea.html" target="_blank" rel="noopener">博弈-取石子游戏(推荐等级五星级)</a><br>这里提出了一个奇异状态的问题。看了这篇文章你会发现异或运算在博弈中使用的妙处。当然这里指出的只是组合博弈中一种特殊情况。<br>王道还是对SG值的求解，但是知道这么一种思路无疑对思维的广度和深度扩展是很有帮助的。</p>
+<p><a href="http://acm.hdu.edu.cn/forum/read.php?fid=9&amp;tid=10617" target="_blank" rel="noopener">ZZ博弈</a><br>这里介绍了组和博弈的两种大的类型，一种是最后取的是N状态一种是最后取的是P状态，两个状态的解题方法能看懂很有帮助。当然，能够把推导过程理解，吃透无疑是大牛级的做法~小子也佩服的紧~<br>1536题推荐做做这题，这题前面提醒大家是一个求SG值的题目，题目前面是对异或运算运用在组合博弈问题中的很好的解释。当然题目本身是有所不同的。因为在这里面对取法有所要求。那么这样就回归到了解决博弈问题的王道算法——求SG值上。<br>有关运用求SG值的博弈题目有： 1850（也可基于奇异状态异或）</p>
+<p>1848（中和的大斐波那契数列的典型求SG值题）<br>1517（个人认为有点猥琐的题目。。。。在此题上困扰很久。当然搞出来很开心。小子是用比较规矩的求SG值的方法求出来的，但是论坛有人对其推出来了规律，这里佩服一下，大家可以学习一下）<br>1079（更猥琐的题目，对新手要求较高，因为按传统方法需要比较细致的模拟加对边角状态的考虑，同样有人推出来了公式）<br>当你全部看完以上的东西。做完以上的题目的话。。。小子恭喜你~你博弈入门了~~~~<br>这里小子告诉大家。博弈很强大。学习要耐心~谢谢</p>
+<p>Current System Time : 2008-12-11 19:16:03<br>ACM课作业：<br>1001 Brave Game<br>1002 Good Luck in CET-4 Everybody!<br>1003 Fibonacci again and again<br>1004 Rabbit and Grass<br>1005 Being a Good Boy in Spring Festival<br>1006 Public Sale<br>1007 悼念512汶川大地震遇难同胞——选拔志愿者<br>1008 kiki’s game<br>1009 Calendar Game<br>1010 A Multiplication Game<br>1011 Digital Deletions<br>1012 S-Nim<br><a href="http://acm.hdu.edu.cn/forum/read.php?tid=11339&amp;fpage=0&amp;toread=&amp;page=1" target="_blank" rel="noopener"></a></p>
+<p>1536的参考代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//博弈-基于求SG值</span></span><br><span class="line"><span class="comment">//Accepted 1536 578MS 416K 904 B</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>”iostream”</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> f[<span class="number">101</span>],sg[<span class="number">10001</span>],k;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mex</span><span class="params">(<span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a[<span class="number">101</span>]=&#123;<span class="number">0</span>&#125;,i;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;k;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(b-f&lt;<span class="number">0</span>)<span class="comment">//b-f后继点</span></span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">if</span>(sg[b-f]==<span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            sg[b-f]=mex(b-f);</span><br><span class="line">        &#125;</span><br><span class="line">        a[sg[b-f]]=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;k;i++)</span><br><span class="line">        <span class="keyword">if</span>(!a)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i,t,n,s,bead,j;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; k,k)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;k;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; f;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">memset</span>(sg,<span class="number">-1</span>,<span class="keyword">sizeof</span>(sg));</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;k;i++)</span><br><span class="line">            <span class="keyword">for</span>(j=i+<span class="number">1</span>;j&lt;k;j++)</span><br><span class="line">                <span class="keyword">if</span>(f&gt;f[j])</span><br><span class="line">                &#123;</span><br><span class="line">                    f+=f[j];</span><br><span class="line">                    f[j]=f-f[j];</span><br><span class="line">                    f-=f[j];</span><br><span class="line">                &#125;</span><br><span class="line">        sg[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">        <span class="keyword">while</span>(t–)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">            s=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>(n–)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">cin</span> &gt;&gt; bead;<span class="comment">//该堆的成员个数</span></span><br><span class="line">                <span class="keyword">if</span>(sg[bead]==<span class="number">-1</span>)</span><br><span class="line">                    sg[bead]=mex(bead);</span><br><span class="line">                s=s^sg[bead];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(s==<span class="number">0</span>)</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; “L”;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; “W”;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1517参考代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//博弈-基于求SG值</span></span><br><span class="line"><span class="comment">//Accepted 1517 234MS 0K 837 B</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span>”iostream”</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    __int64 a[<span class="number">7000</span>]=&#123;<span class="number">1</span>&#125;,min,n;</span><br><span class="line">    <span class="keyword">int</span> p[<span class="number">10</span>],sg[<span class="number">7000</span>],i,j,k;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">2</span>;i&lt;<span class="number">10</span>;p=<span class="number">0</span>,i++);</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;<span class="number">7000</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">2</span>,min=<span class="number">-1</span>;j&lt;<span class="number">10</span>;j++)</span><br><span class="line">            <span class="keyword">if</span>(min==<span class="number">-1</span>||a[p[j]]*j&lt;a[p[min]]*min)</span><br><span class="line">                min=j;</span><br><span class="line">        a=a[p[min]]*min;</span><br><span class="line">        min=a[p[min]]*min;</span><br><span class="line">        <span class="keyword">if</span>(a&gt;=<span class="number">5000000000</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">2</span>;j&lt;<span class="number">10</span>;j++)</span><br><span class="line">            <span class="keyword">if</span>(a[p[j]]*j==min)</span><br><span class="line">                p[j]++;</span><br><span class="line">    &#125;<span class="comment">//从小到大求出所有乘积</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(“%I64d”,&amp;n)!=EOF)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">7000</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            sg=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span>(a&gt;=n)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(j=i<span class="number">-1</span>;a[j]*<span class="number">9</span>&gt;=n&amp;&amp;j&gt;=<span class="number">0</span>;j–)</span><br><span class="line">            sg[j]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(j&gt;=<span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(k=j+<span class="number">1</span>;k&lt;i&amp;&amp;a[j]*<span class="number">9</span>&gt;=a[k];k++)</span><br><span class="line">                <span class="keyword">if</span>(a[k]%a[j]==<span class="number">0</span>&amp;&amp;sg[k]==<span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    sg[j]=<span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            j–;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">puts</span>(sg[<span class="number">0</span>]?”Stan wins.”:”Ollie wins.”);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里感谢shǎ崽同学的一段代码让小子学会了puts的妙用</p>
+<p>1907参考代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span>”iostream”</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp,t,n,s,x,i;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">    <span class="keyword">while</span>(t–)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">        <span class="keyword">for</span>(i=s=temp=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">            <span class="keyword">if</span>(x&gt;<span class="number">1</span>)    temp=<span class="number">1</span>;</span><br><span class="line">            s^=x;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>((s&amp;&amp;temp)||(!s&amp;&amp;!temp))</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; “John” &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; “Brother” &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      sun000
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://sun000.cn/2017/05/28/博弈汇总/" title="博弈基础汇总">http://sun000.cn/2017/05/28/博弈汇总/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <div>
+      
+      
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ACM/" rel="tag"># ACM</a>
+          
+            <a href="/tags/博弈/" rel="tag"># 博弈</a>
+          
+        </div>
+      
+
+      
+
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/28/基于Linux（或者Mac OS X）的对拍程序/" rel="next" title="基于Linux（或者Mac OS X）的对拍程序">
+                <i class="fa fa-chevron-left"></i> 基于Linux（或者Mac OS X）的对拍程序
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/28/背包九讲/" rel="prev" title="背包九讲">
+                背包九讲 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="sun000" />
+          <p class="site-author-name" itemprop="name">sun000</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sun000" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:sun000mail@gmail.com" target="_blank" title="Mail">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Mail
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#（一）巴什博奕（Bash-Game）："><span class="nav-number">1.</span> <span class="nav-text">（一）巴什博奕（Bash Game）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（二）威佐夫博奕（Wythoff-Game）："><span class="nav-number">2.</span> <span class="nav-text">（二）威佐夫博奕（Wythoff Game）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（三）尼姆博奕（Nimm-Game）："><span class="nav-number">3.</span> <span class="nav-text">（三）尼姆博奕（Nimm Game）：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#取火柴的游戏"><span class="nav-number">3.1.</span> <span class="nav-text">取火柴的游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目1："><span class="nav-number">3.2.</span> <span class="nav-text">题目1：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目2："><span class="nav-number">3.3.</span> <span class="nav-text">题目2：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sun000</span>
+</div>
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("pCtF3OhOOsz3TI1xAYV1gwAB-gzGzoHsz", "TYLHOkBEmhoO5Mb39xoNMAHY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+</body>
+</html>
