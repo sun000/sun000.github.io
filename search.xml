@@ -29,7 +29,7 @@
   <entry>
     <title><![CDATA[Latex数学符号]]></title>
     <url>%2F2017%2F10%2F09%2FLatex%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7%2F</url>
-    <content type="text"><![CDATA[符号 编码 符号 编码 符号 编码 符号 编码 \(\alpha\) \alpha \(\beta\) \(\gamma\) \gamma \(\delta\) \delta \(\epsilon\) \epsilon \(\varepsilon\) \(\zeta\) \zeta \(\eta\) \eta \(\theta\) \theta \(\vartheta\) \(\iota\) \iota \(\kappa\) \kappa \(\lambda\) \lambda \(\mu\) \(\nu\) \nu \(\xi\) \xi \(\omicron\) \omicron \(\pi\) \(\varpi\) \varpi \(\rho\) \rho \(\varrho\) \varrho \(\sigma\) \(\varsigma\) \varsigma \(\tau\) \tau \(\upsilon\) \upsilon \(\phi\) \(\varphi\) \varphi \(\chi\) \chi \(\psi\) \psi \(\omega\) \(\Gamma\) \Gamma \(\Delta\) \Delta \(\Theta\) \Theta \(\Lambda\) \(\Xi\) \Xi \(\Pi\) \Pi \(\Sigma\) \Sigma \(\Upsilon\) \Upsilon \(\Phi\) \Phi \(\Psi\) \Psi \(\Omega\) \Omega \(\leq\) \leq \(\geq\) \(\equiv\) \equiv \(\models\) \models \(\prec\) \prec \(\succ\) \(\sim\) \sim \(\perp\) \perp \(\preceq\) \preceq \(\succeq\) \(\simeq\) \simeq \(\mid\) \mid \(\ll\) \ll \(\gg\) \(\asymp\) \asymp \(\parallel\) \parallel \(\subset\) \subset \(\supset\) \(\approx\) \approx \(\bowtie\) \bowtie \(\subseteq\) \subseteq \(\supseteq\) \(\cong\) \cong \(\sqsubset\) \sqsubset \(\sqsupset\) \sqsupset \(\neq\) \(\smile\) \smile \(\sqsubseteq\) \sqsubseteq \(\sqsupseteq\) \sqsupseteq \(\doteq\) \(\frown\) \frown \(\in\) \in \(\ni\) \ni \(\propto\) \(\vdash\) \vdash \(\dashv\) \dashv \(\leftarrow\) \leftarrow \(\longleftarrow\) \(\Leftarrow\) \Leftarrow \(\Longleftarrow\) \Longleftarrow \(\rightarrow\) \rightarrow \(\longrightarrow\) \(\Rightarrow\) \Rightarrow \(\Longrightarrow\) \Longrightarrow \(\uparrow\) \uparrow \(\Uparrow\) \(\downarrow\) \downarrow \(\Downarrow\) \Downarrow \(\leftrightarrow\) \leftrightarrow \(\longleftrightarrow\) \(\Leftrightarrow\) \Leftrightarrow \(\Longleftrightarrow\) \Longleftrightarrow \(\updownarrow\) \updownarrow \(\Updownarrow\) \(\mapsto\) \mapsto \(\longmapsto\) \longmapsto \(\nearrow\) \nearrow \(\searrow\) \(\nwarrow\) \nwarrow \(\swarrow\) \swarrow \(\hookleftarrow\) \hookleftarrow \(\hookrightarrow\) \(\leftharpoonup\) \leftharpoonup \(\rightharpoonup\) \rightharpoonup \(\leftharpoondown\) \leftharpoondown \(\rightharpoondown\) \(\sum\) \sum \(\prod\) *** \(\coprod\) \coprod \(\int\) \int \(\oint\) \oint \(\bigcap\) *** \(\bigcup\) \bigcup \(\bigsqcup\) \bigsqcup \(\bigvee\) \bigvee \(\bigwedge\) *** \(\bigodot\) \bigodot \(\bigotimes\) \bigotimes \(\bigoplus\) *** \(\biguplus\) \biguplus \(\lfloor\) \(\rfloor\) \rfloor \(\lceil\) \lceil \(\rceil\) \rceil \(\langle\) \(\rangle\) \rangle \(\backslash\) \backslash \(\boxdot\) \boxdot \(\boxplus\) \(\boxtimes\) \boxtimes \(\square\) \square \(\blacksquare\) \blacksquare \(\boxminus\) \(\lozenge\) \lozenge \(\blacklozenge\) \blacklozenge \(\circlearrowright\) \circlearrowright \(\circlearrowleft\) \(\leftrightharpoons\) \leftrightharpoons \(\centerdot\) \centerdot \(\Vdash\) \Vdash \(\Vvdash\) \(\vDash\) \vDash \(\twoheadrightarrow\) \twoheadrightarrow \(\twoheadleftarrow\) \twoheadleftarrow \(\leftleftarrows\) \(\rightrightarrows\) \rightrightarrows \(\upuparrows\) \upuparrows \(\downdownarrows\) \downharpoonleft \(\upharpoonright\) \(\upharpoonleft\) \upharpoonleft \(\downharpoonright\) \downharpoonright \(\downharpoonleft\) \downharpoonleft \(\rightarrowtail\) \(\leftarrowtail\) \leftarrowtail \(\rightleftarrows\) \rightleftarrows \(\leftrightarrows\) \leftrightarrows \(\Lsh\) \(\Rsh\) \Rsh \(\rightsquigarrow\) \rightsquigarrow \(\leftrightsquigarrow\) \leftrightsquigarrow \(\looparrowleft\) \(\looparrowright\) \looparrowright \(\circeq\) \circeq \(\succsim\) \succsim 先更新这么多。。。。。]]></content>
+    <content type="text"><![CDATA[符号 编码 符号 编码 符号 编码 符号 编码 \(\alpha\) \alpha \(\beta\) \beta \(\gamma\) \gamma \(\delta\) \delta \(\epsilon\) \epsilon \(\varepsilon\) \varepsilon \(\zeta\) \zeta \(\eta\) \eta \(\theta\) \theta \(\vartheta\) \vartheta \(\iota\) \iota \(\kappa\) \kappa \(\lambda\) \lambda \(\mu\) \mu \(\nu\) \nu \(\xi\) \xi \(\omicron\) \omicron \(\pi\) \pi \(\varpi\) \varpi \(\rho\) \rho \(\varrho\) \varrho \(\sigma\) \sigma \(\varsigma\) \varsigma \(\tau\) \tau \(\upsilon\) \upsilon \(\phi\) \phi \(\varphi\) \varphi \(\chi\) \chi \(\psi\) \psi \(\omega\) \omega \(\Gamma\) \Gamma \(\Delta\) \Delta \(\Theta\) \Theta \(\Lambda\) \Lambda \(\Xi\) \Xi \(\Pi\) \Pi \(\Sigma\) \Sigma \(\Upsilon\) \Upsilon \(\Phi\) \Phi \(\Psi\) \Psi \(\Omega\) \Omega \(\leq\) \leq \(\geq\) \geq \(\equiv\) \equiv \(\models\) \models \(\prec\) \prec \(\succ\) \succ \(\sim\) \sim \(\perp\) \perp \(\preceq\) \preceq \(\succeq\) \succeq \(\simeq\) \simeq \(\mid\) \mid \(\ll\) \ll \(\gg\) \gg \(\asymp\) \asymp \(\parallel\) \parallel \(\subset\) \subset \(\supset\) \supset \(\approx\) \approx \(\bowtie\) \bowtie \(\subseteq\) \subseteq \(\supseteq\) \supseteq \(\cong\) \cong \(\sqsubset\) \sqsubset \(\sqsupset\) \sqsupset \(\neq\) \neq \(\smile\) \smile \(\sqsubseteq\) \sqsubseteq \(\sqsupseteq\) \sqsupseteq \(\doteq\) \doteq \(\frown\) \frown \(\in\) \in \(\ni\) \ni \(\propto\) \propto \(\vdash\) \vdash \(\dashv\) \dashv \(\leftarrow\) \leftarrow \(\longleftarrow\) \longleftarrow \(\Leftarrow\) \Leftarrow \(\Longleftarrow\) \Longleftarrow \(\rightarrow\) \rightarrow \(\longrightarrow\) \longrightarrow \(\Rightarrow\) \Rightarrow \(\Longrightarrow\) \Longrightarrow \(\uparrow\) \uparrow \(\Uparrow\) \Uparrow \(\downarrow\) \downarrow \(\Downarrow\) \Downarrow \(\leftrightarrow\) \leftrightarrow \(\longleftrightarrow\) \longleftrightarrow \(\Leftrightarrow\) \Leftrightarrow \(\Longleftrightarrow\) \Longleftrightarrow \(\updownarrow\) \updownarrow \(\Updownarrow\) \Updownarrow \(\mapsto\) \mapsto \(\longmapsto\) \longmapsto \(\nearrow\) \nearrow \(\searrow\) \searrow \(\nwarrow\) \nwarrow \(\swarrow\) \swarrow \(\hookleftarrow\) \hookleftarrow \(\hookrightarrow\) \hookrightarrow \(\leftharpoonup\) \leftharpoonup \(\rightharpoonup\) \rightharpoonup \(\leftharpoondown\) \leftharpoondown \(\rightharpoondown\) \rightharpoondown \(\sum\) \sum \(\prod\) \prod \(\coprod\) \coprod \(\int\) \int \(\oint\) \oint \(\bigcap\) \bigcap \(\bigcup\) \bigcup \(\bigsqcup\) \bigsqcup \(\bigvee\) \bigvee \(\bigwedge\) \bigwedge \(\bigodot\) \bigodot \(\bigotimes\) \bigotimes \(\bigoplus\) *** \(\biguplus\) \biguplus \(\lfloor\) \lfloor \(\rfloor\) \rfloor \(\lceil\) \lceil \(\rceil\) \rceil \(\langle\) \langle \(\rangle\) \rangle \(\backslash\) \backslash \(\boxdot\) \boxdot \(\boxplus\) \boxplus \(\boxtimes\) \boxtimes \(\square\) \square \(\blacksquare\) \blacksquare \(\boxminus\) \boxminus \(\lozenge\) \lozenge \(\blacklozenge\) \blacklozenge \(\circlearrowright\) \circlearrowright \(\circlearrowleft\) \circlearrowleft \(\leftrightharpoons\) \leftrightharpoons \(\centerdot\) \centerdot \(\Vdash\) \Vdash \(\Vvdash\) \Vvdash \(\vDash\) \vDash \(\twoheadrightarrow\) \twoheadrightarrow \(\twoheadleftarrow\) \twoheadleftarrow \(\leftleftarrows\) \leftleftarrows \(\rightrightarrows\) \rightrightarrows \(\upuparrows\) \upuparrows \(\downdownarrows\) \downharpoonleft \(\upharpoonright\) \upharpoonright \(\upharpoonleft\) \upharpoonleft \(\downharpoonright\) \downharpoonright \(\downharpoonleft\) \downharpoonleft \(\rightarrowtail\) \rightarrowtail \(\leftarrowtail\) \leftarrowtail \(\rightleftarrows\) \rightleftarrows \(\leftrightarrows\) \leftrightarrows \(\Lsh\) \Lsh \(\Rsh\) \Rsh \(\rightsquigarrow\) \rightsquigarrow \(\leftrightsquigarrow\) \leftrightsquigarrow \(\looparrowleft\) \looparrowleft \(\looparrowright\) \looparrowright \(\circeq\) \circeq \(\succsim\) \succsim 先更新这么多。。。。。]]></content>
       <categories>
         <category>Latex</category>
       </categories>
@@ -160,8 +160,8 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>暴力</tag>
         <tag>ACM</tag>
+        <tag>暴力</tag>
         <tag>字符串</tag>
       </tags>
   </entry>
@@ -295,8 +295,8 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>暴力</tag>
         <tag>ACM</tag>
+        <tag>暴力</tag>
       </tags>
   </entry>
   <entry>
@@ -319,10 +319,10 @@
         <category>ACM</category>
       </categories>
       <tags>
+        <tag>ACM</tag>
+        <tag>暴力</tag>
         <tag>数据结构</tag>
         <tag>莫队</tag>
-        <tag>暴力</tag>
-        <tag>ACM</tag>
       </tags>
   </entry>
   <entry>
@@ -333,9 +333,9 @@
         <category>ACM</category>
       </categories>
       <tags>
+        <tag>暴力</tag>
         <tag>数据结构</tag>
         <tag>莫队</tag>
-        <tag>暴力</tag>
       </tags>
   </entry>
   <entry>
@@ -398,8 +398,8 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>图论</tag>
         <tag>DP</tag>
+        <tag>图论</tag>
         <tag>贪心</tag>
         <tag>BITSET</tag>
         <tag>背包</tag>
@@ -479,8 +479,8 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>暴力</tag>
         <tag>ACM</tag>
+        <tag>暴力</tag>
       </tags>
   </entry>
   <entry>
