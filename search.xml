@@ -27,15 +27,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Markdown数学符号]]></title>
+    <title><![CDATA[Latex数学符号]]></title>
     <url>%2F2017%2F10%2F09%2FMarkdown%E6%95%B0%E5%AD%A6%E7%AC%A6%E5%8F%B7%2F</url>
     <content type="text"><![CDATA[符号 编码 符号 编码 符号 编码 符号 编码 \(\alpha\) \(\beta\) \(\gamma\) \(\delta\) \(\epsilon\) \(\varepsilon\) \(\zeta\) \(\eta\) \(\theta\) \(\vartheta\) \(\iota\) \(\kappa\) \(\lambda\) \(\mu\) \(\nu\) \(\xi\) \(\omicron\) \(\pi\) \(\varpi\) \(\rho\) \(\varrho\) \(\sigma\) \(\varsigma\) \(\tau\) \(\upsilon\) \(\phi\) \(\varphi\) \(\chi\) \(\psi\) \(\omega\) \(\Gamma\) \(\Delta\) \(\Theta\) \Theta \(\Lambda\) \(\Xi\) \(\Pi\) \(\Sigma\) \(\Upsilon\) Upsilon \(\Phi\) \(\Psi\) \(\Omega\) \(\leq\) \(\geq\) \(\equiv\) \(\models\) \(\prec\) \(\succ\) \(\sim\) \(\perp\) \(\preceq\) \(\succeq\) \(\simeq\) \(\mid\) \(\ll\) \(\gg\) \(\asymp\) \(\parallel\) \(\subset\) \(\supset\) \(\approx\) \(\bowtie\) \(\subseteq\) \(\supseteq\) \(\cong\) \(\sqsubset\) \(\sqsupset\) \(\neq\) \(\smile\) \(\sqsubseteq\) \(\sqsupseteq\) \(\doteq\) \(\frown\) \(\in\) \(\ni\) \(\propto\) \(\vdash\) \(\dashv\) \(\leftarrow\) \(\longleftarrow\) \(\Leftarrow\) \(\Longleftarrow\) \(\rightarrow\) \(\longrightarrow\) \(\Rightarrow\) \(\Longrightarrow\) \(\uparrow\) \(\Uparrow\) \(\downarrow\) \(\Downarrow\) \(\leftrightarrow\) \(\longleftrightarrow\) \(\Leftrightarrow\) \(\Longleftrightarrow\) \(\updownarrow\) \(\Updownarrow\) \(\mapsto\) \(\longmapsto\) \(\nearrow\) \(\searrow\) \(\nwarrow\) \(\swarrow\) \(\hookleftarrow\) \(\hookrightarrow\) \(\leftharpoonup\) \(\rightharpoonup\) \(\leftharpoondown\) \(\rightharpoondown\) \(\sum\) *** \(\prod\) *** \(\coprod\) *** \(\int\) *** \(\oint\) *** \(\bigcap\) *** \(\bigcup\) *** \(\bigsqcup\) *** \(\bigvee\) *** \(\bigwedge\) *** \(\bigodot\) *** \(\bigotimes\) *** \(\bigoplus\) *** \(\biguplus\) *** \(\lfloor\) \(\rfloor\) \(\lceil\) \(\rceil\) \(\langle\) \(\rangle\) \(\backslash\) \(\boxdot\) \(\boxplus\) \(\boxtimes\) \(\square\) \(\blacksquare\) \(\boxminus\) \(\lozenge\) \(\blacklozenge\) \(\circlearrowright\) \(\circlearrowleft\) \(\leftrightharpoons\) \(\centerdot\) \(\Vdash\) \(\Vvdash\) \(\vDash\) \(\twoheadrightarrow\) \(\twoheadleftarrow\) \(\leftleftarrows\) \(\rightrightarrows\) \(\upuparrows\) \(\downdownarrows\) \(\upharpoonright\) \(\upharpoonleft\) \(\downharpoonright\) \(\downharpoonleft\) \(\rightarrowtail\) \(\leftarrowtail\) \(\rightleftarrows\) \(\leftrightarrows\) \(\Lsh\) \(\Rsh\) \(\rightsquigarrow\) \(\leftrightsquigarrow\) \(\looparrowleft\) \(\looparrowright\) \(\circeq\) \(\succsim\) 先更新这么多。。。。。]]></content>
       <categories>
-        <category>ACM</category>
-        <category>奇淫巧技</category>
+        <category>Latex</category>
       </categories>
       <tags>
         <tag>Markdown</tag>
+        <tag>Latex</tag>
       </tags>
   </entry>
   <entry>
@@ -216,8 +216,8 @@
       <tags>
         <tag>ACM</tag>
         <tag>数学</tag>
-        <tag>多校</tag>
         <tag>STL</tag>
+        <tag>多校</tag>
       </tags>
   </entry>
   <entry>
