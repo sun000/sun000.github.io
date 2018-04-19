@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="sun000&#39;s blog">
 <meta property="og:description" content="题目链接 题目 You just graduated from programming school and nailed a Python programming job. The ﬁrst day at work you realize that you have inherited a mess. The spaghetti design pattern was chosen by the">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-08T04:02:35.004Z">
+<meta property="og:updated_time" content="2018-04-19T06:25:47.290Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NCPC2017-I-Import-SPaghetti">
 <meta name="twitter:description" content="题目链接 题目 You just graduated from programming school and nailed a Python programming job. The ﬁrst day at work you realize that you have inherited a mess. The spaghetti design pattern was chosen by the">
@@ -425,9 +425,9 @@
 <p>题意是在一个图上求最小环，最小环的求法是用最短路，先用Floyd算法处理每两点之间的最短路(时间复杂度是o(n3)，</p>
 <p><strong>枚举每一条边i→j:G[i][j]则包含着一条边的最小环是：j到i的最短路加上这条边</strong>。</p>
 <p>设最小环的长度是ans则ans=min(ans,G[i][j]+dis[j][i])</p>
-<p><strong>注意判断自环</strong>弗洛伊德球最小环不能处理自环的情况</p>
+<p><strong>注意判断自环</strong>弗洛伊德求最小环不能处理自环的情况</p>
 <p>处理完最小环要输出路径。</p>
-<p>这里就涉及到了Flody记录路径的：</p>
+<p>这里就涉及到了Floyd记录路径的：</p>
 <p>path[i][j]:i到j的最短路必须经过path[i][j] ： 这样就能在Flody的过程中记录该数组，那么如何输出呢？</p>
 <p>显然很容易想到,递归输出。详情看代码</p>
 <h3 id="代码">代码</h3>
