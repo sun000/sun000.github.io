@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA["Google Code Jam Round1C-C"]]></title>
+    <title><![CDATA[Google Code Jam Round1C-C]]></title>
     <url>%2F2018%2F05%2F05%2FGoogle-Code-Jam-Round1C-C%2F</url>
     <content type="text"><![CDATA[题目链接 题目:Ant Stack Problem Scott has an ant farm containing N ants. Each ant has a certain length and weight. Today, as a challenge for the ants, Scott has placed some food at the top of the ant farm. The ants will try to reach it by arranging themselves into a vertical stack, with each ant in the stack directly holding the next on its back. In this way, each ant bears the weight of all ants above it. Scott's ants are very strong for their size and are able to carry up to 6 times their own weight. For example, an ant that weights 8 milligrams can carry two other ants weighing 24 milligrams each! Each ant also has a body length; the exact lengths are not important, except that they are all different. The stack must be linear. Each ant except for the top ant must be directly below exactly one ant, and each ant except for the bottom ant must be directly above exactly one ant. The lengths of the ants in the stack must be strictly decreasing from the bottom to the top of the stack; this ensures that each new ant that joins the stack will be able to climb up to the top. For each ant, the sum of the weights of all the ants above it in the stack must be no more than 6 times the weight of that ant. What is the maximum number of these ants that can form such a stack? Input The first line of the input gives the number of test cases, T. T test cases follow. Each begins with one line with an integer N: the number of ants in the colony. Then, a second line follows containing N integers W1, W2, ..., WN, where Wi is the weight in milligrams of the i-th ant. The ants are listed in strictly increasing order of length. Notice that no actual length values are given; only the order is important. Output For each test case, output one line containing Case #x: y, where x is the test case number (starting from 1) and y is the maximum number of the given ants that can form a stack that obeys the rules above. Limits 7 ≤ T ≤ 100. Time limit: 15 seconds per test set. Memory limit: 1GB. Test set 1 (Visible) For exactly 6 cases, N = 100; for the other T - 6 cases, 2 ≤ N ≤ 50. 1 ≤ Wi ≤ 1000, for all i. Test set 2 (Hidden) For exactly 6 cases, \(N= 10^5\); for the other T - 6 cases, 2 ≤ N ≤ 500. 1 ≤ Wi ≤ \(10^9\), for all i. Sample Input 3 2 9 1 3 8 4 100 9 10 10 10 10 10 10 10 10 100 Output Case #1: 1 Case #2: 3 Case #3: 8 In Sample Case #1, there are two ants. The first weighs 9 mg; the second weighs 1 mg, and is longer than the first ant. The first ant is strong enough to hold the second ant (since it can hold up to 9 × 6 mg), but it cannot, because the second ant is longer. The second ant is not strong enough to hold the first ant (since it can only hold up to 1 × 6 mg, which is less than 9 mg). So it is only possible to make a &quot;stack&quot; of one of the two ants. In Sample Case #2, it is possible for all three ants to form a stack, with the third holding up the second, which holds up the first. In Sample Case #3, the optimal solution has the ninth ant on the bottom, and then seven of the other ants above it. 分析 很容易想到是一个动态规划\(dp[i]\)：i个蚂蚁得在一起最小的重量 \(dp[j - 1] &lt;= w[i] * 6\)：若当前的蚂蚁可以支撑起j-1个蚂蚁， \(dp[j] &gt;= dp[j - 1] + w[i]\)若以当前的蚂蚁替换j个蚂蚁中的蚂蚁，可以使蚂蚁的总重量减小 这里其实是一个滚动数组，复杂度是\(O(N^2)\) 但是注意到事实上是两层循环层循环枚举n个蚂蚁，内层循环是答案k，时间复杂度是\(O(n*k)\) 那么k最大是多少呢？ 考虑最极端的情况： 蚂蚁从上往下的重量分别是1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4, 4, 5, 6, … 因为\(w \leq 10^9\)写一个程序就知道 K最大是139 所以时间复杂度够。 代码 12345678910111213141516171819202122232425262728293031323334353637/** @Author: sun000* @Date: 2018-05-05 17:43:30* @Last Modified by: sun000* @Last Modified time: 2018-05-05 18:15:47*/#include &lt;cstdio&gt;#include &lt;cstring&gt;using namespace std;const int MAX_N = 1e5 + 10;long long int w[MAX_N], dp[MAX_N];int main(void) &#123; int t, n; scanf("%d", &amp;t); for(int ca = 1; ca &lt;= t; ca++) &#123; scanf("%d", &amp;n); for(int i = 1; i &lt;= n; i++) scanf("%lld", &amp;w[i]); memset(dp, 0x7f, sizeof dp); dp[0] = 0; int ans = 0; for(int i = 1; i &lt;= n; i++) &#123; for(int j = ans + 1; j &gt; 0; j--) &#123; if(dp[j - 1] &lt;= w[i] * 6 &amp;&amp; dp[j] &gt;= dp[j - 1] + w[i]) &#123; dp[j] = dp[j - 1] + w[i]; if(ans &lt; j) ans = j; &#125; &#125; &#125; printf("Case #%d: %d\n", ca, ans); &#125;&#125;]]></content>
       <categories>
@@ -224,8 +224,8 @@
       <tags>
         <tag>ACM</tag>
         <tag>数学</tag>
-        <tag>多校</tag>
         <tag>STL</tag>
+        <tag>多校</tag>
       </tags>
   </entry>
   <entry>
@@ -238,8 +238,8 @@
       <tags>
         <tag>ACM</tag>
         <tag>图论</tag>
-        <tag>DFS</tag>
         <tag>多校</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
