@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="sun000&#39;s blog">
 <meta property="og:description" content="题目链接 题目:Ant Stack Problem Scott has an ant farm containing N ants. Each ant has a certain length and weight. Today, as a challenge for the ants, Scott has placed some food at the top of the ant farm.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-05T14:59:17.524Z">
+<meta property="og:updated_time" content="2018-05-07T01:49:44.231Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Google Code Jam Round1C-C">
 <meta name="twitter:description" content="题目链接 题目:Ant Stack Problem Scott has an ant farm containing N ants. Each ant has a certain length and weight. Today, as a challenge for the ants, Scott has placed some food at the top of the ant farm.">
@@ -417,10 +417,13 @@
 <h4 id="limits">Limits</h4>
 <p>7 ≤ <strong>T</strong> ≤ 100. Time limit: 15 seconds per test set. Memory limit: 1GB.</p>
 <h4 id="test-set-1-visible">Test set 1 (Visible)</h4>
-<p>For exactly 6 cases, <strong>N</strong> = 100; for the other <strong>T</strong> - 6 cases, 2 ≤ <strong>N</strong> ≤ 50. 1 ≤ <strong>Wi</strong> ≤ 1000, for all i.</p>
+<p>For exactly 6 cases, <strong>N</strong> = 100;</p>
+<p>for the other <strong>T</strong> - 6 cases, 2 ≤ <strong>N</strong> ≤ 50.</p>
+<p>1 ≤ <strong>Wi</strong> ≤ 1000, for all i.</p>
 <h4 id="test-set-2-hidden">Test set 2 (Hidden)</h4>
 <p>For exactly 6 cases, <span class="math inline">\(N= 10^5\)</span>;</p>
-<p>for the other <strong>T</strong> - 6 cases, 2 ≤ <strong>N</strong> ≤ 500. 1 ≤ <strong>Wi</strong> ≤ <span class="math inline">\(10^9\)</span>, for all i.</p>
+<p>for the other <strong>T</strong> - 6 cases, 2 ≤ <strong>N</strong> ≤ 500.</p>
+<p>1 ≤ <strong>Wi</strong> ≤ <span class="math inline">\(10^9\)</span>, for all i.</p>
 <h4 id="sample">Sample</h4>
 <h5 id="input-1">Input</h5>
 <blockquote>
@@ -434,7 +437,9 @@
 </blockquote>
 <h5 id="output-1">Output</h5>
 <blockquote>
-<p>Case #1: 1 Case #2: 3 Case #3: 8</p>
+<p>Case #1: 1</p>
+<p>Case #2: 3</p>
+<p>Case #3: 8</p>
 </blockquote>
 <p>In Sample Case #1, there are two ants. The first weighs 9 mg; the second weighs 1 mg, and is longer than the first ant. The first ant is strong enough to hold the second ant (since it can hold up to 9 × 6 mg), but it cannot, because the second ant is longer. The second ant is not strong enough to hold the first ant (since it can only hold up to 1 × 6 mg, which is less than 9 mg). So it is only possible to make a &quot;stack&quot; of one of the two ants.</p>
 <p>In Sample Case #2, it is possible for all three ants to form a stack, with the third holding up the second, which holds up the first.</p>
