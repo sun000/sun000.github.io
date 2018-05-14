@@ -67,8 +67,8 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>2-SAT</tag>
         <tag>图论</tag>
+        <tag>2-SAT</tag>
       </tags>
   </entry>
   <entry>
@@ -221,8 +221,8 @@
       </categories>
       <tags>
         <tag>ACM</tag>
-        <tag>数学</tag>
         <tag>图论</tag>
+        <tag>数学</tag>
         <tag>搜索</tag>
         <tag>多校</tag>
       </tags>
@@ -237,8 +237,8 @@
       <tags>
         <tag>ACM</tag>
         <tag>数学</tag>
-        <tag>STL</tag>
         <tag>多校</tag>
+        <tag>STL</tag>
       </tags>
   </entry>
   <entry>
