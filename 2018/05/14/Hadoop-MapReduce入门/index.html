@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="sun000,MAC OSX,ACM" />
+  <meta name="keywords" content="Hadoop,MapReduce,大数据," />
 
 
 
@@ -88,36 +88,37 @@
 
 
 <meta name="description" content="转自CSDN；改了几个笔误 原博客链接 MapReduce是用于数据处理的一种编程模型，简单但足够强大，专门为并行处理大数据而设计。 1. 通俗理解MapReduce 例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：   MapReduce-1">
+<meta name="keywords" content="Hadoop,MapReduce,大数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop-MapReduce入门">
 <meta property="og:url" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/index.html">
 <meta property="og:site_name" content="sun000&#39;s blog">
 <meta property="og:description" content="转自CSDN；改了几个笔误 原博客链接 MapReduce是用于数据处理的一种编程模型，简单但足够强大，专门为并行处理大数据而设计。 1. 通俗理解MapReduce 例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：   MapReduce-1  为了使用MapReduce找出历史上每年的最高温度，我们将行数作为map输入">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-1.png">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-2.png">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-3.png">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-4.jpg">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-5.png">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-6.png">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-7.png">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-8.png">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-9.png">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-10.png">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-11.png">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-12.png">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-13.png">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-14.png">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-15.png">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-16.jpeg">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-17.png">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-18.png">
-<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-19.png">
-<meta property="og:updated_time" content="2018-05-14T06:46:20.251Z">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-1.png">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-2.png">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-3.png">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-4.jpg">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-5.png">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-6.png">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-7.png">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-8.png">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-9.png">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-10.png">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-11.png">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-12.png">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-13.png">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-14.png">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-15.png">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-16.jpeg">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-17.png">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-18.png">
+<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-19.png">
+<meta property="og:updated_time" content="2018-05-14T06:50:21.297Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop-MapReduce入门">
 <meta name="twitter:description" content="转自CSDN；改了几个笔误 原博客链接 MapReduce是用于数据处理的一种编程模型，简单但足够强大，专门为并行处理大数据而设计。 1. 通俗理解MapReduce 例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：   MapReduce-1  为了使用MapReduce找出历史上每年的最高温度，我们将行数作为map输入">
-<meta name="twitter:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-1.png">
+<meta name="twitter:image" content="http://sun000.cn/myImg/MapReduce-1.png">
 
 
 
@@ -361,6 +362,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/大数据/" itemprop="url" rel="index">
+                    <span itemprop="name">大数据</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -403,12 +426,12 @@
 <h3 id="通俗理解mapreduce">1. 通俗理解MapReduce</h3>
 <p>例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：</p>
 <div class="figure">
-<img src="myImg/MapReduce-1.png" alt="MapReduce-1">
+<img src="/myImg/MapReduce-1.png" alt="MapReduce-1">
 <p class="caption">MapReduce-1</p>
 </div>
 <p>为了使用MapReduce找出历史上每年的最高温度，我们将行数作为map输入的key，每一行的文本作为map输入的value：</p>
 <div class="figure">
-<img src="myImg/MapReduce-2.png" alt="MapReduce-2">
+<img src="/myImg/MapReduce-2.png" alt="MapReduce-2">
 <p class="caption">MapReduce-2</p>
 </div>
 <p>上图中粗体部分分别表示年份和温度。map函数对每一行记录进行处理，提取出（年份，温度）形式的键值对，作为map的输出</p>
@@ -420,13 +443,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(1949,111)</span><br><span class="line">(1950,22)</span><br></pre></td></tr></table></figure>
 <p>整个MapReduce数据流如下图：</p>
 <div class="figure">
-<img src="myImg/MapReduce-3.png" alt="MapReduce-3">
+<img src="/myImg/MapReduce-3.png" alt="MapReduce-3">
 <p class="caption">MapReduce-3</p>
 </div>
 <p>其中的3个黑圈圈分别为map，shuffle和reduce过程。在Hadoop中，map和reduce的操作可以由多种语言来编写，例如Java、Python、Ruby等。</p>
 <p>在实际的分布式计算中，上述过程由整个集群协调完成，我们假设现在有5年（2011-2015）的天气数据，分布存放在3个文件中: weather1.txt，weather2.txt，weather3.txt。再假设我们现在有一个3台机器的集群，b并且map任务实例数量为3，reduce实例数量2。那么实际运行MapReduce做作业时，整个流程类似于这样：</p>
 <div class="figure">
-<img src="myImg/MapReduce-4.jpg" alt="MapReduce-4">
+<img src="/myImg/MapReduce-4.jpg" alt="MapReduce-4">
 <p class="caption">MapReduce-4</p>
 </div>
 <p>注意到2014年的数据分布在两个不同的文件中，黄色的粗线部分，代表2014年的2个map作业的输出都统一传输到一个reduce，因为他们的key相同（2014）。其实这个过程非常好理解，现实生活中，比如期末考试完了，那考卷由不同的老师批改，完成后如果想知道全年级最高分，那么可以这么做：</p>
@@ -450,13 +473,13 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -copyFromLocal /home/data/hadoop_book_input/ hdfs://master:9000/input</span><br></pre></td></tr></table></figure>
 <p>可以查管理界面查看是否成功上传：</p>
 <div class="figure">
-<img src="myImg/MapReduce-5.png" alt="MapReduce-5">
+<img src="/myImg/MapReduce-5.png" alt="MapReduce-5">
 <p class="caption">MapReduce-5</p>
 </div>
 <p>查看一下数据内容：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -text hdfs://master:9000/input/ncdc/sample.txt</span><br></pre></td></tr></table></figure>
 <div class="figure">
-<img src="myImg/MapReduce-6.png" alt="MapReduce-6">
+<img src="/myImg/MapReduce-6.png" alt="MapReduce-6">
 <p class="caption">MapReduce-6</p>
 </div>
 <h4 id="编写java代码">编写Java代码</h4>
@@ -480,18 +503,18 @@
 <p>hadoop会自动把HADOOP_CLASSPAT设置的路径加入到CLASSPATH中，同时把HADOOP相关的依赖包也加入CLASSPATH，然后启动一个JVM运行MaxTemperature这个带有main方法的类。</p>
 <p>结果如下：</p>
 <div class="figure">
-<img src="myImg/MapReduce-7.png" alt="MapReduce-7">
+<img src="/myImg/MapReduce-7.png" alt="MapReduce-7">
 <p class="caption">MapReduce-7</p>
 </div>
 <div class="figure">
-<img src="myImg/MapReduce-8.png" alt="MapReduce-8">
+<img src="/myImg/MapReduce-8.png" alt="MapReduce-8">
 <p class="caption">MapReduce-8</p>
 </div>
 <p>日志中可以看到作业的一些运行情况，例如map任务数量，reduce任务数量，以及输入输出的记录数，可以看到跟实际情况完全吻合。</p>
 <p>我们看一下输出目录/output:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -ls /output</span><br></pre></td></tr></table></figure>
 <div class="figure">
-<img src="myImg/MapReduce-9.png" alt="MapReduce-9">
+<img src="/myImg/MapReduce-9.png" alt="MapReduce-9">
 <p class="caption">MapReduce-9</p>
 </div>
 <p>可以看到该目录下有个成功标识文件_SUCCESS和结果输出文件part-r-0000，每个reducer会输出一个文件。查看一下这个输出文件的内容：</p>
@@ -499,7 +522,7 @@
 <p>如上图所示，我们成功得到了1949和1950年的最高温度，无需管结果是否合理，只要按照我们想要的逻辑运行即可。</p>
 <p>YARN管理界面也可以看到该作业的情况：</p>
 <div class="figure">
-<img src="myImg/MapReduce-10.png" alt="MapReduce-10">
+<img src="/myImg/MapReduce-10.png" alt="MapReduce-10">
 <p class="caption">MapReduce-10</p>
 </div>
 <h3 id="进一步理解mapreduce">3. 进一步理解MapReduce</h3>
@@ -507,31 +530,31 @@
 <p>作业的输入被划分为固定大小的分片，叫input splits，简称splits。然后为每一个split分块创建一个map任务，map任务对每一条记录运行用户定义的map函数。划分为split之后，不同配置的机器就可以根据自己的资源及运算能力运行适当的任务，即使是相同配置的机器，最后运行的任务数也往往不等，这样能有效利用整个集群的计算能力。但是split也不已太多，否则会耗费很多时间在创建map任务上，通常而言，按集群Block大小（默认为128M）来划分split是合理的。</p>
 <p>Hadoop会把map任务运行在距离数据最近的节点上，最好的情况是直接在数据（split）所在的节点上运行map任务，这样不需要占用带宽，这一优化叫做数据本地优化（data locality optimization)。下图的map选址方案从最优到最次为a，b，c：</p>
 <div class="figure">
-<img src="myImg/MapReduce-11.png" alt="MapReduce-11">
+<img src="/myImg/MapReduce-11.png" alt="MapReduce-11">
 <p class="caption">MapReduce-11</p>
 </div>
 <p>关于Hadoop如何衡量两个集群节点的距离，参考另一批博客 <a href="http://blog.csdn.net/bingduanlbd/article/details/51914550#t26" target="_blank" rel="noopener">深入理解HDFS：Hadoop分布式文件系统</a>。但是节点距离不是分配task考虑的唯一因素，还会考虑节点当前负载等因素。</p>
 <p>Reduce任务通常无法利用本地数据的优化，大多数情况下，reduce的输入都来自集群的其他节点。reduce针对每一个key运行reduce函数之后，输出结果通常保存在HDFS中，并且存储一定的副本数，第一个副本存在运行reduce任务的本地机器，其他副本根据HDFS写入的管道分别写入节点，关于更多HDFS的数据写入流程，参考<a href="http://blog.csdn.net/bingduanlbd/article/details/51914550#t24" target="_blank" rel="noopener">这里</a>。</p>
 <p>下图是一个单reduce的数据流示例：</p>
 <div class="figure">
-<img src="myImg/MapReduce-12.png" alt="MapReduce-12">
+<img src="/myImg/MapReduce-12.png" alt="MapReduce-12">
 <p class="caption">MapReduce-12</p>
 </div>
 <p>如果有多个reduce任务，那么map任务的输出到底该传输到哪一个reduce任务呢？决定某个key的数据（key,[value1, value2,...])该发送给那个reduce的过程叫partition。默认情况下，MapReduce使用key的哈希函数进行分桶，这通常工作的很好。如果需要自行指定分区函数，可以自己实现一个Partitioner并配置到作业中。key相同的map任务输出一定会发送到同一个reduce任务。map任务的输出数据传输到reduce任务所在节点的过程，叫做shuffle。下面是一个更通用的MapReduce数据流图：</p>
 <div class="figure">
-<img src="myImg/MapReduce-13.png" alt="MapReduce-13">
+<img src="/myImg/MapReduce-13.png" alt="MapReduce-13">
 <p class="caption">MapReduce-13</p>
 </div>
 <p>当然，有些作业中我们可能根本不需要有reduce任务，所有工作在map任务并行执行完之后就完毕了，例如Hadoop提供的并行复制工作distcp，其内部实现就是采用一个只有Mapper，没有Reducer的MapReduce作业，在map完成文件复制之后作业就完成了，如下图所示：</p>
 <div class="figure">
-<img src="myImg/MapReduce-14.png" alt="MapReduce-14">
+<img src="/myImg/MapReduce-14.png" alt="MapReduce-14">
 <p class="caption">MapReduce-14</p>
 </div>
 <p>在上面计算最高天气的例子中，每个map将每一条记录所产生的（年份，温度）记录都shuffle到reduce节点，当数据量较大时，将占用很多带宽，耗费很长时间。事实上，可以在map任务所在的节点上做更多工作。map任务运行完之后，可以把所有结果按年份分组，并统计出每一年的最高温度（类似于sql中的</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select max(temperature) from table group by year</span><br></pre></td></tr></table></figure>
 <p>），这个最高温度是局部的，只在本任务重产生的数据做比较。做完局部统计之后，将结果发送给reduce做最终的汇总，找出 全局最高温度。过程示意图如下：</p>
 <div class="figure">
-<img src="myImg/MapReduce-15.png" alt="MapReduce-15">
+<img src="/myImg/MapReduce-15.png" alt="MapReduce-15">
 <p class="caption">MapReduce-15</p>
 </div>
 <p>这么做之所以符合逻辑，是基于以下的事实：</p>
@@ -542,7 +565,7 @@
 <h3 id="hadoop-streaming">4.Hadoop Streaming</h3>
 <p>Hadoop完全允许我们使用Java以外的语言来编写map和reduce函数。Hadoop Streaming使用Unix标准流作为Hadoop和其他应用程序的接口。数据流的大致示意图如下：</p>
 <div class="figure">
-<img src="myImg/MapReduce-16.jpeg" alt="MapReduce-16">
+<img src="/myImg/MapReduce-16.jpeg" alt="MapReduce-16">
 <p class="caption">MapReduce-16</p>
 </div>
 <p>整个数据在Hadoop MapReduce与Ruby应用、标准输入输出之间流转，因此叫Streaming。我们继续使用前面气温的例子来说明，先使用ruby来编写map和reduce，然后使用unix的管道来模拟整个过程，最后迁移到Hadoop上运行。</p>
@@ -552,7 +575,7 @@
 <p>因为这个脚本与标准输入输出交互，所以很容易结合linux的管道来测试：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat input/ncdc/sample.txt | ruby max_temp_map.rb</span><br></pre></td></tr></table></figure>
 <div class="figure">
-<img src="myImg/MapReduce-17.png" alt="MapReduce-17">
+<img src="/myImg/MapReduce-17.png" alt="MapReduce-17">
 <p class="caption">MapReduce-17</p>
 </div>
 <p>一样用ruby脚本来完成reduce的功能：</p>
@@ -561,7 +584,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /home/data/hadoop_book_input/ncdc/sample.txt| ruby max_temp_map.rb | sort | ruby max_temp_reduce.rb</span><br></pre></td></tr></table></figure>
 <p>输出结果如下图，与前文完全一致。</p>
 <div class="figure">
-<img src="myImg/MapReduce-18.png" alt="MapReduce-18">
+<img src="/myImg/MapReduce-18.png" alt="MapReduce-18">
 <p class="caption">MapReduce-18</p>
 </div>
 <p>很好，我们在Hadoop上运行这个作业。非Java语言的MapReduce作业，需要使用Hadoop Streaming来运行。Hadoop Streaming会负责作业的Task分解，把输入数据作为标准输入流传递给Ruby写的map脚本，并接受来自map脚本的标准输出，排序后shuffle到reduce节点上，并以标准输入传递给reduce，最后把reduce的标准输出保存到HDFS文件中。</p>
@@ -571,7 +594,7 @@
 <p>查看输出文件，与Java版本完全一致。OK，我们设置combiner，然后在大的数据集上感受一下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop jar  /home/hadoop-2.6.0/share/hadoop/tools/lib/hadoop-streaming-2.6.0.jar -files max_temp_map.rb,max_temp_reduce.rb -input /input/ncdc/all -output /output/max-tem-all  -mapper max_temp_map.rb -combiner x_temp_reduce.rb -reducer max_temp_reduce.rb</span><br></pre></td></tr></table></figure>
 <div class="figure">
-<img src="myImg/MapReduce-19.png" alt="MapReduce-19">
+<img src="/myImg/MapReduce-19.png" alt="MapReduce-19">
 <p class="caption">MapReduce-19</p>
 </div>
 
@@ -625,6 +648,16 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hadoop/" rel="tag"># Hadoop</a>
+          
+            <a href="/tags/MapReduce/" rel="tag"># MapReduce</a>
+          
+            <a href="/tags/大数据/" rel="tag"># 大数据</a>
+          
+        </div>
       
 
       
@@ -727,7 +760,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -738,7 +771,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">50</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
