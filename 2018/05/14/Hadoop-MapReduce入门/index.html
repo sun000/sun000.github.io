@@ -114,7 +114,7 @@
 <meta property="og:image" content="http://sun000.cn/myImg/MapReduce-17.png">
 <meta property="og:image" content="http://sun000.cn/myImg/MapReduce-18.png">
 <meta property="og:image" content="http://sun000.cn/myImg/MApReduce-19.png">
-<meta property="og:updated_time" content="2018-05-14T07:13:25.309Z">
+<meta property="og:updated_time" content="2018-05-14T07:14:47.170Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop-MapReduce入门">
 <meta name="twitter:description" content="转自CSDN；改了几个笔误 原博客链接 MapReduce是用于数据处理的一种编程模型，简单但足够强大，专门为并行处理大数据而设计。 通俗理解MapReduce 例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：   MapReduce-1  为了使用MapReduce找出历史上每年的最高温度，我们将行数作为map输入的ke">
@@ -594,8 +594,8 @@
 <p>查看输出文件，与Java版本完全一致。OK，我们设置combiner，然后在大的数据集上感受一下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop jar  /home/hadoop-2.6.0/share/hadoop/tools/lib/hadoop-streaming-2.6.0.jar -files max_temp_map.rb,max_temp_reduce.rb -input /input/ncdc/all -output /output/max-tem-all  -mapper max_temp_map.rb -combiner x_temp_reduce.rb -reducer max_temp_reduce.rb</span><br></pre></td></tr></table></figure>
 <div class="figure">
-<img src="/myImg/MApReduce-19.png" alt="MApReduce-19">
-<p class="caption">MApReduce-19</p>
+<img src="/myImg/MApReduce-19.png" alt="MapReduce-19">
+<p class="caption">MapReduce-19</p>
 </div>
 
       
