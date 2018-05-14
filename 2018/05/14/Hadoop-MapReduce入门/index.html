@@ -1,0 +1,1267 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="sun000,MAC OSX,ACM" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="转自CSDN；改了几个笔误 原博客链接 MapReduce是用于数据处理的一种编程模型，简单但足够强大，专门为并行处理大数据而设计。 1. 通俗理解MapReduce 例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：   MapReduce-1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hadoop-MapReduce入门">
+<meta property="og:url" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/index.html">
+<meta property="og:site_name" content="sun000&#39;s blog">
+<meta property="og:description" content="转自CSDN；改了几个笔误 原博客链接 MapReduce是用于数据处理的一种编程模型，简单但足够强大，专门为并行处理大数据而设计。 1. 通俗理解MapReduce 例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：   MapReduce-1  为了使用MapReduce找出历史上每年的最高温度，我们将行数作为map输入">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-1.png">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-2.png">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-3.png">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-4.jpg">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-5.png">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-6.png">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-7.png">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-8.png">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-9.png">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-10.png">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-11.png">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-12.png">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-13.png">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-14.png">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-15.png">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-16.jpeg">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-17.png">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-18.png">
+<meta property="og:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-19.png">
+<meta property="og:updated_time" content="2018-05-14T06:46:20.251Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hadoop-MapReduce入门">
+<meta name="twitter:description" content="转自CSDN；改了几个笔误 原博客链接 MapReduce是用于数据处理的一种编程模型，简单但足够强大，专门为并行处理大数据而设计。 1. 通俗理解MapReduce 例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：   MapReduce-1  为了使用MapReduce找出历史上每年的最高温度，我们将行数作为map输入">
+<meta name="twitter:image" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/myImg/MapReduce-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/"/>
+
+
+
+
+
+  <title> Hadoop-MapReduce入门 | sun000's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">sun000's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sun000">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="sun000's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Hadoop-MapReduce入门
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-14T14:01:58+08:00">
+                2018-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/05/14/Hadoop-MapReduce入门/" class="leancloud_visitors" data-flag-title="Hadoop-MapReduce入门">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>转自CSDN；改了几个笔误</p>
+<p><a href="https://blog.csdn.net/bingduanlbd/article/details/51924398" target="_blank" rel="noopener">原博客链接</a></p>
+<p>MapReduce是用于数据处理的一种编程模型，简单但足够强大，专门为并行处理大数据而设计。</p>
+<h3 id="通俗理解mapreduce">1. 通俗理解MapReduce</h3>
+<p>例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：</p>
+<div class="figure">
+<img src="myImg/MapReduce-1.png" alt="MapReduce-1">
+<p class="caption">MapReduce-1</p>
+</div>
+<p>为了使用MapReduce找出历史上每年的最高温度，我们将行数作为map输入的key，每一行的文本作为map输入的value：</p>
+<div class="figure">
+<img src="myImg/MapReduce-2.png" alt="MapReduce-2">
+<p class="caption">MapReduce-2</p>
+</div>
+<p>上图中粗体部分分别表示年份和温度。map函数对每一行记录进行处理，提取出（年份，温度）形式的键值对，作为map的输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(1950,0)</span><br><span class="line">(1950,22)</span><br><span class="line">(1950,-11)</span><br><span class="line">(1949,111)</span><br><span class="line">(1947,78)</span><br></pre></td></tr></table></figure>
+<p>很明显，有些数据是脏（错误）的，比如有些年份的气温丢失，或者不在理论范围内，因此map也是进行脏数据处理和过滤的好地方。在map输出被传输到reduce之前，MapReduce框架会对键值对进行排序，根据key进行分组，甚至在key相同的一组内先统计出最高气温，所以reduce收到的数据格式像这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(1949,[111,78]</span><br><span class="line">(1950,[0,22,-11]</span><br></pre></td></tr></table></figure>
+<p>如果有多个map任务同时运行（通常都是的，这就是MapReduce来并行计算的原因），那么每个map任务完成后，都会向reduce发送上面格式的数据，发送数据的过程叫shuffle。</p>
+<p>map的输出会作为reduce的输入，reduce收到的是key加上一个列表，然后对这个列表进行处理，天气数据的例子中，就是找出最大值作为最高气温。最后reduce输出即为每年最高气温：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(1949,111)</span><br><span class="line">(1950,22)</span><br></pre></td></tr></table></figure>
+<p>整个MapReduce数据流如下图：</p>
+<div class="figure">
+<img src="myImg/MapReduce-3.png" alt="MapReduce-3">
+<p class="caption">MapReduce-3</p>
+</div>
+<p>其中的3个黑圈圈分别为map，shuffle和reduce过程。在Hadoop中，map和reduce的操作可以由多种语言来编写，例如Java、Python、Ruby等。</p>
+<p>在实际的分布式计算中，上述过程由整个集群协调完成，我们假设现在有5年（2011-2015）的天气数据，分布存放在3个文件中: weather1.txt，weather2.txt，weather3.txt。再假设我们现在有一个3台机器的集群，b并且map任务实例数量为3，reduce实例数量2。那么实际运行MapReduce做作业时，整个流程类似于这样：</p>
+<div class="figure">
+<img src="myImg/MapReduce-4.jpg" alt="MapReduce-4">
+<p class="caption">MapReduce-4</p>
+</div>
+<p>注意到2014年的数据分布在两个不同的文件中，黄色的粗线部分，代表2014年的2个map作业的输出都统一传输到一个reduce，因为他们的key相同（2014）。其实这个过程非常好理解，现实生活中，比如期末考试完了，那考卷由不同的老师批改，完成后如果想知道全年级最高分，那么可以这么做：</p>
+<ul>
+<li>各个老师根据自己批改过的所有试卷分数整理出来（map）:</li>
+</ul>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=&gt;(course,[score1,score2,...])</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>各个老师把最高分汇报给系主任（shuffle）</p></li>
+<li><p>系主任统计最高分（reduce）</p></li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=&gt;(courese, highest_score)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>当然，如果要多门课程混在一起，系主任工作量太大，于是副主任也上（相当于2个reduce），则老师在汇报最高分的时候，相同课程要汇报给同一个人（相同key传输给同一个reduce），例如数学英语汇报给主任，政治汇报给副主任。</p>
+<h3 id="实例及代码实现">2. 实例及代码实现</h3>
+<blockquote>
+<p>life is short , show me the code</p>
+</blockquote>
+<p>MapReduce的概念框架有Google提出，Hadoop提供了经典的开源实现。但是并不是Hadoop特有的，例如在文档型数据库MongoDB中，可以通过JS来编写Map-Reduce，对数据库中的数据进行处理。我们这里以Hadoop为例说明。</p>
+<h4 id="数据准备">数据准备</h4>
+<p>首先将本地的文件上传到HDFS：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -copyFromLocal /home/data/hadoop_book_input/ hdfs://master:9000/input</span><br></pre></td></tr></table></figure>
+<p>可以查管理界面查看是否成功上传：</p>
+<div class="figure">
+<img src="myImg/MapReduce-5.png" alt="MapReduce-5">
+<p class="caption">MapReduce-5</p>
+</div>
+<p>查看一下数据内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -text hdfs://master:9000/input/ncdc/sample.txt</span><br></pre></td></tr></table></figure>
+<div class="figure">
+<img src="myImg/MapReduce-6.png" alt="MapReduce-6">
+<p class="caption">MapReduce-6</p>
+</div>
+<h4 id="编写java代码">编写Java代码</h4>
+<p>首先实现Mapper类，Mapper在新版本Hadoop中改变为类（旧版为接口）定义如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 支持泛型，泛型定义map输入输出的键值类型</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Mapper</span> &lt;<span class="title">KEYIN</span>, <span class="title">VALUEIN</span>, <span class="title">KEYOUT</span>, <span class="title">VALUEOUT</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Mapper</span><span class="params">()</span> </span>&#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// map任务开始的时候调用一次，用于做准备工作</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setup</span><span class="params">(Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    <span class="comment">// 空实现</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// map逻辑 默认直接将输入进行类型转换后输出</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(KEYIN key, VALUEIN value, </span></span></span><br><span class="line"><span class="function"><span class="params">                     Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    context.write((KEYOUT) key, (VALUEOUT) value);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 任务结束后调用一次，清理工作，与setup对应</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">cleanup</span><span class="params">(Context context</span></span></span><br><span class="line"><span class="function"><span class="params">                         )</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    <span class="comment">// 空实现</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// map的实际运行过程就是调用run方法，一般用于高级实现，更精细地控制    任务的执行过程, 一般情况不需要覆盖这个方法</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    <span class="comment">// 准备工作</span></span><br><span class="line">    setup(context);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 遍历分配给该任务的数据，循环调用map</span></span><br><span class="line">      <span class="keyword">while</span> (context.nextKeyValue()) &#123;</span><br><span class="line">        map(context.getCurrentKey(), context.getCurrentValue(), context);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      <span class="comment">// 清理工作</span></span><br><span class="line">      cleanup(context);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现中我们只覆盖map方法，其他保留不变。具体实现如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MaxTemperatureMapper</span></span></span><br><span class="line"><span class="class">  <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 9999代表数据丢失</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MISSING = <span class="number">9999</span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key, Text value, Context context)</span></span></span><br><span class="line"><span class="function">      <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 行作为输入值 key在这里暂时不需要使用</span></span><br><span class="line">    String line = value.toString();</span><br><span class="line">    <span class="comment">// 提取年份</span></span><br><span class="line">    String year = line.substring(<span class="number">15</span>, <span class="number">19</span>);</span><br><span class="line">    <span class="comment">// 提取气温</span></span><br><span class="line">    <span class="keyword">int</span> airTemperature = parseTemperature( line );</span><br><span class="line">    String quality = line.substring(<span class="number">92</span>, <span class="number">93</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 过滤脏数据</span></span><br><span class="line">    <span class="keyword">boolean</span> isRecordClean = airTemperature != MISSING &amp;&amp; quality.matches(<span class="string">"[01459]"</span>);</span><br><span class="line">    <span class="keyword">if</span> ( isRecordClean ) &#123;</span><br><span class="line">      <span class="comment">// 输出（年份，温度）对</span></span><br><span class="line">      context.write(<span class="keyword">new</span> Text(year), <span class="keyword">new</span> IntWritable(airTemperature));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">parseTemperature</span><span class="params">(String line)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> airTemperature;</span><br><span class="line">    <span class="keyword">if</span> (line.charAt(<span class="number">87</span>) == <span class="string">'+'</span>) &#123; <span class="comment">// parseInt doesn't like leading plus signs</span></span><br><span class="line">      airTemperature = Integer.parseInt(line.substring(<span class="number">88</span>, <span class="number">92</span>));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      airTemperature = Integer.parseInt(line.substring(<span class="number">87</span>, <span class="number">92</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> airTemperature;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着实现Reducer，看看定义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Reducer</span>&lt;<span class="title">KEYIN</span>,<span class="title">VALUEIN</span>,<span class="title">KEYOUT</span>,<span class="title">VALUEOUT</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Reducer上下文类定义</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Context</span> </span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">ReduceContext</span>&lt;<span class="title">KEYIN</span>,<span class="title">VALUEIN</span>,<span class="title">KEYOUT</span>,<span class="title">VALUEOUT</span>&gt; </span>&#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 初始化 在Reduce任务开始时调用一次</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">setup</span><span class="params">(Context context</span></span></span><br><span class="line"><span class="function"><span class="params">                       )</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    <span class="comment">// 空实现</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * map shuffle过来的数据中，每一个key调用一次这个方法</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(KEYIN key, Iterable&lt;VALUEIN&gt; values, Context context</span></span></span><br><span class="line"><span class="function"><span class="params">                        )</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    <span class="comment">// 默认将所有的值一一输出</span></span><br><span class="line">    <span class="keyword">for</span>(VALUEIN value: values) &#123;</span><br><span class="line">      context.write((KEYOUT) key, (VALUEOUT) value);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">cleanup</span><span class="params">(Context context</span></span></span><br><span class="line"><span class="function"><span class="params">                         )</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    <span class="comment">// 空实现 收尾工作</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// Reducer的运行逻辑 供更高级的定制</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    setup(context);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 遍历输入key</span></span><br><span class="line">      <span class="keyword">while</span> (context.nextKey()) &#123;</span><br><span class="line">        reduce(context.getCurrentKey(), context.getValues(), context);</span><br><span class="line">        <span class="comment">// 一个key处理完要转向下一个key时，重置值遍历器</span></span><br><span class="line">        Iterator&lt;VALUEIN&gt; iter = context.getValues().iterator();</span><br><span class="line">        <span class="keyword">if</span>(iter <span class="keyword">instanceof</span> ReduceContext.ValueIterator) &#123;</span><br><span class="line">          ((ReduceContext.ValueIterator&lt;VALUEIN&gt;)iter).resetBackupStore();        </span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      cleanup(context);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们的Reducer实现主要是找出最高气温：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MaxTemperatureReducer</span></span></span><br><span class="line"><span class="class">  <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">IntWritable</span>, <span class="title">Text</span>, <span class="title">IntWritable</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key, Iterable&lt;IntWritable&gt; values,</span></span></span><br><span class="line"><span class="function"><span class="params">      Context context)</span></span></span><br><span class="line"><span class="function">      <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> maxValue = findMax( values );</span><br><span class="line">    context.write(key, <span class="keyword">new</span> IntWritable(maxValue));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">static</span>  <span class="keyword">int</span> <span class="title">findMax</span><span class="params">(Iterable&lt;IntWritable&gt; values)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> maxValue = Integer.MIN_VALUE;</span><br><span class="line">    <span class="keyword">for</span> (IntWritable value : values) &#123;</span><br><span class="line">      maxValue = Math.max(maxValue, value.get());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> maxValue;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Mapper和Reducer实现后，需要一个入口提交作业到Hadoop集群，在新版本中，使用YARN框架来运行MapReduce作业。作业配置如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MaxTemperature</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (args.length != <span class="number">2</span>) &#123;</span><br><span class="line">      System.err.println(<span class="string">"Usage: MaxTemperature &lt;input path&gt; &lt;output path&gt;"</span>);</span><br><span class="line">      System.exit(-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置jar包及作业名称</span></span><br><span class="line">    Job job = <span class="keyword">new</span> Job();</span><br><span class="line">    job.setJarByClass(MaxTemperature.class);</span><br><span class="line">    job.setJobName(<span class="string">"Max temperature"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输入输出路径</span></span><br><span class="line">    FileInputFormat.addInputPath(job, <span class="keyword">new</span> Path(args[<span class="number">0</span>]));</span><br><span class="line">    FileOutputFormat.setOutputPath(job, <span class="keyword">new</span> Path(args[<span class="number">1</span>]));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置Mapper和Reducer实现</span></span><br><span class="line">    job.setMapperClass(MaxTemperatureMapper.class);</span><br><span class="line">    job.setReducerClass(MaxTemperatureReducer.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置输出格式</span></span><br><span class="line">    job.setOutputKeyClass(Text.class);</span><br><span class="line">    job.setOutputValueClass(IntWritable.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 等待作业完成后退出</span></span><br><span class="line">    System.exit(job.waitForCompletion(<span class="keyword">true</span>) ? <span class="number">0</span> : <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入输出路径使用FileInputFormat/FileOutputFormat的静态方法来设置，在运行作业之前，输出目录不能存在，这是为了避免覆盖数据导致数据丢失。运行之前如果检测到目录已经存在，作业将无法运行。</p>
+<p>OK，把项目打包，如果使用Eclipse，使用Export功能。如果使用Maven开发，则直接运行package命令。假设我们最后的jar包为max-temp.jar.把jar包上传到你的集群机器上，或者放在安装了Hadoop的客户端机器上，这里假设jar包放在/opt/job目录下。</p>
+<h4 id="运行">运行</h4>
+<p>首先把作业jar包放到CLASSPATH：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/job</span><br><span class="line">export HADOOP_CLASSPATH=max-temp.jar</span><br></pre></td></tr></table></figure>
+<p>运行:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop MaxTemperature /input/ncdc/sample.txt /output</span><br></pre></td></tr></table></figure>
+<p>hadoop会自动把HADOOP_CLASSPAT设置的路径加入到CLASSPATH中，同时把HADOOP相关的依赖包也加入CLASSPATH，然后启动一个JVM运行MaxTemperature这个带有main方法的类。</p>
+<p>结果如下：</p>
+<div class="figure">
+<img src="myImg/MapReduce-7.png" alt="MapReduce-7">
+<p class="caption">MapReduce-7</p>
+</div>
+<div class="figure">
+<img src="myImg/MapReduce-8.png" alt="MapReduce-8">
+<p class="caption">MapReduce-8</p>
+</div>
+<p>日志中可以看到作业的一些运行情况，例如map任务数量，reduce任务数量，以及输入输出的记录数，可以看到跟实际情况完全吻合。</p>
+<p>我们看一下输出目录/output:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -ls /output</span><br></pre></td></tr></table></figure>
+<div class="figure">
+<img src="myImg/MapReduce-9.png" alt="MapReduce-9">
+<p class="caption">MapReduce-9</p>
+</div>
+<p>可以看到该目录下有个成功标识文件_SUCCESS和结果输出文件part-r-0000，每个reducer会输出一个文件。查看一下这个输出文件的内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop fs -text hdfs://master:9000/output/part-r-00000</span><br></pre></td></tr></table></figure>
+<p>如上图所示，我们成功得到了1949和1950年的最高温度，无需管结果是否合理，只要按照我们想要的逻辑运行即可。</p>
+<p>YARN管理界面也可以看到该作业的情况：</p>
+<div class="figure">
+<img src="myImg/MapReduce-10.png" alt="MapReduce-10">
+<p class="caption">MapReduce-10</p>
+</div>
+<h3 id="进一步理解mapreduce">3. 进一步理解MapReduce</h3>
+<p>一个MapReduce作业通常包括输入数据、MapReduce程序以及一些配置信息。Hadoop把作业分解为task运行，task分为map任务和reduce任务，在新版本的Hadoop中，这些Task通过资源管理框架进行调度，如果任务失败，MapReduce应用框架会重新运行任务。</p>
+<p>作业的输入被划分为固定大小的分片，叫input splits，简称splits。然后为每一个split分块创建一个map任务，map任务对每一条记录运行用户定义的map函数。划分为split之后，不同配置的机器就可以根据自己的资源及运算能力运行适当的任务，即使是相同配置的机器，最后运行的任务数也往往不等，这样能有效利用整个集群的计算能力。但是split也不已太多，否则会耗费很多时间在创建map任务上，通常而言，按集群Block大小（默认为128M）来划分split是合理的。</p>
+<p>Hadoop会把map任务运行在距离数据最近的节点上，最好的情况是直接在数据（split）所在的节点上运行map任务，这样不需要占用带宽，这一优化叫做数据本地优化（data locality optimization)。下图的map选址方案从最优到最次为a，b，c：</p>
+<div class="figure">
+<img src="myImg/MapReduce-11.png" alt="MapReduce-11">
+<p class="caption">MapReduce-11</p>
+</div>
+<p>关于Hadoop如何衡量两个集群节点的距离，参考另一批博客 <a href="http://blog.csdn.net/bingduanlbd/article/details/51914550#t26" target="_blank" rel="noopener">深入理解HDFS：Hadoop分布式文件系统</a>。但是节点距离不是分配task考虑的唯一因素，还会考虑节点当前负载等因素。</p>
+<p>Reduce任务通常无法利用本地数据的优化，大多数情况下，reduce的输入都来自集群的其他节点。reduce针对每一个key运行reduce函数之后，输出结果通常保存在HDFS中，并且存储一定的副本数，第一个副本存在运行reduce任务的本地机器，其他副本根据HDFS写入的管道分别写入节点，关于更多HDFS的数据写入流程，参考<a href="http://blog.csdn.net/bingduanlbd/article/details/51914550#t24" target="_blank" rel="noopener">这里</a>。</p>
+<p>下图是一个单reduce的数据流示例：</p>
+<div class="figure">
+<img src="myImg/MapReduce-12.png" alt="MapReduce-12">
+<p class="caption">MapReduce-12</p>
+</div>
+<p>如果有多个reduce任务，那么map任务的输出到底该传输到哪一个reduce任务呢？决定某个key的数据（key,[value1, value2,...])该发送给那个reduce的过程叫partition。默认情况下，MapReduce使用key的哈希函数进行分桶，这通常工作的很好。如果需要自行指定分区函数，可以自己实现一个Partitioner并配置到作业中。key相同的map任务输出一定会发送到同一个reduce任务。map任务的输出数据传输到reduce任务所在节点的过程，叫做shuffle。下面是一个更通用的MapReduce数据流图：</p>
+<div class="figure">
+<img src="myImg/MapReduce-13.png" alt="MapReduce-13">
+<p class="caption">MapReduce-13</p>
+</div>
+<p>当然，有些作业中我们可能根本不需要有reduce任务，所有工作在map任务并行执行完之后就完毕了，例如Hadoop提供的并行复制工作distcp，其内部实现就是采用一个只有Mapper，没有Reducer的MapReduce作业，在map完成文件复制之后作业就完成了，如下图所示：</p>
+<div class="figure">
+<img src="myImg/MapReduce-14.png" alt="MapReduce-14">
+<p class="caption">MapReduce-14</p>
+</div>
+<p>在上面计算最高天气的例子中，每个map将每一条记录所产生的（年份，温度）记录都shuffle到reduce节点，当数据量较大时，将占用很多带宽，耗费很长时间。事实上，可以在map任务所在的节点上做更多工作。map任务运行完之后，可以把所有结果按年份分组，并统计出每一年的最高温度（类似于sql中的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select max(temperature) from table group by year</span><br></pre></td></tr></table></figure>
+<p>），这个最高温度是局部的，只在本任务重产生的数据做比较。做完局部统计之后，将结果发送给reduce做最终的汇总，找出 全局最高温度。过程示意图如下：</p>
+<div class="figure">
+<img src="myImg/MapReduce-15.png" alt="MapReduce-15">
+<p class="caption">MapReduce-15</p>
+</div>
+<p>这么做之所以符合逻辑，是基于以下的事实：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">max(<span class="number">0</span>,<span class="number">20</span>,<span class="number">10</span>,<span class="number">25</span>,<span class="number">15</span>)=max(max(<span class="number">0</span>,<span class="number">20</span>,<span class="number">10</span>) , max(<span class="number">25</span>,<span class="number">15</span>))</span><br></pre></td></tr></table></figure>
+<p>符合上述性质的函数称为是commutative和associative，有时候也成为是distributive。如果是计算平均温度，则不能使用这一的方式。</p>
+<p>上述的局部计算在Hadoop中使用Combiner来表示。为了在作业中使用Combiner，我们需要明确指定，在前面的例子中，可以直接使用Reducer作为Combiner，因为两者逻辑是一样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置Mapper和Reducer实现</span></span><br><span class="line">job.setMapperClass(MaxTemperatureMapper.class);</span><br><span class="line">job.setCombinerClass(MaxTemperatureReducer.class);</span><br><span class="line">job.setReducerClass(MaxTemperatureReducer.class);</span><br></pre></td></tr></table></figure>
+<h3 id="hadoop-streaming">4.Hadoop Streaming</h3>
+<p>Hadoop完全允许我们使用Java以外的语言来编写map和reduce函数。Hadoop Streaming使用Unix标准流作为Hadoop和其他应用程序的接口。数据流的大致示意图如下：</p>
+<div class="figure">
+<img src="myImg/MapReduce-16.jpeg" alt="MapReduce-16">
+<p class="caption">MapReduce-16</p>
+</div>
+<p>整个数据在Hadoop MapReduce与Ruby应用、标准输入输出之间流转，因此叫Streaming。我们继续使用前面气温的例子来说明，先使用ruby来编写map和reduce，然后使用unix的管道来模拟整个过程，最后迁移到Hadoop上运行。</p>
+<p>Ruby版本的map函数从标准流中读取数据，运算后将结果输出到标准输出流：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/ruby</span></span><br><span class="line">STDIN.each_line <span class="keyword">do</span> <span class="params">|line|</span></span><br><span class="line">  val = line</span><br><span class="line">  year , temp , q = val[<span class="number">15</span>,<span class="number">4</span>],val[<span class="number">87</span>,<span class="number">5</span>],val[<span class="number">92</span>,<span class="number">1</span>]</span><br><span class="line">  puts <span class="string">"<span class="subst">#&#123;year&#125;</span>\t<span class="subst">#&#123;temp&#125;</span>"</span> <span class="keyword">if</span> (temp != <span class="string">"+9999"</span> &amp;&amp; q =~<span class="regexp">/[01459]/</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>逻辑与Java版本完全一样，STDIN是ruby的标准输入，each_line针对每一行进行操作，逻辑封装在do和end之间。puts是ruby标准输出函数，打印tab分割的记录到标准输出流。</p>
+<p>因为这个脚本与标准输入输出交互，所以很容易结合linux的管道来测试：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat input/ncdc/sample.txt | ruby max_temp_map.rb</span><br></pre></td></tr></table></figure>
+<div class="figure">
+<img src="myImg/MapReduce-17.png" alt="MapReduce-17">
+<p class="caption">MapReduce-17</p>
+</div>
+<p>一样用ruby脚本来完成reduce的功能：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">last_key , max_val = <span class="literal">nil</span> , -<span class="number">1000000</span></span><br><span class="line">STDIN.each_line <span class="keyword">do</span> <span class="params">|line|</span></span><br><span class="line">  key , val = line.split(<span class="string">"\t"</span>)</span><br><span class="line">  <span class="keyword">if</span> last_key &amp;&amp; last_key != key</span><br><span class="line">    puts <span class="string">"<span class="subst">#&#123;last_key&#125;</span>\t<span class="subst">#&#123;max_val&#125;</span>"</span></span><br><span class="line">    last_key , max_val = key , val.to_i</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    last_key , max_val = key,[max_val , val.to_i].max</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="comment"># 处理最后一个key的输出</span></span><br><span class="line">put <span class="string">"<span class="subst">#&#123;last_key&#125;</span>\t<span class="subst">#&#123;max_val&#125;</span>"</span> <span class="keyword">if</span> last_key</span><br></pre></td></tr></table></figure>
+<p>map处理完之后，同一个key的一组键值对中，value是排序的，所以当前读到的key如果不同于上一个key，表示这个key的所有值都处理完了（前文提到会在切换key之前reset输入）。我们使用sort命令来替代MapReduce中的排序过程，把map的标准输出作为sort的输入，sort通过管道连接到map：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /home/data/hadoop_book_input/ncdc/sample.txt| ruby max_temp_map.rb | sort | ruby max_temp_reduce.rb</span><br></pre></td></tr></table></figure>
+<p>输出结果如下图，与前文完全一致。</p>
+<div class="figure">
+<img src="myImg/MapReduce-18.png" alt="MapReduce-18">
+<p class="caption">MapReduce-18</p>
+</div>
+<p>很好，我们在Hadoop上运行这个作业。非Java语言的MapReduce作业，需要使用Hadoop Streaming来运行。Hadoop Streaming会负责作业的Task分解，把输入数据作为标准输入流传递给Ruby写的map脚本，并接受来自map脚本的标准输出，排序后shuffle到reduce节点上，并以标准输入传递给reduce，最后把reduce的标准输出保存到HDFS文件中。</p>
+<p>我们使用hadoop jar命令,同时指定输入输出目录，脚本位置等。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop jar  /home/hadoop-2.6.0/share/hadoop/tools/lib/hadoop-streaming-2.6.0.jar -files max_temp_map.rb,max_temp_reduce.rb -input /input/ncdc/sample.txt -output /output/max-tem-ruby -mapper max_temp_map.rb -reducer max_temp_reduce.rb</span><br></pre></td></tr></table></figure>
+<p>-file参数把这些文件上传到集群中。注意map和reduce脚本需要在CLASSPATH下，我是在当前目录下运行的，默认加入到类路径中。另外请确保集群中的所有机器都安装了ruby，否则可能出现类似subprocess failed with code 127。这里的输出文件是/outp/max-tem-ruby，MapReduce不允许多个作业输出到同一个目录。</p>
+<p>查看输出文件，与Java版本完全一致。OK，我们设置combiner，然后在大的数据集上感受一下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop jar  /home/hadoop-2.6.0/share/hadoop/tools/lib/hadoop-streaming-2.6.0.jar -files max_temp_map.rb,max_temp_reduce.rb -input /input/ncdc/all -output /output/max-tem-all  -mapper max_temp_map.rb -combiner x_temp_reduce.rb -reducer max_temp_reduce.rb</span><br></pre></td></tr></table></figure>
+<div class="figure">
+<img src="myImg/MapReduce-19.png" alt="MapReduce-19">
+<p class="caption">MapReduce-19</p>
+</div>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      sun000
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/" title="Hadoop-MapReduce入门">http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <div>
+      
+      
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/05/Google-Code-Jam-Round1C-C/" rel="next" title="Google Code Jam Round1C-C">
+                <i class="fa fa-chevron-left"></i> Google Code Jam Round1C-C
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="sun000" />
+          <p class="site-author-name" itemprop="name">sun000</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">48</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sun000" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:sun000mail@gmail.com" target="_blank" title="Mail">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Mail
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#通俗理解mapreduce"><span class="nav-number">1.</span> <span class="nav-text">1. 通俗理解MapReduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例及代码实现"><span class="nav-number">2.</span> <span class="nav-text">2. 实例及代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据准备"><span class="nav-number">2.1.</span> <span class="nav-text">数据准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写java代码"><span class="nav-number">2.2.</span> <span class="nav-text">编写Java代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行"><span class="nav-number">2.3.</span> <span class="nav-text">运行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进一步理解mapreduce"><span class="nav-number">3.</span> <span class="nav-text">3. 进一步理解MapReduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hadoop-streaming"><span class="nav-number">4.</span> <span class="nav-text">4.Hadoop Streaming</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sun000</span>
+</div>
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("pCtF3OhOOsz3TI1xAYV1gwAB-gzGzoHsz", "TYLHOkBEmhoO5Mb39xoNMAHY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+</body>
+</html>
