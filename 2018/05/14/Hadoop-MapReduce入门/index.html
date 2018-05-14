@@ -87,13 +87,13 @@
 
 
 
-<meta name="description" content="转自CSDN；改了几个笔误 原博客链接 MapReduce是用于数据处理的一种编程模型，简单但足够强大，专门为并行处理大数据而设计。 1. 通俗理解MapReduce 例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：   MapReduce-1">
+<meta name="description" content="转自CSDN；改了几个笔误 原博客链接 MapReduce是用于数据处理的一种编程模型，简单但足够强大，专门为并行处理大数据而设计。 通俗理解MapReduce 例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：   MapReduce-1  为">
 <meta name="keywords" content="Hadoop,MapReduce,大数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hadoop-MapReduce入门">
 <meta property="og:url" content="http://sun000.cn/2018/05/14/Hadoop-MapReduce入门/index.html">
 <meta property="og:site_name" content="sun000&#39;s blog">
-<meta property="og:description" content="转自CSDN；改了几个笔误 原博客链接 MapReduce是用于数据处理的一种编程模型，简单但足够强大，专门为并行处理大数据而设计。 1. 通俗理解MapReduce 例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：   MapReduce-1  为了使用MapReduce找出历史上每年的最高温度，我们将行数作为map输入">
+<meta property="og:description" content="转自CSDN；改了几个笔误 原博客链接 MapReduce是用于数据处理的一种编程模型，简单但足够强大，专门为并行处理大数据而设计。 通俗理解MapReduce 例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：   MapReduce-1  为了使用MapReduce找出历史上每年的最高温度，我们将行数作为map输入的ke">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://sun000.cn/myImg/MapReduce-1.png">
 <meta property="og:image" content="http://sun000.cn/myImg/MapReduce-2.png">
@@ -114,10 +114,10 @@
 <meta property="og:image" content="http://sun000.cn/myImg/MapReduce-17.png">
 <meta property="og:image" content="http://sun000.cn/myImg/MapReduce-18.png">
 <meta property="og:image" content="http://sun000.cn/myImg/MapReduce-19.png">
-<meta property="og:updated_time" content="2018-05-14T06:53:23.940Z">
+<meta property="og:updated_time" content="2018-05-14T07:12:04.636Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop-MapReduce入门">
-<meta name="twitter:description" content="转自CSDN；改了几个笔误 原博客链接 MapReduce是用于数据处理的一种编程模型，简单但足够强大，专门为并行处理大数据而设计。 1. 通俗理解MapReduce 例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：   MapReduce-1  为了使用MapReduce找出历史上每年的最高温度，我们将行数作为map输入">
+<meta name="twitter:description" content="转自CSDN；改了几个笔误 原博客链接 MapReduce是用于数据处理的一种编程模型，简单但足够强大，专门为并行处理大数据而设计。 通俗理解MapReduce 例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：   MapReduce-1  为了使用MapReduce找出历史上每年的最高温度，我们将行数作为map输入的ke">
 <meta name="twitter:image" content="http://sun000.cn/myImg/MapReduce-1.png">
 
 
@@ -423,7 +423,7 @@
         <p>转自CSDN；改了几个笔误</p>
 <p><a href="https://blog.csdn.net/bingduanlbd/article/details/51924398" target="_blank" rel="noopener">原博客链接</a></p>
 <p>MapReduce是用于数据处理的一种编程模型，简单但足够强大，专门为并行处理大数据而设计。</p>
-<h3 id="通俗理解mapreduce">1. 通俗理解MapReduce</h3>
+<h3 id="通俗理解mapreduce">通俗理解MapReduce</h3>
 <p>例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：</p>
 <div class="figure">
 <img src="/myImg/MapReduce-1.png" alt="MapReduce-1">
@@ -463,7 +463,7 @@
 </ul>
 <p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">=&gt;(courese, highest_score)</span><br></pre></td></tr></table></figure></p>
 <p>当然，如果要多门课程混在一起，系主任工作量太大，于是副主任也上（相当于2个reduce），则老师在汇报最高分的时候，相同课程要汇报给同一个人（相同key传输给同一个reduce），例如数学英语汇报给主任，政治汇报给副主任。</p>
-<h3 id="实例及代码实现">2. 实例及代码实现</h3>
+<h3 id="实例及代码实现">实例及代码实现</h3>
 <blockquote>
 <p>life is short , show me the code</p>
 </blockquote>
@@ -525,7 +525,7 @@
 <img src="/myImg/MapReduce-10.png" alt="MapReduce-10">
 <p class="caption">MapReduce-10</p>
 </div>
-<h3 id="进一步理解mapreduce">3. 进一步理解MapReduce</h3>
+<h3 id="进一步理解mapreduce">进一步理解MapReduce</h3>
 <p>一个MapReduce作业通常包括输入数据、MapReduce程序以及一些配置信息。Hadoop把作业分解为task运行，task分为map任务和reduce任务，在新版本的Hadoop中，这些Task通过资源管理框架进行调度，如果任务失败，MapReduce应用框架会重新运行任务。</p>
 <p>作业的输入被划分为固定大小的分片，叫input splits，简称splits。然后为每一个split分块创建一个map任务，map任务对每一条记录运行用户定义的map函数。划分为split之后，不同配置的机器就可以根据自己的资源及运算能力运行适当的任务，即使是相同配置的机器，最后运行的任务数也往往不等，这样能有效利用整个集群的计算能力。但是split也不已太多，否则会耗费很多时间在创建map任务上，通常而言，按集群Block大小（默认为128M）来划分split是合理的。</p>
 <p>Hadoop会把map任务运行在距离数据最近的节点上，最好的情况是直接在数据（split）所在的节点上运行map任务，这样不需要占用带宽，这一优化叫做数据本地优化（data locality optimization)。下图的map选址方案从最优到最次为a，b，c：</p>
@@ -562,7 +562,7 @@
 <p>符合上述性质的函数称为是commutative和associative，有时候也成为是distributive。如果是计算平均温度，则不能使用这一的方式。</p>
 <p>上述的局部计算在Hadoop中使用Combiner来表示。为了在作业中使用Combiner，我们需要明确指定，在前面的例子中，可以直接使用Reducer作为Combiner，因为两者逻辑是一样的：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置Mapper和Reducer实现</span></span><br><span class="line">job.setMapperClass(MaxTemperatureMapper.class);</span><br><span class="line">job.setCombinerClass(MaxTemperatureReducer.class);</span><br><span class="line">job.setReducerClass(MaxTemperatureReducer.class);</span><br></pre></td></tr></table></figure>
-<h3 id="hadoop-streaming">4.Hadoop Streaming</h3>
+<h3 id="hadoop-streaming">Hadoop Streaming</h3>
 <p>Hadoop完全允许我们使用Java以外的语言来编写map和reduce函数。Hadoop Streaming使用Unix标准流作为Hadoop和其他应用程序的接口。数据流的大致示意图如下：</p>
 <div class="figure">
 <img src="/myImg/MapReduce-16.jpeg" alt="MapReduce-16">
@@ -826,7 +826,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#通俗理解mapreduce"><span class="nav-number">1.</span> <span class="nav-text">1. 通俗理解MapReduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例及代码实现"><span class="nav-number">2.</span> <span class="nav-text">2. 实例及代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据准备"><span class="nav-number">2.1.</span> <span class="nav-text">数据准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写java代码"><span class="nav-number">2.2.</span> <span class="nav-text">编写Java代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行"><span class="nav-number">2.3.</span> <span class="nav-text">运行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进一步理解mapreduce"><span class="nav-number">3.</span> <span class="nav-text">3. 进一步理解MapReduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hadoop-streaming"><span class="nav-number">4.</span> <span class="nav-text">4.Hadoop Streaming</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#通俗理解mapreduce"><span class="nav-number">1.</span> <span class="nav-text">通俗理解MapReduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例及代码实现"><span class="nav-number">2.</span> <span class="nav-text">实例及代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据准备"><span class="nav-number">2.1.</span> <span class="nav-text">数据准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写java代码"><span class="nav-number">2.2.</span> <span class="nav-text">编写Java代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行"><span class="nav-number">2.3.</span> <span class="nav-text">运行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进一步理解mapreduce"><span class="nav-number">3.</span> <span class="nav-text">进一步理解MapReduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hadoop-streaming"><span class="nav-number">4.</span> <span class="nav-text">Hadoop Streaming</span></a></li></ol></div>
             
 
           </div>
