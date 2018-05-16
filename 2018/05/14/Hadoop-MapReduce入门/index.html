@@ -103,12 +103,12 @@
 <meta property="og:image" content="http://sun000.cn/myImg/MapReduce-12.png">
 <meta property="og:image" content="http://sun000.cn/myImg/MapReduce-13.png">
 <meta property="og:image" content="http://sun000.cn/myImg/MapReduce-14.png">
-<meta property="og:image" content="http://sun000.cn/myImg/MapReduce-15.png">
+<meta property="og:image" content="http://sun000.cn/myImg/Mapreduce-15.png">
 <meta property="og:image" content="http://sun000.cn/myImg/MapReduce-16.jpeg">
 <meta property="og:image" content="http://sun000.cn/myImg/MapReduce-17.png">
 <meta property="og:image" content="http://sun000.cn/myImg/MapReduce-18.png">
 <meta property="og:image" content="http://sun000.cn/myImg/MApReduce-19.png">
-<meta property="og:updated_time" content="2018-05-14T07:14:47.170Z">
+<meta property="og:updated_time" content="2018-05-16T12:39:14.669Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop-MapReduce入门">
 <meta name="twitter:description" content="转自CSDN；改了几个笔误 原博客链接 MapReduce是用于数据处理的一种编程模型，简单但足够强大，专门为并行处理大数据而设计。 通俗理解MapReduce 例如从大量历史数据中找出往年最高气温，NCDC公开了过去每一年的所有气温等天气数据的检测，每一行记录一条观测记录，格式如下：   MapReduce-1  为了使用MapReduce找出历史上每年的最高温度，我们将行数作为map输入的ke">
@@ -548,7 +548,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select max(temperature) from table group by year</span><br></pre></td></tr></table></figure>
 <p>），这个最高温度是局部的，只在本任务重产生的数据做比较。做完局部统计之后，将结果发送给reduce做最终的汇总，找出 全局最高温度。过程示意图如下：</p>
 <div class="figure">
-<img src="/myImg/MapReduce-15.png" alt="MapReduce-15">
+<img src="/myImg/Mapreduce-15.png" alt="MapReduce-15">
 <p class="caption">MapReduce-15</p>
 </div>
 <p>这么做之所以符合逻辑，是基于以下的事实：</p>
