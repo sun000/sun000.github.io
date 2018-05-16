@@ -1,0 +1,1167 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="机器学习,概率论," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="常用的离散型随机变量及其概率分布 （0-1）分布（伯努利分布(Bernoulli distribution)、两点分布） 如果随机变量Ｘ 只可能取０与１两个值，其概率分布为： \[P\{X = 0\} = 1- p, P\{X = 1\} = p, 0 &amp;lt; p &amp;lt; 1\] 或者写成 \[P\">
+<meta name="keywords" content="机器学习,概率论">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见随机变量及其概率分布">
+<meta property="og:url" content="http://sun000.cn/2018/05/16/常见随机变量及其概率分布/index.html">
+<meta property="og:site_name" content="sun000&#39;s blog">
+<meta property="og:description" content="常用的离散型随机变量及其概率分布 （0-1）分布（伯努利分布(Bernoulli distribution)、两点分布） 如果随机变量Ｘ 只可能取０与１两个值，其概率分布为： \[P\{X = 0\} = 1- p, P\{X = 1\} = p, 0 &amp;lt; p &amp;lt; 1\] 或者写成 \[P\{X = k\} = p^k(1-p)^{1-k}, k = 0, 1, 0 &amp;lt; p &amp;l">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://sun000.cn/myImg/均匀分布.png">
+<meta property="og:image" content="http://sun000.cn/myImg/指数分布.png">
+<meta property="og:image" content="http://sun000.cn/myImg/正态分布.png">
+<meta property="og:updated_time" content="2018-05-16T11:58:34.269Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常见随机变量及其概率分布">
+<meta name="twitter:description" content="常用的离散型随机变量及其概率分布 （0-1）分布（伯努利分布(Bernoulli distribution)、两点分布） 如果随机变量Ｘ 只可能取０与１两个值，其概率分布为： \[P\{X = 0\} = 1- p, P\{X = 1\} = p, 0 &amp;lt; p &amp;lt; 1\] 或者写成 \[P\{X = k\} = p^k(1-p)^{1-k}, k = 0, 1, 0 &amp;lt; p &amp;l">
+<meta name="twitter:image" content="http://sun000.cn/myImg/均匀分布.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: false,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sun000.cn/2018/05/16/常见随机变量及其概率分布/"/>
+
+
+
+
+
+  <title> 常见随机变量及其概率分布 | sun000's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">sun000's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sun000.cn/2018/05/16/常见随机变量及其概率分布/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sun000">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="sun000's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                常见随机变量及其概率分布
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-16T19:03:34+08:00">
+                2018-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/05/16/常见随机变量及其概率分布/" class="leancloud_visitors" data-flag-title="常见随机变量及其概率分布">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="常用的离散型随机变量及其概率分布">常用的离散型随机变量及其概率分布</h4>
+<h5 id="分布伯努利分布bernoulli-distribution两点分布">（0-1）分布（伯努利分布(Bernoulli distribution)、两点分布）</h5>
+<p>如果随机变量Ｘ 只可能取０与１两个值，其概率分布为：</p>
+<p><span class="math display">\[P\{X = 0\} = 1- p, P\{X = 1\} = p, 0 &lt; p &lt; 1\]</span></p>
+<p>或者写成</p>
+<p><span class="math display">\[P\{X = k\} = p^k(1-p)^{1-k}, k = 0, 1, 0 &lt; p &lt;1\]</span></p>
+<p>则称随机变量Ｘ 服从（０－１）分布或两点分布．它的概率分布也可以写成</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">X</th>
+<th align="center">0</th>
+<th align="center">1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">P</td>
+<td align="center">1-p</td>
+<td align="center">p</td>
+</tr>
+</tbody>
+</table>
+<h5 id="二项分布">二项分布</h5>
+<p>在ｎ重伯努利试验中，如果以Ｘ表示事件Ａ 出现的次数，则Ｘ是一个离散型随机变量，它的所有可能取值是<span class="math inline">\(0,1,2,…,n.设Ｐ(Ａ)＝ p（０＜ p＜１）\)</span>。典型例子是扔硬币，硬币正面朝上概率为p, 重复扔n次硬币，k次为正面的概率即为一个二项分布概率。概率函数为</p>
+<p><span class="math display">\[P\{X=k\}=C_n^kp^k(1-p)^{n-k}\]</span></p>
+<h5 id="多项式分布">多项式分布</h5>
+<p>把二项分布公式再推广，就得到了多项分布。比如扔骰子，不同于扔硬币，骰子有6个面对应6个不同的点数，这样单次每个点数朝上的概率都是1/6（对应p1~p6，它们的值不一定都是1/6，只要<strong>和为1且互斥</strong>即可，比如一个形状不规则的骰子）,重复扔n次，如果问有x次点数k朝上的概率就是：(只投一次k朝上的概率)</p>
+<p><span class="math display">\[P\{X=k\}=C_n^kp_k^k(1-p_k)^{n-k}\]</span></p>
+<h5 id="几何分布">几何分布</h5>
+<p>设试验Ｅ只有两个可能的对立的结果Ａ 及Ａ非，并且<span class="math inline">\(Ｐ(Ａ)＝ p，Ｐ(\overline{Ａ}）＝１－ p，其中０＜ ｐ＜１\)</span>．将试验Ｅ独立地重复进行下去，直到事件Ａ发生为止．如果以Ｘ表示所需要的试验次数，则Ｘ是一个随机变量，它可能取的值是１，２，３，⋯．由于事件｛Ｘ ＝ ｋ｝表示前ｋ－１次试验中事件Ａ都没有发生，而在第ｋ次试验中事件Ａ 发生，因此</p>
+<p><span class="math display">\[P\{X=k\}=(1-p)^{k-1}p, k = 1, 2, 3,...\]</span></p>
+<p>我们称随机变量X服从几何分布。</p>
+<h5 id="泊松分布">泊松分布</h5>
+<p>设随机变量Ｘ 的所有可能取值为<span class="math inline">\(0,1,2,...\)</span>，并且</p>
+<p><span class="math display">\[P\{X=k\}=\frac{\lambda^ke^{-\lambda}}{k!},k=0,1,2,3...\]</span></p>
+<p>其中λ＞０是常数，则称随机变量Ｘ服从参数为λ的泊松分布，记作Ｘ～π（λ）．易知</p>
+<p><span class="math display">\[\frac{\lambda^ke^{-\lambda}}{k!} &gt; 0, k = 0, 1, 2,...\]</span></p>
+<p><span class="math display">\[\sum_{k=0}^{∞}\frac{\lambda^ke^{-\lambda}}{k!} =e^{-\lambda}\sum_{k=0}^{∞}\frac{\lambda^k}{k!}=e^{-\lambda} \times e^\lambda = 1\]</span></p>
+<p>在实际问题中经常会遇到服从泊松分布的随机变量．例如，在一个长为τ的时间间隔内某电话交换台收到的电话呼叫次数；某医院在一天内来急诊的病人数；某一本书的一页中的印刷错误数等都服从泊松分布．</p>
+<p><strong><u>当二项分布的n很大而p很小时，泊松分布可作为二项分布的近似，其中λ为np。</u></strong></p>
+<h4 id="常用的离散型随机变量及其概率分布-1">常用的离散型随机变量及其概率分布</h4>
+<h5 id="均匀分布">均匀分布</h5>
+<p>设连续型随机变量Ｘ 的概率密度为</p>
+<p><span class="math display">\[f(x) =  \begin{cases} \frac{1}{b-a}, a &lt; x  &lt;b\\0 ,其他\\ \end{cases} \]</span></p>
+<p>则称Ｘ在区间［ａ，ｂ］上服从均匀分布．Ｘ 的分布函数为</p>
+<p><span class="math display">\[F(x) =  \begin{cases} 0, x &lt;a\\ \frac{x-a}{b-a}, a \leq x  &lt;b\\1 ,b\leq x\\ \end{cases} \]</span></p>
+<p>Ｘ的概率密度和分布函数的图形分别如图所示：</p>
+<div class="figure">
+<img src="\myImg\均匀分布.png">
+
+</div>
+<h5 id="指数分布">指数分布</h5>
+<p>设连续型随机变量Ｘ 具有概率密度</p>
+<p><span class="math display">\[f(x)=\begin{cases} \frac{1}{\theta}e^{-\frac{x}{\theta}}, x&gt;0\\0,x \leq 0\end{cases}\]</span></p>
+<p>其中θ＞０是常数，则称Ｘ服从参数为θ的指数分布．Ｘ的分布函数为</p>
+<p><span class="math display">\[F(x)=\begin{cases} 1-e^{-\frac{x}{\theta}}, x&gt;0\\0,x \leq 0\end{cases}\]</span></p>
+<p>Ｘ的概率密度及分布函数的图形分别如图所示：</p>
+<div class="figure">
+<img src="\myImg\指数分布.png">
+
+</div>
+<p>实际问题中的许多随机变量，例如电子元件的寿命，旅客在车站售票处购买车票需要等待的时间等都可以看成是服从指数分布。</p>
+<h5 id="正态分布">正态分布</h5>
+<p>设随机变量Ｘ 具有概率密度</p>
+<p><span class="math display">\[f(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{\frac{(x- \mu)^2}{2\sigma^2}},-∞ &lt; x &lt; +∞\]</span></p>
+<p>其中μ，σ（σ＞０）为常数，则称Ｘ服从参数为μ，σ的正态分布，记作Ｘ～ Ｎ（μ，σ２）．Ｘ的分布函数为</p>
+<p><span class="math display">\[F(x;\mu,\sigma)=\frac{1}{\sigma\sqrt{2\pi}}{\int_{-∞}^x(-\frac{(x-\mu)^2}{2\sigma^2}dx)}\]</span></p>
+<p>它们的图形分别如图所示：</p>
+<div class="figure">
+<img src="\myImg\正态分布.png">
+
+</div>
+<p>容易看到概率密度曲线ｙ＝ ｆ(ｘ)关于直线ｘ＝ μ对称，并在ｘ＝ μ处取得最大值<span class="math inline">\(\frac{1}{\sqrt{2\pi}\sigma}\)</span>,在横坐标ｘ＝ μ± σ处有拐点，以ｘ轴为水平渐近线．</p>
+<p>如果μ＝０，σ＝１，则称Ｘ服从标准正态分布，记作Ｘ~Ｎ(0,1)．它的概率密度及分布函数分别记作φ（ｘ）与Φ（ｘ），即</p>
+<p><span class="math display">\[\varphi(x)=\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}, (-∞ &lt; x &lt; +∞) \]</span></p>
+<p><span class="math display">\[\Phi(x)=F(x;0,1)=\frac{1}{\sqrt{2\pi}}\int_{-∞}^x{e^{-\frac{x^2}{2}}dx}\]</span></p>
+<p>参考资料：概率论与数理统计 吉林大学</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      sun000
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://sun000.cn/2018/05/16/常见随机变量及其概率分布/" title="常见随机变量及其概率分布">http://sun000.cn/2018/05/16/常见随机变量及其概率分布/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <div>
+      
+      
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/概率论/" rel="tag"># 概率论</a>
+          
+        </div>
+      
+
+      
+
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/14/Hadoop-MapReduce入门/" rel="next" title="Hadoop-MapReduce入门">
+                <i class="fa fa-chevron-left"></i> Hadoop-MapReduce入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="sun000" />
+          <p class="site-author-name" itemprop="name">sun000</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sun000" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:sun000mail@gmail.com" target="_blank" title="Mail">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Mail
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用的离散型随机变量及其概率分布"><span class="nav-number">1.</span> <span class="nav-text">常用的离散型随机变量及其概率分布</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#分布伯努利分布bernoulli-distribution两点分布"><span class="nav-number">1.1.</span> <span class="nav-text">（0-1）分布（伯努利分布(Bernoulli distribution)、两点分布）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二项分布"><span class="nav-number">1.2.</span> <span class="nav-text">二项分布</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多项式分布"><span class="nav-number">1.3.</span> <span class="nav-text">多项式分布</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#几何分布"><span class="nav-number">1.4.</span> <span class="nav-text">几何分布</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#泊松分布"><span class="nav-number">1.5.</span> <span class="nav-text">泊松分布</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用的离散型随机变量及其概率分布-1"><span class="nav-number">2.</span> <span class="nav-text">常用的离散型随机变量及其概率分布</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#均匀分布"><span class="nav-number">2.1.</span> <span class="nav-text">均匀分布</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#指数分布"><span class="nav-number">2.2.</span> <span class="nav-text">指数分布</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#正态分布"><span class="nav-number">2.3.</span> <span class="nav-text">正态分布</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sun000</span>
+</div>
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("pCtF3OhOOsz3TI1xAYV1gwAB-gzGzoHsz", "TYLHOkBEmhoO5Mb39xoNMAHY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+</body>
+</html>
