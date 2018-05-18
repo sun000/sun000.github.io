@@ -1,0 +1,1183 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="机器学习,神经网络,反向传播算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="历史 1969年M.Minsky和S.Papert所著的《感知机》一书出版，它对单层神经网络进行了深入分析，并且从数学上证明了这种网络功能有限，甚至不能解决象&amp;quot;异或&amp;quot;这样的简单逻辑运算问题。同时，他们还发现有许多模式是不能用单层网络训练的，而对于多层网络则没有行之有效的低复杂度算法，">
+<meta name="keywords" content="机器学习,神经网络,反向传播算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BP-NeuralNetwork-原理及实现">
+<meta property="og:url" content="http://sun000.cn/2018/05/18/BP-NeuralNetwork-原理及实现/index.html">
+<meta property="og:site_name" content="sun000&#39;s blog">
+<meta property="og:description" content="历史 1969年M.Minsky和S.Papert所著的《感知机》一书出版，它对单层神经网络进行了深入分析，并且从数学上证明了这种网络功能有限，甚至不能解决象&amp;quot;异或&amp;quot;这样的简单逻辑运算问题。同时，他们还发现有许多模式是不能用单层网络训练的，而对于多层网络则没有行之有效的低复杂度算法，最后他们甚至认为神经元网络无法处理非线性问题。然而于1974年，Paul Werbos首次给出了">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://sun000.cn/myImg/计算图1.png">
+<meta property="og:image" content="http://sun000.cn/myImg/计算图2.png">
+<meta property="og:image" content="http://sun000.cn/myImg/BP神经网络结构1.png">
+<meta property="og:image" content="http://sun000.cn/myImg/神经元结构.png">
+<meta property="og:image" content="http://sun000.cn/myImg/BP神经网络结构2.png">
+<meta property="og:image" content="http://sun000.cn/myImg/BP神经网络结构3.png">
+<meta property="og:updated_time" content="2018-05-18T04:56:45.725Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BP-NeuralNetwork-原理及实现">
+<meta name="twitter:description" content="历史 1969年M.Minsky和S.Papert所著的《感知机》一书出版，它对单层神经网络进行了深入分析，并且从数学上证明了这种网络功能有限，甚至不能解决象&amp;quot;异或&amp;quot;这样的简单逻辑运算问题。同时，他们还发现有许多模式是不能用单层网络训练的，而对于多层网络则没有行之有效的低复杂度算法，最后他们甚至认为神经元网络无法处理非线性问题。然而于1974年，Paul Werbos首次给出了">
+<meta name="twitter:image" content="http://sun000.cn/myImg/计算图1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: false,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sun000.cn/2018/05/18/BP-NeuralNetwork-原理及实现/"/>
+
+
+
+
+
+  <title> BP-NeuralNetwork-原理及实现 | sun000's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">sun000's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sun000.cn/2018/05/18/BP-NeuralNetwork-原理及实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sun000">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="sun000's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                BP-NeuralNetwork-原理及实现
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-18T10:54:35+08:00">
+                2018-05-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/05/18/BP-NeuralNetwork-原理及实现/" class="leancloud_visitors" data-flag-title="BP-NeuralNetwork-原理及实现">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="历史">历史</h3>
+<p>1969年M.Minsky和S.Papert所著的《感知机》一书出版，它对单层神经网络进行了深入分析，并且从数学上证明了这种网络功能有限，甚至不能解决象&quot;异或&quot;这样的简单逻辑运算问题。同时，他们还发现有许多模式是不能用单层网络训练的，而对于多层网络则没有行之有效的低复杂度算法，最后他们甚至认为神经元网络无法处理非线性问题。然而于1974年，Paul Werbos首次给出了如何训练一般网络的学习算法—back propagation。这个算法可以高效的计算每一次迭代过程中的梯度，让以上我们的推导得以实现！！ 不巧的是，在当时整个人工神经网络社群中无人知晓Paul所提出的学习算法。直到80年代中期，BP算法才重新被David Rumelhart、Geoffrey Hinton及Ronald Williams、David Parker和Yann LeCun独立发现，并获得了广泛的注意，引起了人工神经网络领域研究的第二次热潮。</p>
+<h3 id="简介">简介</h3>
+<p>好了，现在让我们来了解一下BP神经网络是如何学习的。</p>
+<h4 id="计算图">计算图</h4>
+<p>首先，我们来讲一讲计算图的概念。我将<span class="math inline">\(e = (a + b) \times (b+1)\)</span>画成一张计算图。如下：</p>
+<div class="figure">
+<img src="/myImg/计算图1.png">
+
+</div>
+<p>假设输入a=2，b=1，在这种情况下，我们很容易求出相邻节点之间的偏导关系:</p>
+<div class="figure">
+<img src="/myImg/计算图2.png">
+
+</div>
+<p>用链式法则</p>
+<p><span class="math display">\[\frac{\partial e}{\partial a} =\frac{\partial e}{\partial c} \frac{\partial c}{\partial a} \]</span></p>
+<p><span class="math display">\[\frac{\partial e}{\partial b} = \frac{\partial e}{\partial c} \frac{\partial c}{\partial b} + \frac{\partial e}{\partial d} \frac{\partial d}{\partial b}\]</span></p>
+<p><span class="math inline">\(\frac{\partial e}{\partial a}\)</span>的值就是e到a路径上的偏导数乘积，类似的，<span class="math inline">\(\frac{\partial e}{\partial b}\)</span>是从e到b的两条路径的偏导数乘积和。类似的可以推出网状结构的偏导数求法。这也是TensorFlow的实现原理之一。</p>
+<p>这种情况下偏导很容易求得，因为我们已经知道网络的函数关系式，e=（a+b）*（b+1），这是一个没有权值干预，已知输入与输出之间关系的网络。实际当中我们只是知道e与输出之间的关系，就是上面说的C=（y-t）^2，而且会有成千上万的权值和偏置干预求导的过程。那么换个思路，能不能求输出对结果的偏导呢？</p>
+<p>再利用上图的关系。节点c对e偏导2并将结果堆放起来，节点d对e偏导3并将结果堆放起来，至此第二层完毕，求出各节点总堆放量并继续向下一层发送。节点c向a发送2<em>1并对堆放起来，节点c向b发送2</em>1并堆放起来，节点d向b发送<span class="math inline">\(3*1\)</span>并堆放起来，至此第三层完毕，节点a堆放起来的量为2，节点b堆放起来的量为<span class="math inline">\(2*1+3*1=5\)</span>, 即顶点e对b的偏导数为5。简要的概括，就是从最上层的节点e开始，以层为单位进行处理。对于e的下一层的所有子节点，将1乘以e到某个节点路径上的偏导值，并将结果“堆放”在该子节点中。等e所在的层按照这样传播完毕后，第二层的每一个节点都“堆放&quot;些值，然后我们针对每个节点，把它里面所有“堆放”的值求和，就得到了顶点e对该节点的偏导。然后将这些第二层的节点各自作为起始顶点，初始值设为顶点e对它们的偏导值，以&quot;层&quot;为单位重复上述传播过程，即可求出顶点e对每一层节点的偏导数。</p>
+<h3 id="算法流程">算法流程</h3>
+<p>在这里我举一个例子，关于用两层BP神经网络来求解异或(XOR)。</p>
+<p>很显然这是一个非线性方程的求解过程。</p>
+<p>假设当前有如下网络：</p>
+<div class="figure">
+<img src="/myImg/BP神经网络结构1.png">
+
+</div>
+<p>定义权值<span class="math inline">\(w^{(1)},w^{(2)}\)</span>分别是输入层到隐藏层，隐藏层到输出层的链接权，其中阈值b在<span class="math inline">\(w\)</span>中隐形表达，偏置节点<span class="math inline">\(x_0,h_0\)</span>的值始终为1。</p>
+<p><strong>其中<span class="math inline">\(w^{(1)}_{ij}\)</span>表示输入节点<span class="math inline">\(x_i\)</span>和隐藏节点<span class="math inline">\(h_j\)</span>之间的连接权，类似的：其中<span class="math inline">\(w^{(2)}_{ij}\)</span>表示输隐藏节点<span class="math inline">\(h_i\)</span>和输出节点<span class="math inline">\(o_j\)</span>之间的连接权。</strong></p>
+<p>定义代价函数：</p>
+<p><span class="math display">\[Cost(h)= \frac{1}{2} \sum_i^m(h-y)^2\]</span></p>
+<p>这是最普通的代价函数，当然在logstical regression里面还有其他的定义方法，这里就不多说了。</p>
+<p>定义激活函数：</p>
+<p><span class="math inline">\(sigmoid(x)=\frac{1}{1+e^{-x}}\)</span></p>
+<p>同样激活函数也不是唯一的，还有tanh等其他的选择，这只是最普通的一种。</p>
+<p>激活函数的梯度:</p>
+<p><span class="math display">\[dsigmoid(x) = \frac{\partial sigmoid(x)}{\partial x}=sigmoid(x) \times (1 - sigmoid(x))\]</span></p>
+<p>定义一个神经单元的结构如下：</p>
+<div class="figure">
+<img src="/myImg/神经元结构.png">
+
+</div>
+<p>其中<span class="math inline">\(z=w^TX+b, a=sigmoid(z)\)</span></p>
+<p>在执行过程中b隐藏在w中，a是该神经元的输出，也是下一层神经元的输入。</p>
+<p>注意：我这里所讲的BP是累积BP，是综合开绿所有的样本的代价函数。还有一种BP算法叫做标准BP每次对一个阳历进行梯度下降，适用于样本更多的情况，具体细节这里就不多说了。</p>
+<h4 id="隐藏层rightarrow输出层">隐藏层<span class="math inline">\(\rightarrow\)</span>输出层：</h4>
+<p>反向传播算法，说的就是误差反响传播。所以我们先来考虑<span class="math inline">\(w^{(2)}\)</span>即隐藏层和输出层之间的参数如何梯度下降。</p>
+<p>为了表达方便，在这部分<span class="math inline">\(w^{(2)}\)</span>我就直接写做<span class="math inline">\(w\)</span>了</p>
+<p>以<span class="math inline">\(w_{11}\)</span>（如图中红边）作为例子:</p>
+<div class="figure">
+<img src="/myImg/BP神经网络结构2.png">
+
+</div>
+<p>要更新<span class="math inline">\(w_{11}\)</span>，关键在于求当前状态，关于<span class="math inline">\(w_{11}\)</span>的梯度，也就是<span class="math inline">\(\frac{\partial Cost}{\partial w_{11}}\)</span></p>
+<p><span class="math display">\[\frac{\partial Cost}{\partial w_{11}} = \frac{\partial Cost}{\partial h_1} \frac{\partial h_1}{\partial z_2} \frac{\partial z_2}{\partial w_{11}} ,(这里的h_1就是神经单元结构中的a_{21}，就是输出层的a1)\]</span></p>
+<p>我们先来求$ $:</p>
+<p><span class="math display">\[\frac{\partial Cost}{\partial h_1} =\sum_0^m(h_1^{(i)}-y_1^{(i)})\]</span></p>
+<p>然后是$ $:</p>
+<p><span class="math display">\[\frac{\partial h_1}{\partial z_2} =dsigmoid(z_2)\]</span></p>
+<p>这里定义：</p>
+<p><span class="math display">\[\sigma^{(2)}_1= \frac{\partial Cost}{\partial h_1} \frac{\partial h_1}{\partial z_1} \]</span></p>
+<p>表示在第一个输出层神经元产生的误差</p>
+<p>最后是<span class="math inline">\(\frac{\partial z_2}{\partial w_{11}}\)</span>,这一项很简单，这就是<span class="math inline">\(a_{11}\)</span>即，隐藏层的第一个输出（除去偏置单元）。</p>
+<p>向量化代码表示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sigma2 = (h - y) * dsigmoid(z2)  <span class="comment"># (ny, m)</span></span><br><span class="line">dw2 = (a1 @ sigma2.T) / m  <span class="comment"># (h, n_y)</span></span><br></pre></td></tr></table></figure>
+<h4 id="输入层隐藏层">输入层$$隐藏层:</h4>
+<p><span class="math inline">\(w^{(1)}\)</span>的更新其实和<span class="math inline">\(w^{(2)}\)</span>类似。以下<span class="math inline">\(w_{(1)}\)</span>也简写作<span class="math inline">\(w\)</span></p>
+<p>以<span class="math inline">\(w_{11}\)</span>（如图中红边）作为例子:</p>
+<div class="figure">
+<img src="/myImg/BP神经网络结构3.png">
+
+</div>
+<p>值得注意的，也是和<span class="math inline">\(w^{(2)}\)</span>更新不同的是：这里的误差来与连个地方，一个是<span class="math inline">\(o_1\)</span>，一个是<span class="math inline">\(o_2\)</span></p>
+<p><span class="math display">\[\frac{\partial Cost}{\partial w_{11}} = \frac{\partial Cost}{\partial a_1} \frac{\partial a_1}{\partial z_1} \frac{\partial z_1}{\partial w_{11}} \]</span></p>
+<p>先来求<span class="math inline">\(\frac{\partial Cost}{\partial a_1}\)</span></p>
+<p><span class="math display">\[\frac{\partial Cost}{\partial a_1} = \frac{\partial Cost}{\partial z_2}\frac{\partial z_2}{\partial a_1}=\sigma_2 \frac{\partial z_2}{\partial a_1}\]</span></p>
+<p>**这里的、z_2, _2都是矩阵，最后的乘法也是矩阵乘法，表示误差来自多个神经单元，即来自上图中两条绿边**</p>
+<p>$ <span class="math inline">\(和\)</span><span class="math inline">\(都很简单，分别是\)</span>sigmoid(z_1)<span class="math inline">\(和\)</span>x_1$</p>
+<p>向量化代码表示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sigma1 = w2[<span class="number">1</span>:, :].reshape(hidden_size, ny) @ sigma2 * dsigmoid(z1)</span><br><span class="line">dw1 = (X @ sigma1.T) / m  <span class="comment">#  (n, h)</span></span><br></pre></td></tr></table></figure>
+<h3 id="例子">例子</h3>
+<p>最后是求解异或等逻辑运算的神经网络及其BP训练过程的</p>
+<h4 id="代码">代码</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">X = np.array([[<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>],</span><br><span class="line">              [<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>]])</span><br><span class="line"></span><br><span class="line">y = np.array([[<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],  <span class="comment"># 与</span></span><br><span class="line">              [<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>],  <span class="comment"># 于非</span></span><br><span class="line">              [<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>],  <span class="comment"># 或</span></span><br><span class="line">              [<span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>],  <span class="comment"># 或非</span></span><br><span class="line">              [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>]])  <span class="comment"># 异或</span></span><br><span class="line"></span><br><span class="line">hidden_size = <span class="number">5</span>  <span class="comment"># 隐藏层节点数量（不包括偏置单元）</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span><span class="params">(z)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> / (<span class="number">1</span> + np.exp(-z))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dsigmoid</span><span class="params">(z)</span>:</span>  <span class="comment"># sigmoid的梯度</span></span><br><span class="line">    <span class="keyword">return</span> sigmoid(z) * (<span class="number">1</span> - sigmoid(z))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(w1, w2, X, y)</span>:</span>  <span class="comment"># 前向传播</span></span><br><span class="line">    (n, m) = X.shape</span><br><span class="line">    z1 = w1.T @ np.concatenate((np.ones(m).reshape(<span class="number">1</span>, m), X))</span><br><span class="line">    a1 = sigmoid(z1)</span><br><span class="line">    z2 = w2.T @ np.concatenate((np.ones(m).reshape(<span class="number">1</span>, m), a1))</span><br><span class="line">    h = sigmoid(z2)</span><br><span class="line">    cost = np.mean(np.power((h - y), <span class="number">2</span>)) / <span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> z1, a1, z2, h, cost  <span class="comment"># 所有返回不包含偏置单元的信息，因为偏执单元不需要梯度下降</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">back_regression</span><span class="params">(w1, w2, X, y, epoch=<span class="number">1000</span>, learning_rate=<span class="number">0.01</span>)</span>:</span>  <span class="comment"># 反向传播</span></span><br><span class="line">    (n, m) = X.shape  <span class="comment"># 特征数量, 样本数量</span></span><br><span class="line">    ny = y.shape[<span class="number">0</span>]</span><br><span class="line">    cost_list = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(epoch):</span><br><span class="line">        z1, a1, z2, h, cost = forward(w1, w2, X, y)</span><br><span class="line">        cost_list.append(cost)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 求梯度</span></span><br><span class="line">        <span class="comment"># 隐藏层 -&gt; 输出层</span></span><br><span class="line">        sigma2 = (h - y) * dsigmoid(z2)  <span class="comment"># (ny, m)</span></span><br><span class="line">        dw2 = (a1 @ sigma2.T) / m  <span class="comment"># (h, n_y)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 输入层 -&gt; 隐藏层</span></span><br><span class="line">        sigma1 = w2[<span class="number">1</span>:, :].reshape(hidden_size, ny) @ sigma2 * dsigmoid(z1)</span><br><span class="line">        dw1 = (X @ sigma1.T) / m  <span class="comment"># (n, h)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 偏置单元不变</span></span><br><span class="line">        dw2 = np.concatenate((np.zeros(ny).reshape(<span class="number">1</span>, ny), dw2))</span><br><span class="line">        dw1 = np.concatenate(</span><br><span class="line">            (np.zeros(hidden_size).reshape(<span class="number">1</span>, hidden_size), dw1))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 参数更新</span></span><br><span class="line">        w1 = w1 - learning_rate * dw1</span><br><span class="line">        w2 = w2 - learning_rate * dw2</span><br><span class="line">    <span class="keyword">return</span> w1, w2, cost_list</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    w1 = np.random.randn(X.shape[<span class="number">0</span>] + <span class="number">1</span>, hidden_size)</span><br><span class="line">    w2 = np.random.randn(hidden_size + <span class="number">1</span>, y.shape[<span class="number">0</span>])</span><br><span class="line">    z1, a1, z2, h, cost = forward(w1, w2, X, y)</span><br><span class="line">    w1, w2, costs = back_regression(w1, w2, X, y, <span class="number">20000</span>, <span class="number">0.1</span>)</span><br><span class="line">    z1, a1, z2, h, cost = forward(w1, w2, X, y)</span><br><span class="line">    print(h)</span><br><span class="line">    <span class="comment"># 画出代价函数变化图</span></span><br><span class="line">    fig, ax = plt.subplots(figsize=(<span class="number">8</span>, <span class="number">6</span>))</span><br><span class="line">    ax.plot(costs)</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<h3 id="参考">参考</h3>
+<p>知乎<a href="https://www.zhihu.com/question/27239198?rf=24827633" class="uri" target="_blank" rel="noopener">https://www.zhihu.com/question/27239198?rf=24827633</a></p>
+<p>Charlotte77的博客<a href="http://www.cnblogs.com/charlotte77/p/5629865.html" class="uri" target="_blank" rel="noopener">http://www.cnblogs.com/charlotte77/p/5629865.html</a> 注：更详细的推导过程可以看该博客</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      sun000
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://sun000.cn/2018/05/18/BP-NeuralNetwork-原理及实现/" title="BP-NeuralNetwork-原理及实现">http://sun000.cn/2018/05/18/BP-NeuralNetwork-原理及实现/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <div>
+      
+      
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+            <a href="/tags/神经网络/" rel="tag"># 神经网络</a>
+          
+            <a href="/tags/反向传播算法/" rel="tag"># 反向传播算法</a>
+          
+        </div>
+      
+
+      
+
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/16/常见随机变量及其概率分布/" rel="next" title="常见随机变量及其概率分布">
+                <i class="fa fa-chevron-left"></i> 常见随机变量及其概率分布
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="sun000" />
+          <p class="site-author-name" itemprop="name">sun000</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">50</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">54</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sun000" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:sun000mail@gmail.com" target="_blank" title="Mail">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Mail
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#历史"><span class="nav-number">1.</span> <span class="nav-text">历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算图"><span class="nav-number">2.1.</span> <span class="nav-text">计算图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法流程"><span class="nav-number">3.</span> <span class="nav-text">算法流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隐藏层rightarrow输出层"><span class="nav-number">3.1.</span> <span class="nav-text">隐藏层\(\rightarrow\)输出层：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输入层隐藏层"><span class="nav-number">3.2.</span> <span class="nav-text">输入层$$隐藏层:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-number">4.</span> <span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">4.1.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sun000</span>
+</div>
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("pCtF3OhOOsz3TI1xAYV1gwAB-gzGzoHsz", "TYLHOkBEmhoO5Mb39xoNMAHY");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+</body>
+</html>
