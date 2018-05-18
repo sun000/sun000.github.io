@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://sun000.cn/myImg/神经元结构.png">
 <meta property="og:image" content="http://sun000.cn/myImg/BP神经网络结构2.png">
 <meta property="og:image" content="http://sun000.cn/myImg/BP神经网络结构3.png">
-<meta property="og:updated_time" content="2018-05-18T04:56:45.725Z">
+<meta property="og:updated_time" content="2018-05-18T04:59:57.030Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BP-NeuralNetwork-原理及实现">
 <meta name="twitter:description" content="历史 1969年M.Minsky和S.Papert所著的《感知机》一书出版，它对单层神经网络进行了深入分析，并且从数学上证明了这种网络功能有限，甚至不能解决象&amp;quot;异或&amp;quot;这样的简单逻辑运算问题。同时，他们还发现有许多模式是不能用单层网络训练的，而对于多层网络则没有行之有效的低复杂度算法，最后他们甚至认为神经元网络无法处理非线性问题。然而于1974年，Paul Werbos首次给出了">
@@ -480,7 +480,7 @@
 <p>先来求<span class="math inline">\(\frac{\partial Cost}{\partial a_1}\)</span></p>
 <p><span class="math display">\[\frac{\partial Cost}{\partial a_1} = \frac{\partial Cost}{\partial z_2}\frac{\partial z_2}{\partial a_1}=\sigma_2 \frac{\partial z_2}{\partial a_1}\]</span></p>
 <p>**这里的、z_2, _2都是矩阵，最后的乘法也是矩阵乘法，表示误差来自多个神经单元，即来自上图中两条绿边**</p>
-<p>$ <span class="math inline">\(和\)</span><span class="math inline">\(都很简单，分别是\)</span>sigmoid(z_1)<span class="math inline">\(和\)</span>x_1$</p>
+<p>$ $ 和 <span class="math inline">\(\frac{\partial z_1}{\partial w_{11}}\)</span>都很简单，分别是<span class="math inline">\(sigmoid(z_1)\)</span>和 <span class="math inline">\(x_1\)</span></p>
 <p>向量化代码表示：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sigma1 = w2[<span class="number">1</span>:, :].reshape(hidden_size, ny) @ sigma2 * dsigmoid(z1)</span><br><span class="line">dw1 = (X @ sigma1.T) / m  <span class="comment">#  (n, h)</span></span><br></pre></td></tr></table></figure>
 <h3 id="例子">例子</h3>
