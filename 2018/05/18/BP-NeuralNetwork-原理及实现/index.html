@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://sun000.cn/myImg/神经元结构.png">
 <meta property="og:image" content="http://sun000.cn/myImg/BP神经网络结构2.png">
 <meta property="og:image" content="http://sun000.cn/myImg/BP神经网络结构3.png">
-<meta property="og:updated_time" content="2018-05-18T04:59:57.030Z">
+<meta property="og:updated_time" content="2018-05-18T05:01:18.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BP-NeuralNetwork-原理及实现">
 <meta name="twitter:description" content="历史 1969年M.Minsky和S.Papert所著的《感知机》一书出版，它对单层神经网络进行了深入分析，并且从数学上证明了这种网络功能有限，甚至不能解决象&amp;quot;异或&amp;quot;这样的简单逻辑运算问题。同时，他们还发现有许多模式是不能用单层网络训练的，而对于多层网络则没有行之有效的低复杂度算法，最后他们甚至认为神经元网络无法处理非线性问题。然而于1974年，Paul Werbos首次给出了">
@@ -468,7 +468,7 @@
 <p>最后是<span class="math inline">\(\frac{\partial z_2}{\partial w_{11}}\)</span>,这一项很简单，这就是<span class="math inline">\(a_{11}\)</span>即，隐藏层的第一个输出（除去偏置单元）。</p>
 <p>向量化代码表示：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sigma2 = (h - y) * dsigmoid(z2)  <span class="comment"># (ny, m)</span></span><br><span class="line">dw2 = (a1 @ sigma2.T) / m  <span class="comment"># (h, n_y)</span></span><br></pre></td></tr></table></figure>
-<h4 id="输入层隐藏层">输入层$$隐藏层:</h4>
+<h4 id="输入层-rightarrow-隐藏层">输入层 <span class="math inline">\(\rightarrow\)</span> 隐藏层:</h4>
 <p><span class="math inline">\(w^{(1)}\)</span>的更新其实和<span class="math inline">\(w^{(2)}\)</span>类似。以下<span class="math inline">\(w_{(1)}\)</span>也简写作<span class="math inline">\(w\)</span></p>
 <p>以<span class="math inline">\(w_{11}\)</span>（如图中红边）作为例子:</p>
 <div class="figure">
@@ -719,7 +719,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#历史"><span class="nav-number">1.</span> <span class="nav-text">历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算图"><span class="nav-number">2.1.</span> <span class="nav-text">计算图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法流程"><span class="nav-number">3.</span> <span class="nav-text">算法流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隐藏层rightarrow输出层"><span class="nav-number">3.1.</span> <span class="nav-text">隐藏层\(\rightarrow\)输出层：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输入层隐藏层"><span class="nav-number">3.2.</span> <span class="nav-text">输入层$$隐藏层:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-number">4.</span> <span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">4.1.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#历史"><span class="nav-number">1.</span> <span class="nav-text">历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">2.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算图"><span class="nav-number">2.1.</span> <span class="nav-text">计算图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法流程"><span class="nav-number">3.</span> <span class="nav-text">算法流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隐藏层rightarrow输出层"><span class="nav-number">3.1.</span> <span class="nav-text">隐藏层\(\rightarrow\)输出层：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输入层-rightarrow-隐藏层"><span class="nav-number">3.2.</span> <span class="nav-text">输入层 \(\rightarrow\) 隐藏层:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例子"><span class="nav-number">4.</span> <span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">4.1.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
