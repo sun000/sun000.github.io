@@ -10,8 +10,8 @@
       <tags>
         <tag>机器学习</tag>
         <tag>神经网络</tag>
+        <tag>反向传播算法</tag>
         <tag>手写识别</tag>
-        <tag>反香传播算法</tag>
       </tags>
   </entry>
   <entry>
@@ -458,8 +458,8 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>图论</tag>
         <tag>DP</tag>
+        <tag>图论</tag>
         <tag>贪心</tag>
         <tag>BITSET</tag>
         <tag>背包</tag>
