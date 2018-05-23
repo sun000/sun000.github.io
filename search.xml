@@ -220,8 +220,8 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>暴力</tag>
         <tag>ACM</tag>
+        <tag>暴力</tag>
         <tag>字符串</tag>
       </tags>
   </entry>
@@ -276,8 +276,8 @@
       <tags>
         <tag>ACM</tag>
         <tag>数学</tag>
-        <tag>STL</tag>
         <tag>多校</tag>
+        <tag>STL</tag>
       </tags>
   </entry>
   <entry>
@@ -355,8 +355,8 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>暴力</tag>
         <tag>ACM</tag>
+        <tag>暴力</tag>
       </tags>
   </entry>
   <entry>
@@ -379,10 +379,10 @@
         <category>ACM</category>
       </categories>
       <tags>
+        <tag>ACM</tag>
+        <tag>暴力</tag>
         <tag>数据结构</tag>
         <tag>莫队</tag>
-        <tag>暴力</tag>
-        <tag>ACM</tag>
       </tags>
   </entry>
   <entry>
@@ -393,9 +393,9 @@
         <category>ACM</category>
       </categories>
       <tags>
+        <tag>暴力</tag>
         <tag>数据结构</tag>
         <tag>莫队</tag>
-        <tag>暴力</tag>
       </tags>
   </entry>
   <entry>
@@ -498,8 +498,8 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>博弈</tag>
         <tag>ACM</tag>
+        <tag>博弈</tag>
         <tag>NIM</tag>
       </tags>
   </entry>
@@ -539,8 +539,8 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>暴力</tag>
         <tag>ACM</tag>
+        <tag>暴力</tag>
       </tags>
   </entry>
   <entry>
@@ -615,8 +615,8 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>博弈</tag>
         <tag>ACM</tag>
+        <tag>博弈</tag>
       </tags>
   </entry>
   <entry>
