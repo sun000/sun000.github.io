@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[BP-NeuralNetwork手写数字识别]]></title>
+    <url>%2F2018%2F05%2F21%2FBP-NeuralNetwork%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E8%AF%86%E5%88%AB%2F</url>
+    <content type="text"><![CDATA[我上一篇博客中写了BP算法的一些数学公式的推导，但是其中的代码不够形式化，只能解决特定的问题。所以这次写了一个适合更多问题的代码。 BP原理就不多说了。可以看上一篇博客。传送门 这次我做的主要是解决手写识别问题。 主要是为了练习BP的形式化写法，所以也没有交叉验证什么的。主要是实现吴恩达老师的deep learning中的程序流程。 主要流程图： 在写代码的过程中发现的主要几个问题是： 有的时候将数据进行中心化，反而会使模型变差。我在这里刚开始对X进行了中心化，但是结果并不好（也有可能是我的打开方式不对。。。） 第二个问题就是，在多分类模型中。直接使用二分类的损失函数，并不是很好。就拿这个例子来说，这里一共有10个标签，对于每一个样本就只有一个标签是对的，如果直接使用最朴素的损失函数,那么也就是每一种分类的损失的权重是一样的。但是误分类的情况有9种，而正确的只有一种，那么也就导致了正确分类和错误分类的损失权值不平衡。所以分类准确率非常差。我目前还没有学习到正确的解决方法。自己YY的方式，是在计算损失函数的时候，给正样本乘上一个权值。我选的是1024不要问我为什么。希望在以后的学习中能够解决这个问题。 代码： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142#!/usr/bin/env python3import numpy as npimport matplotlib.pyplot as pltfrom sklearn import datasetsfrom sklearn.metrics import classification_report # 这个包是评价报告def sigmoid(z): return 1 / (1 + np.exp(-z))def linear(z): return zdef sigmoid_gradient(z): return sigmoid(z) * (1 - sigmoid(z))def linear_gradient(z): return np.ones(z.shape, keepdims=True)def activate(z, method=linear): return method(z)def activate_gradition(z, method=linear_gradient): return method(z)def transform_target(Y): y_matrix = [] for k in range(0, 10): y_matrix.append((Y == k).astype(int)) return np.array(y_matrix)def paraments_init(layer_dims): np.random.seed(7) L = len(layer_dims) # 总的深度 w = [0] # 保存每一层的w,先放入一个0是为了有效参数下标从1开始，方便操作 b = [0] # 保存每一层的b,先放入一个0是为了有效参数下标从1开始，方便操作 for l in range(1, L): w.append(np.random.randn(layer_dims[l - 1], layer_dims[l])) b.append(np.zeros((layer_dims[l], 1))) return w, b # 返回参数listdef forward(W, b, X, activation): # 前向传播 Z = [0] A = [X] L = len(W) for l in range(1, L): Z.append(W[l].T @ A[l - 1] + b[l]) A.append(activate(Z[l], activation[l])) return Z, Adef cost(h, Y): return -np.mean(1024 * Y * np.log(h) + (1 - Y) * np.log(1 - h))def backward(W, b, Z, A, Y, activation_gradition, learning_rate=0.01): L = len(W) m = Y.shape[1] dA = - 1024 * Y / A[L - 1] + (1 - Y) / (1 - A[L - 1]) for l in reversed(range(1, L)): dZ = dA * activate_gradition(Z[l], activation_gradition[l]) dW = A[l - 1] @ dZ.T / m db = np.mean(dZ, axis=1, keepdims=True) dA = W[l] @ dZ W[l] -= learning_rate * dW b[l] -= learning_rate * db return W, bdef BP_model(X, Y, layer_dims, activation, activation_gradition, learning_rate=0.01, epoch=1000): W, b = paraments_init(layer_dims) L = len(layer_dims) costs = [] for e in range(epoch): Z, A = forward(W, b, X, activation) if e % 50 == 0: costs.append(cost(A[L - 1], Y)) W, b = backward(W, b, Z, A, Y, activation_gradition, learning_rate) return W, b, costsdef predict(W, b, X, activation): Z, A = forward(W, b, X, activation) h = np.argmax(A[len(A) - 1], axis=0) return hdef cal_accuracy(h, Y_raw): return np.mean((h == Y_raw).astype(int)) * 100def main(): # 数据加载 digits = datasets.load_digits() X = digits.data.T Y_raw = digits.target Y = transform_target(Y_raw) # 数据分割 random_index = np.arange(X.shape[1]) np.random.shuffle(random_index) test_m = (int)(X.shape[1] * 0.3) test_X = X[:, 0:test_m] test_Y = Y[:, 0:test_m] test_Y_raw = Y_raw[0:test_m] X = X[:, test_m:] Y = Y[:, test_m:] Y_raw = Y_raw[test_m:] # 网络定义 layer_dims = [X.shape[0], 30, 15, Y.shape[0]] activation = [linear, sigmoid, sigmoid, sigmoid] activation_gradition = [linear_gradient, sigmoid_gradient, sigmoid_gradient, sigmoid_gradient] # 训练 W, b, costs = BP_model(X, Y, layer_dims, activation, activation_gradition, 0.015, 8000) # 损失函数图 # plt.plot(costs) # plt.show() # 准确度 h = predict(W, b, X, activation) print(classification_report(Y_raw, h)) print(cal_accuracy(h, Y_raw)) # 预测 test_h = predict(W, b, test_X, activation) print(classification_report(test_Y_raw, test_h)) print(cal_accuracy(test_h, test_Y_raw))if __name__ == '__main__': main()]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+        <tag>神经网络</tag>
+        <tag>手写识别</tag>
+        <tag>反香传播算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[BP-NeuralNetwork-原理及实现]]></title>
     <url>%2F2018%2F05%2F18%2FBP-NeuralNetwork-%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0%2F</url>
     <content type="text"><![CDATA[历史 1969年M.Minsky和S.Papert所著的《感知机》一书出版，它对单层神经网络进行了深入分析，并且从数学上证明了这种网络功能有限，甚至不能解决象&quot;异或&quot;这样的简单逻辑运算问题。同时，他们还发现有许多模式是不能用单层网络训练的，而对于多层网络则没有行之有效的低复杂度算法，最后他们甚至认为神经元网络无法处理非线性问题。然而于1974年，Paul Werbos首次给出了如何训练一般网络的学习算法—back propagation。这个算法可以高效的计算每一次迭代过程中的梯度，让以上我们的推导得以实现！！ 不巧的是，在当时整个人工神经网络社群中无人知晓Paul所提出的学习算法。直到80年代中期，BP算法才重新被David Rumelhart、Geoffrey Hinton及Ronald Williams、David Parker和Yann LeCun独立发现，并获得了广泛的注意，引起了人工神经网络领域研究的第二次热潮。 简介 好了，现在让我们来了解一下BP神经网络是如何学习的。 计算图 首先，我们来讲一讲计算图的概念。我将\(e = (a + b) \times (b+1)\)画成一张计算图。如下： 假设输入a=2，b=1，在这种情况下，我们很容易求出相邻节点之间的偏导关系: 用链式法则 \[\frac{\partial e}{\partial a} =\frac{\partial e}{\partial c} \frac{\partial c}{\partial a} \] \[\frac{\partial e}{\partial b} = \frac{\partial e}{\partial c} \frac{\partial c}{\partial b} + \frac{\partial e}{\partial d} \frac{\partial d}{\partial b}\] \(\frac{\partial e}{\partial a}\)的值就是e到a路径上的偏导数乘积，类似的，\(\frac{\partial e}{\partial b}\)是从e到b的两条路径的偏导数乘积和。类似的可以推出网状结构的偏导数求法。这也是TensorFlow的实现原理之一。 这种情况下偏导很容易求得，因为我们已经知道网络的函数关系式，e=（a+b）*（b+1），这是一个没有权值干预，已知输入与输出之间关系的网络。实际当中我们只是知道e与输出之间的关系，就是上面说的C=（y-t）^2，而且会有成千上万的权值和偏置干预求导的过程。那么换个思路，能不能求输出对结果的偏导呢？ 再利用上图的关系。节点c对e偏导2并将结果堆放起来，节点d对e偏导3并将结果堆放起来，至此第二层完毕，求出各节点总堆放量并继续向下一层发送。节点c向a发送21并对堆放起来，节点c向b发送21并堆放起来，节点d向b发送\(3*1\)并堆放起来，至此第三层完毕，节点a堆放起来的量为2，节点b堆放起来的量为\(2*1+3*1=5\), 即顶点e对b的偏导数为5。简要的概括，就是从最上层的节点e开始，以层为单位进行处理。对于e的下一层的所有子节点，将1乘以e到某个节点路径上的偏导值，并将结果“堆放”在该子节点中。等e所在的层按照这样传播完毕后，第二层的每一个节点都“堆放&quot;些值，然后我们针对每个节点，把它里面所有“堆放”的值求和，就得到了顶点e对该节点的偏导。然后将这些第二层的节点各自作为起始顶点，初始值设为顶点e对它们的偏导值，以&quot;层&quot;为单位重复上述传播过程，即可求出顶点e对每一层节点的偏导数。 算法流程 在这里我举一个例子，关于用两层BP神经网络来求解异或(XOR)。 很显然这是一个非线性方程的求解过程。 假设当前有如下网络： 定义权值\(w^{(1)},w^{(2)}\)分别是输入层到隐藏层，隐藏层到输出层的链接权，其中阈值b在\(w\)中隐形表达，偏置节点\(x_0,h_0\)的值始终为1。 其中\(w^{(1)}_{ij}\)表示输入节点\(x_i\)和隐藏节点\(h_j\)之间的连接权，类似的：其中\(w^{(2)}_{ij}\)表示输隐藏节点\(h_i\)和输出节点\(o_j\)之间的连接权。 定义代价函数： \[Cost(h)= \frac{1}{2} \sum_i^m(h-y)^2\] 这是最普通的代价函数，当然在logstical regression里面还有其他的定义方法，这里就不多说了。 定义激活函数： \[sigmoid(x)=\frac{1}{1+e^{-x}}\] 同样激活函数也不是唯一的，还有tanh等其他的选择，这只是最普通的一种。 激活函数的梯度: \[dsigmoid(x) = \frac{\partial sigmoid(x)}{\partial x}=sigmoid(x) \times (1 - sigmoid(x))\] 定义一个神经单元的结构如下： 其中\(z=w^TX+b, a=sigmoid(z)\) 在执行过程中b隐藏在w中，a是该神经元的输出，也是下一层神经元的输入。 注意：我这里所讲的BP是累积BP，是综合开绿所有的样本的代价函数。还有一种BP算法叫做标准BP每次对一个阳历进行梯度下降，适用于样本更多的情况，具体细节这里就不多说了。 隐藏层 -&gt; 输出层： 反向传播算法，说的就是误差反响传播。所以我们先来考虑\(w^{(2)}\)即隐藏层和输出层之间的参数如何梯度下降。 为了表达方便，在这部分\(w^{(2)}\)我就直接写做\(w\)了 以\(w_{11}\)（如图中红边）作为例子: 要更新\(w_{11}\)，关键在于求当前状态，关于\(w_{11}\)的梯度，也就是\(\frac{\partial Cost}{\partial w_{11}}\) \[\frac{\partial Cost}{\partial w_{11}} = \frac{\partial Cost}{\partial h_1} \frac{\partial h_1}{\partial z_2} \frac{\partial z_2}{\partial w_{11}} ,(这里的h_1就是神经单元结构中的a_{21}，就是输出层的a1)\] 我们先来求$ $: \[\frac{\partial Cost}{\partial h_1} =\sum_0^m(h_1^{(i)}-y_1^{(i)})\] 然后是$ $: \[\frac{\partial h_1}{\partial z_2} =dsigmoid(z_2)\] 这里定义： \[\sigma^{(2)}_1= \frac{\partial Cost}{\partial h_1} \frac{\partial h_1}{\partial z_1} \] 表示在第一个输出层神经元产生的误差 最后是\(\frac{\partial z_2}{\partial w_{11}}\),这一项很简单，这就是\(a_{11}\)即，隐藏层的第一个输出（除去偏置单元）。 向量化代码表示： 12sigma2 = (h - y) * dsigmoid(z2) # (ny, m)dw2 = (a1 @ sigma2.T) / m # (h, n_y) 输入层 -&gt; 隐藏层: \(w^{(1)}\)的更新其实和\(w^{(2)}\)类似。以下\(w_{(1)}\)也简写作\(w\) 以\(w_{11}\)（如图中红边）作为例子: 值得注意的，也是和\(w^{(2)}\)更新不同的是：这里的误差来与连个地方，一个是\(o_1\)，一个是\(o_2\) \[\frac{\partial Cost}{\partial w_{11}} = \frac{\partial Cost}{\partial a_1} \frac{\partial a_1}{\partial z_1} \frac{\partial z_1}{\partial w_{11}} \] 先来求\(\frac{\partial Cost}{\partial a_1}\) \[\frac{\partial Cost}{\partial a_1} = \frac{\partial Cost}{\partial z_2}\frac{\partial z_2}{\partial a_1}=\sigma_2 \frac{\partial z_2}{\partial a_1}\] 这里的\(z_2, \sigma_2\)都是矩阵，最后的乘法也是矩阵乘法，表示误差来自多个神经单元，即来自上图中两条绿边 \[\frac{\partial a_1}{\partial z_1} = dsigmoid(z_1) \] \[\frac{\partial z_1}{\partial w_{11}}=x_1\] 向量化代码表示： 12sigma1 = w2[1:, :].reshape(hidden_size, ny) @ sigma2 * dsigmoid(z1)dw1 = (X @ sigma1.T) / m # (n, h) 例子 最后是求解异或等逻辑运算的神经网络及其BP训练过程的 代码 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879#!/usr/bin/env pythonimport numpy as npimport matplotlib.pyplot as pltX = np.array([[0, 0, 1, 1], [1, 0, 1, 0]])y = np.array([[0, 0, 1, 0], # 与 [1, 1, 0, 1], # 于非 [1, 0, 1, 1], # 或 [0, 1, 0, 0], # 或非 [0, 1, 1, 0]]) # 异或hidden_size = 5 # 隐藏层节点数量（不包括偏置单元）def sigmoid(z): return 1 / (1 + np.exp(-z))def dsigmoid(z): # sigmoid的梯度 return sigmoid(z) * (1 - sigmoid(z))def forward(w1, w2, X, y): # 前向传播 (n, m) = X.shape z1 = w1.T @ np.concatenate((np.ones(m).reshape(1, m), X)) a1 = sigmoid(z1) z2 = w2.T @ np.concatenate((np.ones(m).reshape(1, m), a1)) h = sigmoid(z2) cost = np.mean(np.power((h - y), 2)) / 2 return z1, a1, z2, h, cost # 所有返回不包含偏置单元的信息，因为偏执单元不需要梯度下降def back_regression(w1, w2, X, y, epoch=1000, learning_rate=0.01): # 反向传播 (n, m) = X.shape # 特征数量, 样本数量 ny = y.shape[0] cost_list = [] for i in range(epoch): z1, a1, z2, h, cost = forward(w1, w2, X, y) cost_list.append(cost) # 求梯度 # 隐藏层 -&gt; 输出层 sigma2 = (h - y) * dsigmoid(z2) # (ny, m) dw2 = (a1 @ sigma2.T) / m # (h, n_y) # 输入层 -&gt; 隐藏层 sigma1 = w2[1:, :].reshape(hidden_size, ny) @ sigma2 * dsigmoid(z1) dw1 = (X @ sigma1.T) / m # (n, h) # 偏置单元不变 dw2 = np.concatenate((np.zeros(ny).reshape(1, ny), dw2)) dw1 = np.concatenate( (np.zeros(hidden_size).reshape(1, hidden_size), dw1)) # 参数更新 w1 = w1 - learning_rate * dw1 w2 = w2 - learning_rate * dw2 return w1, w2, cost_listdef main(): w1 = np.random.randn(X.shape[0] + 1, hidden_size) w2 = np.random.randn(hidden_size + 1, y.shape[0]) z1, a1, z2, h, cost = forward(w1, w2, X, y) w1, w2, costs = back_regression(w1, w2, X, y, 20000, 0.1) z1, a1, z2, h, cost = forward(w1, w2, X, y) print(h) # 画出代价函数变化图 fig, ax = plt.subplots(figsize=(8, 6)) ax.plot(costs) plt.show()if __name__ == '__main__': main() 参考 知乎https://www.zhihu.com/question/27239198?rf=24827633 Charlotte77的博客http://www.cnblogs.com/charlotte77/p/5629865.html 注：更详细的推导过程可以看该博客]]></content>
@@ -206,8 +220,8 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>ACM</tag>
         <tag>暴力</tag>
+        <tag>ACM</tag>
         <tag>字符串</tag>
       </tags>
   </entry>
@@ -341,8 +355,8 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>ACM</tag>
         <tag>暴力</tag>
+        <tag>ACM</tag>
       </tags>
   </entry>
   <entry>
@@ -365,10 +379,10 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>ACM</tag>
-        <tag>暴力</tag>
         <tag>数据结构</tag>
         <tag>莫队</tag>
+        <tag>暴力</tag>
+        <tag>ACM</tag>
       </tags>
   </entry>
   <entry>
@@ -379,9 +393,9 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>暴力</tag>
         <tag>数据结构</tag>
         <tag>莫队</tag>
+        <tag>暴力</tag>
       </tags>
   </entry>
   <entry>
@@ -484,8 +498,8 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>ACM</tag>
         <tag>博弈</tag>
+        <tag>ACM</tag>
         <tag>NIM</tag>
       </tags>
   </entry>
@@ -525,8 +539,8 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>ACM</tag>
         <tag>暴力</tag>
+        <tag>ACM</tag>
       </tags>
   </entry>
   <entry>
@@ -601,8 +615,8 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>ACM</tag>
         <tag>博弈</tag>
+        <tag>ACM</tag>
       </tags>
   </entry>
   <entry>
