@@ -93,7 +93,8 @@
 <meta property="og:image" content="http://sun000.cn/myImg/RL浅谈2.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL浅谈3.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL浅谈4.png">
-<meta property="og:updated_time" content="2018-07-17T11:56:14.564Z">
+<meta property="og:image" content="http://sun000.cn/myImg/RL浅谈5.png">
+<meta property="og:updated_time" content="2018-07-17T11:57:48.637Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度增强学习（DRL）漫谈-从DQN到AlphaGo">
 <meta name="twitter:description" content="原文链接 深度增强学习（Deep reinforcement learning, DRL）是DeepMind（后被谷歌收购）近几近来重点研究且发扬光大的机器学习算法框架。两篇Nature上的奠基性论文（DQN和AlphaGo）使得DRL这一深度学习（Deep learning, DL）和增强学习（Reinforcement learning, RL）的交叉方向变得炙手可热。再加上多个影响较大的be">
@@ -457,8 +458,10 @@
 </div>
 <p>架构上，value network用于评估位置，policy network用于采样动作。流程上，学习分为几个阶段：第一阶段基于人类专家的数据集通过监督学习训练SL policy network。另外训练一个单独的策略用于在之后的rollout中快速选取动作。这一步更多是为了结合人类已有经验（毕竟纯靠自学习有些慢），用于后面几步作先验知识。接着，将SL policy network的参数来初始化RL policy network （该policy network用于之后在RL中通过self-play做策略搜索）。第二阶段是通过RL的policy gradient方法学习策略，通过随机梯度上升（Stochastic gradient ascent）算法来更新RL policy network参数。第三阶段，学习value network用于预测RL policy network玩游戏时的胜算，这一步使用随机梯度下降（Stochastic gradient descent，SGD）来最小化outcome（对当前状态而言围棋结束时的回报，即输赢）与V函数之间的差（用MSE表示）。最后，第四阶段中，有了上面的policy network和value network，就可以据此用MCST来进行搜索了。</p>
 <p>在最后一个阶段中，算法会通过MC模拟从根状态来往下单向遍历搜索树，这一阶段又可以分为选取（selection），扩展（expansion），评估（evaluation）和回溯（backup）四步。这其实也是MCST算法框架中的经典的四个步骤。只是AlphaGo在这个MCTS算法中结合了policy和value network。其中选取这步基于前面的value network取Q函数值最大的动作。注意这一步使用的是UCT族算法，它在动作选取时除Q函数值还会考虑一个代表未知程度的量，用于解决著名的exploration-exploitation问题。毕竟，我们的期望是程序不仅仅是复制人类的经验，而且能够超越。第二步扩展是针对搜索树中的叶子结点，使用的是RL policy network中学习到的策略。第三步评估有两种完全不同的方式：1. 通过value network。2.通过随机rollout直到结束（使用fast rollout policy，也就是之前的SL policy network）所得到的回报。这两者可通过参数进行调和。最后回溯这步即根据前面的搜索进行Q函数更新。 总得来说可以大体概括为下图：</p>
-<p>[](/myImg/RL浅谈5</p>
-<p>.png)</p>
+<div class="figure">
+<img src="/myImg/RL浅谈5.png">
+
+</div>
 <p>可以看到，今天的的人工智能和机器学习领域，工程和学术同样重要。一方面可能因为DL的特殊性，毕竟它基于的神经网络从一开始就是偏工程的；另一方面今天的工业与学术结合更加紧密，产业化速度大大加快。比如DRL的idea很好，但前提是要有工程能力证明它好。即使有人早几年想到了这个idea，它仍不一定能使它发在Nature这样的高级别刊物上。因为今天的DRL是工程和学术的充分结合。另外，这还提醒我们要重视学科或者说是方向的交叉。很多时候，一篇论文的学术价值取决于它能给后人留多少可以继续深究的东西。除了那些能自成一派的极端牛人，大多数时候能连接两个或多个方向并证明其价值所带来的影响就非常深远了。</p>
 
       
