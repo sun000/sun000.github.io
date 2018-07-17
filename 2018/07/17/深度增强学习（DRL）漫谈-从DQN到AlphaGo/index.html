@@ -81,23 +81,23 @@
 
 
 
-<meta name="description" content="原文链接 深度增强学习（Deep reinforcement learning, DRL）是DeepMind（后被谷歌收购）近几近来重点研究且发扬光大的机器学习算法框架。两篇Nature上的奠基性论文（DQN和AlphaGo）使得DRL这一深度学习（Deep learning, DL）和增强学习（Reinforceme">
+<meta name="description" content="最近刚刚开始学习Reinforcement Learning，看到一篇介绍博客写的比较好，转载一下。 原文链接 深度增强学习（Deep reinforcement learning, DRL）是DeepMind（后被谷歌收购）近几近来重点研究且发扬光大的机器学习算法框架。两篇Nature上的奠基性论文（DQN和Alph">
 <meta name="keywords" content="机器学习,强化学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深度增强学习（DRL）漫谈-从DQN到AlphaGo">
 <meta property="og:url" content="http://sun000.cn/2018/07/17/深度增强学习（DRL）漫谈-从DQN到AlphaGo/index.html">
 <meta property="og:site_name" content="sun000&#39;s blog">
-<meta property="og:description" content="原文链接 深度增强学习（Deep reinforcement learning, DRL）是DeepMind（后被谷歌收购）近几近来重点研究且发扬光大的机器学习算法框架。两篇Nature上的奠基性论文（DQN和AlphaGo）使得DRL这一深度学习（Deep learning, DL）和增强学习（Reinforcement learning, RL）的交叉方向变得炙手可热。再加上多个影响较大的be">
+<meta property="og:description" content="最近刚刚开始学习Reinforcement Learning，看到一篇介绍博客写的比较好，转载一下。 原文链接 深度增强学习（Deep reinforcement learning, DRL）是DeepMind（后被谷歌收购）近几近来重点研究且发扬光大的机器学习算法框架。两篇Nature上的奠基性论文（DQN和AlphaGo）使得DRL这一深度学习（Deep learning, DL）和增强学习（">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://sun000.cn/myImg/RL浅谈1.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL浅谈2.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL浅谈3.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL浅谈4.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL浅谈5.png">
-<meta property="og:updated_time" content="2018-07-17T11:57:48.637Z">
+<meta property="og:updated_time" content="2018-07-17T12:00:28.428Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深度增强学习（DRL）漫谈-从DQN到AlphaGo">
-<meta name="twitter:description" content="原文链接 深度增强学习（Deep reinforcement learning, DRL）是DeepMind（后被谷歌收购）近几近来重点研究且发扬光大的机器学习算法框架。两篇Nature上的奠基性论文（DQN和AlphaGo）使得DRL这一深度学习（Deep learning, DL）和增强学习（Reinforcement learning, RL）的交叉方向变得炙手可热。再加上多个影响较大的be">
+<meta name="twitter:description" content="最近刚刚开始学习Reinforcement Learning，看到一篇介绍博客写的比较好，转载一下。 原文链接 深度增强学习（Deep reinforcement learning, DRL）是DeepMind（后被谷歌收购）近几近来重点研究且发扬光大的机器学习算法框架。两篇Nature上的奠基性论文（DQN和AlphaGo）使得DRL这一深度学习（Deep learning, DL）和增强学习（">
 <meta name="twitter:image" content="http://sun000.cn/myImg/RL浅谈1.png">
 
 
@@ -410,7 +410,8 @@
       
 
       
-        <p><a href="http://blog.csdn.net/jinzhuojun/article/details/52752561" target="_blank" rel="noopener">原文链接</a></p>
+        <p>最近刚刚开始学习Reinforcement Learning，看到一篇介绍博客写的比较好，转载一下。</p>
+<p><a href="http://blog.csdn.net/jinzhuojun/article/details/52752561" target="_blank" rel="noopener">原文链接</a></p>
 <p>深度增强学习（Deep reinforcement learning, DRL）是DeepMind（后被谷歌收购）近几近来重点研究且发扬光大的机器学习算法框架。两篇Nature上的奠基性论文（DQN和AlphaGo）使得DRL这一深度学习（Deep learning, DL）和增强学习（Reinforcement learning, RL）的交叉方向变得炙手可热。再加上多个影响较大的benchmark（Atari 2600，围棋等）上漂亮的成绩使它如今倍受学术界和商业界的关注，甚至让人闻到了泡沫的味道。不管怎样，它还是非常成功地开创了新的方向，既具有极大学术价值也具有颇高的商业价值。尽管之后用于解决像围棋这样的大规模搜索问题，但DQN出现之初的最大意义在于算法的通用性。因为泛化性向来是机器学习最大的挑战之一，它才是机器和人相比弱太多的地方，也是很多机器学习算法最有待改进的地方。今天我们看各种小报上对人工智能研究成果的报道都喜欢断章取义，拿特定数据集上的准确性说事，虽然那也很牛X，但一定程度上忽略了通用性也是机器学习走向大众最大瓶颈之一的事实。</p>
 <p>今天我们就抱着“知其然知其所以然”的态度，看看它的演变历程。其实DQN并不是一蹴而就，它是基于一个古老的人工智能方向，即增强学习。增强学习不同与机器学习中其它两大类学习方法-监督学习（supervised learning, SL）和非监督学习（unsupervised learning, UL），其基本思想是借鉴人类学习的过程，让agent（智能体，或称学习体）通过不断试错来找寻最优策略，而我们只需要设置回报（奖励和惩罚）即可。但由于其局限性（比如强依赖于人工设计的特征质量等），长期处于不温不火的境地，直到DQN使它老树发新芽，重获新生。NIPS 2013论文《Playing Atari with Deep Reinforcement Learning》提出的深度Q学习（Deep Q-learning，DQN）是基于增强学习中的Q学习（Q-learning）。那我们就以它为切入点，来看一下Q-learning是怎么来的。Sutton的经典著作《Reinforcement Learning: An Introduction》中对常规的增强学习方法做了非常好的总结。我们就参考它粗糙地勾勒下Q-learning在其中的大体位置。</p>
 <div class="figure">
@@ -543,6 +544,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/07/17/浙大CAD测试题/" rel="prev" title="浙大CAD测试题">
+                浙大CAD测试题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -604,7 +609,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">56</span>
+                <span class="site-state-item-count">57</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -626,7 +631,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">60</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
