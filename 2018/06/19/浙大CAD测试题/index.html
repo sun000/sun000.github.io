@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="sun000&#39;s blog">
 <meta property="og:description" content="保研季了，有同学联系了CAD的老师布置了这道题目（不知道为啥老师没有让我做）。 虽然没有要求我做，不过我还是稍微的写了点，解决了一下这个小问题。 项目要求  浙大cad测试题目 请尽快完成下述试题并将结果发回： 问题说明：  给出分成m段 的n个浮点数，输入数据已按段号有序，但每段内部 无序。用C/C++ 编写一个分段双调排序(Bitonic sort)函数，对每一段内部的浮点数进行排序，但 不要">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-17T12:30:50.022Z">
+<meta property="og:updated_time" content="2018-07-17T12:33:03.061Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浙大CAD测试题">
 <meta name="twitter:description" content="保研季了，有同学联系了CAD的老师布置了这道题目（不知道为啥老师没有让我做）。 虽然没有要求我做，不过我还是稍微的写了点，解决了一下这个小问题。 项目要求  浙大cad测试题目 请尽快完成下述试题并将结果发回： 问题说明：  给出分成m段 的n个浮点数，输入数据已按段号有序，但每段内部 无序。用C/C++ 编写一个分段双调排序(Bitonic sort)函数，对每一段内部的浮点数进行排序，但 不要">
@@ -461,7 +461,7 @@
 <p>注意：有同学测试后将自己的答案放在了网上，我看到的几个实现都是有问题的，请注意甄别。</p>
 </blockquote>
 <h3 id="完成情况">完成情况</h3>
-<p>目前是完成了所有加分点，但是牺牲了<span class="math inline">\([2,\frac{9}{2}]\)</span>的时间复杂度，但是这个算法本身的重点就不在于时间复杂度，而是强调高度并行化，而且我也是为了完成所有的加分点，应试而已。况且常数倍的时间复杂度的牺牲，在从<span class="math inline">\(O(nlog(n))\)</span>到<span class="math inline">\(O(n^2)\)</span>的牺牲面前根本不算什么。</p>
+<p>目前是完成了所有加分点（当然了除了不能调用外部函数，只是我觉得这个没有必要，因为我调用的函数没有递归，如果要强行解决加分点的话，直接把函数复制到调用的地方就好了，但是这很难看啊，所以只能假装解决了所有加分点），但是牺牲了<span class="math inline">\([2,\frac{9}{2}]\)</span>的时间复杂度，但是这个算法本身的重点就不在于时间复杂度，而是强调高度并行化，而且我也是为了完成所有的加分点，应试而已。况且常数倍的时间复杂度的牺牲，在从<span class="math inline">\(O(nlog(n))\)</span>到<span class="math inline">\(O(n^2)\)</span>的牺牲面前根本不算什么。</p>
 <p>当然也有不牺牲时间复杂度的，但是没有取消递归的方法，我觉得还是比较好的。如：<a href="https://blog.csdn.net/ljiabin/article/details/8630627" target="_blank" rel="noopener">传送门</a></p>
 <p>再来讲讲我的主要优化方法，其实我的优化方法非常简单，甚至可以说是很无脑了。</p>
 <p>我模拟了冒泡排序的算法，将待排序的序列分段，视情况分成2或者3段，允许每段有重叠，但是所有的段必须覆盖原来的序列，且每一段的长度都是<span class="math inline">\(2^k\)</span>的。</p>
