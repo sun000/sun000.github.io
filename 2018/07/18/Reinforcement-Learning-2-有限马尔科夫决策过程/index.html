@@ -90,7 +90,7 @@
 <meta property="og:description" content="上一篇博客稍微介绍了一些强化学的基本概念，这次在讲有限马尔科夫决策过程（Finite Markov Decision Processes）之前，先对强化学习的模型来一个更详细的介绍。 基本概念 1. 规则（policy） Policy 定义了 agents 在特定的时间特定的环境下的行为方式，可以视为是从环境状态到行为的映射，常用 π来表示。policy 可以分为两类：  确定性的 policy（">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://sun000.cn/myImg/RL1_2.png">
-<meta property="og:updated_time" content="2018-07-18T04:32:23.711Z">
+<meta property="og:updated_time" content="2018-07-18T05:36:35.143Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reinforcement-Learning-2-有限马尔科夫决策过程">
 <meta name="twitter:description" content="上一篇博客稍微介绍了一些强化学的基本概念，这次在讲有限马尔科夫决策过程（Finite Markov Decision Processes）之前，先对强化学习的模型来一个更详细的介绍。 基本概念 1. 规则（policy） Policy 定义了 agents 在特定的时间特定的环境下的行为方式，可以视为是从环境状态到行为的映射，常用 π来表示。policy 可以分为两类：  确定性的 policy（">
@@ -425,7 +425,7 @@
 <p>Reward 定义的是立即的收益，而 value function 定义的是长期的收益，它可以看作是累计的 reward，常用 v 来表示。 </p>
 <p>通常我们有三种方法去表示value function，<span class="math inline">\(V^\pi(s)\)</span>：表示在<span class="math inline">\(\pi\)</span> policy下，从s状态开始到结束能获得的rewards的期望</p>
 <ul>
-<li><span class="math inline">\(V^\pi(s) = E_\pi[\sum_{t=0}^{T}r_t|s_0=s]\)</span></li>
+<li><span class="math inline">\(V^\pi(s) =E_\pi[\sum_{t=0}^{T}r_t|s_0=s]\)</span></li>
 <li><span class="math inline">\(V^\pi(s) = lim_{T \rightarrow \infty}E_\pi[\frac{1}{T}\sum_{t=0}^{T}r_t|s_0=s]\)</span></li>
 <li><span class="math inline">\(V^\pi(s) = E_\pi[\sum_{t=0}^{\infty}\gamma ^tr_t|s_0=s]\)</span></li>
 </ul>
@@ -444,8 +444,20 @@
 </div>
 <p>在每个时间步骤中，agent 都会实现一个从 states 到每个可能的 actions 的 probabilities 的映射(这里讲的是随机性ploicy模型，确定性的直接输出a)，这个映射函数就称作是这个 agent 的 policy，常用符号<span class="math inline">\(\pi_t\)</span>来表示，<span class="math inline">\(\pi_t(a|s)\)</span>指的就是在状态<span class="math inline">\(S_t=s\)</span>下选择执行<span class="math inline">\(A_t=a\)</span>的概率。</p>
 <p><strong>其实概括的来说，不同的 RL 方法的主要不同就是利用 experience 来改变自己的 πt 的方法，毕竟RL就是从 experience 中进行学习的一系列方法。</strong></p>
-<h4 id="goalsrewards">5. goals&amp;rewards</h4>
-<p>在RL中，goals和rewards是两个重要的概念，在每个时间步骤中，环境返回给 Agent 的 reward 就是一个简单的数值，而 Agent 的 goal 就是最大化它接受到的所有的 reward 的和，也就是说，它的目的不是最大化当前步骤的立即获得的 reward ，而是一个长远的目标( <span class="math inline">\(V^\pi(s)\)</span> )，并且需要注意的是，这个 reward 是由 environment 定义的而非 Agent。</p>
+<h4 id="goalsrewards">5. Goals&amp;Rewards</h4>
+<p>在RL中，goals和rewards是两个重要的概念，在每个时间步骤中，环境返回给 Agent 的 reward 就是一个简单的数值，而 Agent 的 goal 就是最大化它接受到的所有的 reward 的和，也就是说，它的目的不是最大化当前步骤的立即获得的 reward ，而是一个长远的目标，并且需要注意的是，这个 reward 是由 environment 定义的而非 Agent。</p>
+<h4 id="returns">6. Returns</h4>
+<p>上面提到了Agent的任务是要最大化Rewards的总和，那么我们来定义这个目标，令时间 t 获得的 reward 为 <span class="math inline">\(R_{t+1}, R_{t+2}, R_{t+3},...R_{T}\)</span>令 <span class="math inline">\(G_t\)</span> 代表return（<span class="math inline">\(V^\pi(S_t)\)</span>是$G_t $的估计），那么最简单的 return 的形式为： </p>
+<p><span class="math display">\[G_t=\sum_{i=t+1}^TR_i\]</span></p>
+<p>T表示的是最后一个步骤。</p>
+<p>这里需要再引入一个新的概念 episodes，翻译成中文的话就是“片段、插曲”的意思，这里指的是一个可以自然结束的 agent-environment 交互的过程，每个 episode 都会在一个特殊的状态下结束，这个状态就称作是 terminal state，因此每个 episode 的相同点是它们都以 terminal state 来结束，不同就是每个 episode 获得的 reward 不同，采用 episodes 形式的 tasks 就称为是 episodic tasks，在episodic tasks 中，常常将所有非终止的状态的集合记为是 S，而把包含终止状态的所有状态的集合记为是 S+。</p>
+<p>与 episode task 相对应的另外一种是 continuing tasks，它们指的是那些不会自然结束，会一直持续进行的 task，这时return公式（1）中的 T=∞。  　　</p>
+<p>还有一个比较重要的概念是 discounting，它是对未来不同时刻的 reward 赋予不同的权重，距离现在较近的 reward 的权重较高，而时间越远的权重越低，这时选择行为 At 的准则就是最大化期望的 discounted return：</p>
+<p><span class="math display">\[G_t=R_{t+1}+\gamma R_{t+2}+ \gamma^2R_{t+3}+...+\gamma^{T-1}R_T=\sum_{i=0}^\infty\gamma^iR_{i+t+1}\]</span> </p>
+<p>其中<span class="math inline">\(0 \leq \gamma \leq 1\)</span> 称为是 discount rate，它代表未来第 k 步的 reward 的价值只是当前立即获得的 reward 的<span class="math inline">\(\gamma^{k-1}\)</span>倍，若 <span class="math inline">\(\gamma &lt; 1\)</span>，则当序列 {Rk} 有界的时候 Gt 可以得到一个有限的值，若 γ=0，则认为这个 agent 是“myopic”（目光短浅的），它只关心当前的 rewards，选择下一个 <span class="math inline">\(A_t\)</span> 的准则就是最大化<span class="math inline">\(R_{t+1}\)</span>。γ 越趋近于 1，则这个 agent 越是具有“远见的”。</p>
+<p>逐渐忘记标题......</p>
+<p>接下来终于要讲有限马尔科夫决策了</p>
+<h3 id="有限马尔科夫决策">有限马尔科夫决策</h3>
 
       
     </div>
@@ -684,7 +696,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#规则policy"><span class="nav-number">1.1.</span> <span class="nav-text">1. 规则（policy）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#奖励信号a-reward-signal"><span class="nav-number">1.2.</span> <span class="nav-text">2. 奖励信号（a reward signal）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#值函数value-function"><span class="nav-number">1.3.</span> <span class="nav-text">3. 值函数（value function）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#环境模型a-model-of-the-environment"><span class="nav-number">1.4.</span> <span class="nav-text">4. 环境模型（a model of the environment）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#goalsrewards"><span class="nav-number">1.5.</span> <span class="nav-text">5. goals&rewards</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#规则policy"><span class="nav-number">1.1.</span> <span class="nav-text">1. 规则（policy）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#奖励信号a-reward-signal"><span class="nav-number">1.2.</span> <span class="nav-text">2. 奖励信号（a reward signal）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#值函数value-function"><span class="nav-number">1.3.</span> <span class="nav-text">3. 值函数（value function）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#环境模型a-model-of-the-environment"><span class="nav-number">1.4.</span> <span class="nav-text">4. 环境模型（a model of the environment）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#goalsrewards"><span class="nav-number">1.5.</span> <span class="nav-text">5. Goals&Rewards</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#returns"><span class="nav-number">1.6.</span> <span class="nav-text">6. Returns</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有限马尔科夫决策"><span class="nav-number">2.</span> <span class="nav-text">有限马尔科夫决策</span></a></li></ol></div>
             
 
           </div>
