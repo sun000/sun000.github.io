@@ -65,7 +65,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ACM,贪心,DFS," />
+  <meta name="keywords" content="机器学习,强化学习," />
 
 
 
@@ -81,18 +81,21 @@
 
 
 
-<meta name="description" content="题目链接 题目 Problem Description It is well known that Keima Katsuragi is The Capturing God because of his exceptional skills and experience in &apos;&apos;capturing">
-<meta name="keywords" content="ACM,贪心,DFS">
+<meta name="description" content="前言 强化学习 (Reinforcement Learning) 是一类用于复杂场景的机器学习算法，被广泛应用在机器控制任务中。近几年来，随着神经网络的重新兴起，强化学习也被逐渐应用在一些新的领域，比如自动驾驶，计算机视觉等。Alpha GO 战胜人类棋手标志着机器学习特别是强化学习正在逐渐成熟，成为能够推动人工智能取">
+<meta name="keywords" content="机器学习,强化学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HDU5242-Game">
-<meta property="og:url" content="http://sun000.cn/2017/09/12/HDU5242-Game/index.html">
+<meta property="og:title" content="Reinforcement-Learning-基本概念">
+<meta property="og:url" content="http://sun000.cn/2018/07/18/Reinforcement-Learning-基本概念/index.html">
 <meta property="og:site_name" content="sun000&#39;s blog">
-<meta property="og:description" content="题目链接 题目 Problem Description It is well known that Keima Katsuragi is The Capturing God because of his exceptional skills and experience in &apos;&apos;capturing&apos;&apos; virtual girls in gal games. He is able to play">
+<meta property="og:description" content="前言 强化学习 (Reinforcement Learning) 是一类用于复杂场景的机器学习算法，被广泛应用在机器控制任务中。近几年来，随着神经网络的重新兴起，强化学习也被逐渐应用在一些新的领域，比如自动驾驶，计算机视觉等。Alpha GO 战胜人类棋手标志着机器学习特别是强化学习正在逐渐成熟，成为能够推动人工智能取得突破的重要方向之一。本文旨在介绍强化学习中策略梯度（Policy Gradie">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-08T03:51:05.513Z">
+<meta property="og:image" content="http://sun000.cn/myImg/RL1_1.png">
+<meta property="og:image" content="http://sun000.cn/myImg/RL1_2.png">
+<meta property="og:updated_time" content="2018-07-18T01:55:06.907Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HDU5242-Game">
-<meta name="twitter:description" content="题目链接 题目 Problem Description It is well known that Keima Katsuragi is The Capturing God because of his exceptional skills and experience in &apos;&apos;capturing&apos;&apos; virtual girls in gal games. He is able to play">
+<meta name="twitter:title" content="Reinforcement-Learning-基本概念">
+<meta name="twitter:description" content="前言 强化学习 (Reinforcement Learning) 是一类用于复杂场景的机器学习算法，被广泛应用在机器控制任务中。近几年来，随着神经网络的重新兴起，强化学习也被逐渐应用在一些新的领域，比如自动驾驶，计算机视觉等。Alpha GO 战胜人类棋手标志着机器学习特别是强化学习正在逐渐成熟，成为能够推动人工智能取得突破的重要方向之一。本文旨在介绍强化学习中策略梯度（Policy Gradie">
+<meta name="twitter:image" content="http://sun000.cn/myImg/RL1_1.png">
 
 
 
@@ -120,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://sun000.cn/2017/09/12/HDU5242-Game/"/>
+  <link rel="canonical" href="http://sun000.cn/2018/07/18/Reinforcement-Learning-基本概念/"/>
 
 
 
 
 
-  <title> HDU5242-Game | sun000's blog </title>
+  <title> Reinforcement-Learning-基本概念 | sun000's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -299,7 +302,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://sun000.cn/2017/09/12/HDU5242-Game/">
+    <link itemprop="mainEntityOfPage" href="http://sun000.cn/2018/07/18/Reinforcement-Learning-基本概念/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sun000">
@@ -320,7 +323,7 @@
             
             
               
-                HDU5242-Game
+                Reinforcement-Learning-基本概念
               
             
           </h2>
@@ -335,8 +338,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T08:45:59+08:00">
-                2017-09-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-18T09:25:15+08:00">
+                2018-07-18
               </time>
             
 
@@ -358,8 +361,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ACM/" itemprop="url" rel="index">
-                    <span itemprop="name">ACM</span>
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
                   </a>
                 </span>
 
@@ -375,7 +378,7 @@
 
           
           
-             <span id="/2017/09/12/HDU5242-Game/" class="leancloud_visitors" data-flag-title="HDU5242-Game">
+             <span id="/2018/07/18/Reinforcement-Learning-基本概念/" class="leancloud_visitors" data-flag-title="Reinforcement-Learning-基本概念">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -404,23 +407,44 @@
       
 
       
-        <h3 id="题目链接"><a href="http://acm.hdu.edu.cn/showproblem.php?pid=5242" target="_blank" rel="noopener">题目链接</a></h3>
-<h3 id="题目">题目</h3>
-<h4 id="problem-description">Problem Description</h4>
-<p>It is well known that Keima Katsuragi is The Capturing God because of his exceptional skills and experience in ''capturing'' virtual girls in gal games. He is able to play k games simultaneously. One day he gets a new gal game named ''XX island''. There are n scenes in that game, and one scene will be transformed to different scenes by choosing different options while playing the game. All the scenes form a structure like a rooted tree such that the root is exactly the opening scene while leaves are all the ending scenes. Each scene has a value , and we use wi as the value of the i-th scene. Once Katsuragi entering some new scene, he will get the value of that scene. However, even if Katsuragi enters some scenes for more than once, he will get wi for only once. For his outstanding ability in playing gal games, Katsuragi is able to play the game k times simultaneously. Now you are asked to calculate the maximum total value he will get by playing that game for k times.</p>
-<h4 id="input">Input</h4>
-<p>The first line contains an integer T(T≤20), denoting the number of test cases. For each test case, the first line contains two numbers n,k(1≤k≤n≤100000), denoting the total number of scenes and the maximum times for Katsuragi to play the game ''XX island''. The second line contains n non-negative numbers, separated by space. The i-th number denotes the value of the i-th scene. It is guaranteed that all the values are less than or equal to 231−1. In the following n−1 lines, each line contains two integers a,b(1≤a,b≤n), implying we can transform from the a-th scene to the b-th scene. We assume the first scene(i.e., the scene with index one) to be the opening scene(i.e., the root of the tree).</p>
-<h4 id="output">Output</h4>
-<p>For each test case, output ''Case #t:'' to represent the t-th case, and then output the maximum total value Katsuragi will get.</p>
-<h4 id="sample-input">Sample Input</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">5 2</span><br><span class="line">4 3 2 1 1</span><br><span class="line">1 2</span><br><span class="line">1 5</span><br><span class="line">2 3</span><br><span class="line">2 4</span><br><span class="line">5 3</span><br><span class="line">4 3 2 1 1</span><br><span class="line">1 2</span><br><span class="line">1 5</span><br><span class="line">2 3</span><br><span class="line">2 4</span><br></pre></td></tr></table></figure>
-<h4 id="sample-output">Sample Output</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Case #1: 10</span><br><span class="line">Case #2: 11</span><br></pre></td></tr></table></figure>
-<h3 id="分析">分析</h3>
-<p>这题是一个贪心，由于每次选择的路径肯定是从根节点到一个叶结点的，则首先dfs计算出从根节点到叶子节点的路径上所有点的权值和，然后将叶结点按照路径权值和的从大到小排序，然后根据这个顺序向上走到根节点或则走到被选择的节点，计算权值和，然后计算出cnt（叶结点个数）个权值和，然后从大到小排序，选前k条路就是最优的路。</p>
-<p>贪心证明：考虑一般情况，有一颗子树：a有两个子节点b和c，假设根节点到b的路径权值和比较大，则选择b向上走到一个已经被选择的节点或者根节点肯定比c要更优，因为b和c的最近公共祖先是a的根节点，且最近公共祖先到b和c的路径都没有被染色，则考虑更复杂的情况，可以发现，<strong>对于同一棵子树之中，叶子到子树根节点的路径权值和的偏序关系和根节点到该叶节点的路径权值和的偏序关系是相同的。</strong></p>
-<h3 id="代码">代码</h3>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e5</span> +<span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; G[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> val[MAXN], g[MAXN]; </span><br><span class="line"><span class="keyword">int</span> fa[MAXN], d[MAXN], cnt;</span><br><span class="line"><span class="keyword">bool</span> vis[MAXN]; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> val[a] &gt; val[b];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; G[s].size(); i++) &#123;</span><br><span class="line">        val[G[s][i]] += val[s];</span><br><span class="line">        dfs(G[s][i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!G[s].size()) d[cnt++] = s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> <span class="title">getNum</span><span class="params">(<span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(!vis[k]) &#123;</span><br><span class="line">        ret += g[k];</span><br><span class="line">        vis[k] = <span class="literal">true</span>;</span><br><span class="line">        k = fa[k];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t, n, k, u, v;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> cas = <span class="number">1</span>; cas &lt;= t; cas++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;k);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            G[i].clear();</span><br><span class="line">            vis[i] = <span class="literal">false</span>;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;val[i]);</span><br><span class="line">            g[i] = val[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n- <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;u, &amp;v);</span><br><span class="line">            fa[v] = u;</span><br><span class="line">            G[u].push_back(v);</span><br><span class="line">        &#125;</span><br><span class="line">        cnt = <span class="number">0</span>;</span><br><span class="line">        dfs(<span class="number">1</span>);</span><br><span class="line">        sort(d, d + cnt, cmp);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; cnt; i++) &#123;</span><br><span class="line">            val[i] = getNum(d[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        sort(val, val + cnt);</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = cnt - <span class="number">1</span>; i &gt;= cnt - k; i--)</span><br><span class="line">            ans += val[i];</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Case #%d: %lld\n"</span>,cas, ans);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2 id="前言">前言</h2>
+<p>强化学习 (Reinforcement Learning) 是一类用于复杂场景的机器学习算法，被广泛应用在机器控制任务中。近几年来，随着神经网络的重新兴起，强化学习也被逐渐应用在一些新的领域，比如自动驾驶，计算机视觉等。Alpha GO 战胜人类棋手标志着机器学习特别是强化学习正在逐渐成熟，成为能够推动人工智能取得突破的重要方向之一。本文旨在介绍强化学习中策略梯度（Policy Gradient）方法的基本原理及相关概念，并着重介绍作者在学习过程中遇到的一些难点，如目标函数和实现技术。</p>
+<h2 id="强化学习">强化学习</h2>
+<p>当前的机器学习算法可以分为3种：有监督的学习（Supervised Learning）、无监督的学习（Unsupervised Learning）和强化学习（Reinforcement Learning），结构图如下所示： </p>
+<div class="figure">
+<img src="/myImg/RL1_1.png">
+
+</div>
+<p>强化学习是机器学习的一个分支，但是它与我们常见监督式学习不太一样。从学习方式上讲强化学习更加接近人类的学习，记得作者小时候玩新的电子游戏的时候，虽然看不懂屏幕的提示，但是经过自己的摸索也能掌握游戏方法，这个摸索的过程其实就是通过试错逐渐了解</p>
+<h3 id="强化学习的基本构成">强化学习的基本构成</h3>
+<div class="figure">
+<img src="/myImg/RL1_2.png">
+
+</div>
+<p><strong>主体</strong>（Agent）：指能够通过动作与环境交互的对象，强化学习中主体通常是运行中的算法，比如在游戏中的主体是用于控制本方球拍的算法</p>
+<p><strong>环境</strong>（Environment）：指主体动作作用的对象， 比如游戏本身。</p>
+<p><strong>动作</strong> （Action）: 指所有可能作用于环境上的操作，比如游戏中算法控制球拍上下移动。</p>
+<p><strong>状态</strong> （State）: 指可被主体感知的关于环境的信息，比如游戏中屏幕显示的球和球拍的位置以及移动方向和速度信息。</p>
+<p><strong>奖励</strong> （Reward）: 指由环境回馈给主体的描述上一个动作效果的信息，比如游戏中球拍动作导致双方的得分变化。</p>
+<p>强化学习的过程是一个通过和环境交互获得反馈，再根据反馈调整动作以期使总奖励最大化的过程，这个是一个多步 (multi timestep) 的交互的过程，每一步交互都会影响其后的所有步骤。强化学习中的一次交互是指主体对环境施加一个动作，环境的状态发生改变并且回馈给主体一个奖励（奖励既可以是正向的，如本方得分增加；也可以是负向的，如对方得分增加）。强化学习的目标就是寻找一个最优的策略使得整个学习过程（从开始状态到终结状态）获得的奖励最大化。</p>
+<p>在实现上，强化学习是一个通过多个轮次逐渐优化算法的参数从而增强学习效果的过程，每个轮次包含两部分：前向反馈（feed forward）和反向传播（back propagation）。处于初始状态的主体根据算法的当前参数生成动作作用于环境，环境返回给主体新的状态和对动作的奖励，在轮次结束后算法通过汇总所有在本轮收集到的反馈调整算法的参数开始下一轮的学习，直到学习的效果不再增强。</p>
+<h3 id="rl与有监督学习无监督学习的比较">RL与有监督学习、无监督学习的比较</h3>
+<ol style="list-style-type: decimal">
+<li>有监督的学习是从一个已经标记的训练集中进行学习，训练集中每一个样本的特征可以视为是对该situation的描述，而其label可以视为是应该执行的正确的action，但是有监督的学习不能学习交互的情景，因为在交互的问题中获得期望行为的样例是非常不实际的，agent只能从自己的经历（experience）中进行学习，而experience中采取的行为并一定是最优的。这时利用RL就非常合适，因为RL不是利用正确的行为来指导，而是利用已有的训练信息来对行为进行评价。</li>
+<li>因为RL利用的并不是采取正确行动的experience，从这一点来看和无监督的学习确实有点像，但是还是不一样的，无监督的学习的目的可以说是从一堆未标记样本中发现隐藏的结构，而RL的目的是最大化reward signal。 </li>
+<li>总的来说，RL与其他机器学习算法不同的地方在于：其中没有监督者，只有一个reward信号；反馈是<strong>延迟</strong>的，不是立即生成的；时间在RL中具有重要的意义；agent的行为会影响之后一系列的data。 </li>
+</ol>
+<h3 id="rl的主要特点">RL的主要特点</h3>
+<p>其他许多机器学习算法中学习器都是学得怎样做，而RL是在尝试的过程中学习到在特定的情境下选择哪种行动可以得到最大的回报。在很多场景中，当前的行动不仅会影响当前的rewards，还会影响之后的状态和一系列的rewards。RL最重要的3个特定在于：</p>
+<ol style="list-style-type: decimal">
+<li>基本是以一种闭环的形式</li>
+<li>不会直接指示选择哪种行动（actions）</li>
+<li>一系列的actions和奖励信号（reward signals）都会影响之后较长的时间。</li>
+</ol>
+<p>增强学习是机器学习中一个非常活跃且有趣的领域，相比其他学习方法，增强学习更接近生物学习的本质，因此有望获得更高的智能，这一点在棋类游戏中已经得到体现。Tesauro(1995)描述的TD-Gammon程序，使用增强学习成为了世界级的西洋双陆棋选手。这个程序经过150万个自生成的对弈训练后，已经近似达到了人类最佳选手的水平，并在和人类顶级高手的较量中取得40 盘仅输1盘的好成绩。</p>
+<h2 id="参考">参考</h2>
+<p>[1] R.Sutton et al. Reinforcement learning: An introduction , 1998</p>
+<p>[2] UCL Course on RL</p>
 
       
     </div>
@@ -449,7 +473,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://sun000.cn/2017/09/12/HDU5242-Game/" title="HDU5242-Game">http://sun000.cn/2017/09/12/HDU5242-Game/</a>
+      <a href="http://sun000.cn/2018/07/18/Reinforcement-Learning-基本概念/" title="Reinforcement-Learning-基本概念">http://sun000.cn/2018/07/18/Reinforcement-Learning-基本概念/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -475,11 +499,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ACM/" rel="tag"># ACM</a>
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
-            <a href="/tags/贪心/" rel="tag"># 贪心</a>
-          
-            <a href="/tags/DFS/" rel="tag"># DFS</a>
+            <a href="/tags/强化学习/" rel="tag"># 强化学习</a>
           
         </div>
       
@@ -493,8 +515,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/12/HDU5245-Joyful/" rel="next" title="HDU5245-Joyful">
-                <i class="fa fa-chevron-left"></i> HDU5245-Joyful
+              <a href="/2018/07/17/深度增强学习（DRL）漫谈-从DQN到AlphaGo/" rel="next" title="深度增强学习（DRL）漫谈-从DQN到AlphaGo">
+                <i class="fa fa-chevron-left"></i> 深度增强学习（DRL）漫谈-从DQN到AlphaGo
               </a>
             
           </div>
@@ -502,10 +524,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/08/CodeForces-869c-The-Intriguing-Obsession/" rel="prev" title="CodeForces-869c-The-Intriguing-Obsession">
-                CodeForces-869c-The-Intriguing-Obsession <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -663,7 +681,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目链接"><span class="nav-number">1.</span> <span class="nav-text">题目链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">2.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#problem-description"><span class="nav-number">2.1.</span> <span class="nav-text">Problem Description</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#input"><span class="nav-number">2.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#output"><span class="nav-number">2.3.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sample-input"><span class="nav-number">2.4.</span> <span class="nav-text">Sample Input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sample-output"><span class="nav-number">2.5.</span> <span class="nav-text">Sample Output</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">3.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">4.</span> <span class="nav-text">代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强化学习"><span class="nav-number">2.</span> <span class="nav-text">强化学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强化学习的基本构成"><span class="nav-number">2.1.</span> <span class="nav-text">强化学习的基本构成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rl与有监督学习无监督学习的比较"><span class="nav-number">2.2.</span> <span class="nav-text">RL与有监督学习、无监督学习的比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rl的主要特点"><span class="nav-number">2.3.</span> <span class="nav-text">RL的主要特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
