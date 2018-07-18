@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://sun000.cn/myImg/RL2_2.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL2_3.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL2_4.png">
-<meta property="og:updated_time" content="2018-07-18T07:16:25.227Z">
+<meta property="og:updated_time" content="2018-07-18T09:18:11.473Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reinforcement-Learning-2-有限马尔科夫决策过程&amp;Bellman方程">
 <meta name="twitter:description" content="上一篇博客稍微介绍了一些强化学的基本概念，这次在讲有限马尔科夫决策过程（Finite Markov Decision Processes）之前，先对强化学习的模型来一个更详细的介绍。 基本概念 1. 规则（policy） Policy 定义了 agents 在特定的时间特定的环境下的行为方式，可以视为是从环境状态到行为的映射，常用 π来表示。policy 可以分为两类：  确定性的 policy（">
@@ -535,12 +535,12 @@
 <p>求出V或者Q就等于解决了强化学习问题，因为V和Q能指示出一个策略<span class="math inline">\(\pi\)</span></p>
 <p>经过马尔科夫模型的转化，得到数学问题如下：</p>
 <blockquote>
-<p>Reinforcement Learning目标：得到一个最优策略<span class="math inline">\(\pi*\)</span></p>
+<p>Reinforcement Learning目标：得到一个最优策略<span class="math inline">\(\pi*​\)</span></p>
 <p>最优策略：<span class="math inline">\(\pi*=\{\pi(s)|s\in S\}\)</span></p>
 <p>其中每个状态下的策略<span class="math inline">\(\pi(s)\)</span>又有两种表示方法，分别是用state和state-action的值函数来表示:</p>
 <ul>
 <li><span class="math inline">\(\pi(s)=argmax_aV^\pi(s&#39;|s,a), s&#39;\in S(s)\)</span></li>
-<li><span class="math inline">\(\pi(s)=atgmax_aQ^\pi(s,a)\)</span></li>
+<li><span class="math inline">\(\pi(s)=argmax_aQ^\pi(s,a)\)</span></li>
 </ul>
 <p>等价于</p>
 <ul>
@@ -673,6 +673,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/07/18/Reinforcement-Learning-3-算法介绍/" rel="prev" title="Reinforcement-Learning-3-算法介绍">
+                Reinforcement-Learning-3-算法介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -743,7 +747,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-count">60</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

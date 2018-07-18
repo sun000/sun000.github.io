@@ -65,7 +65,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="ACM,DP,构造," />
+  <meta name="keywords" content="机器学习,强化学习," />
 
 
 
@@ -81,20 +81,20 @@
 
 
 
-<meta name="description" content="题目链接 题目 —This is not playing but duty as allies of justice, Nii-chan! — Not allies but justice itself, Onii-chan! With hands joined, go everywhere at a speed fa">
-<meta name="keywords" content="ACM,DP,构造">
+<meta name="description" content="前两篇博客把Reinforcement Learning的基本概念，以及所规约成的数学问题介绍了一下，这篇博客我们主要来讲一讲解决当前数学问题的方法。 在这之前我们先明确几个强化学习的术语 强化学习的术语 学习任务可分为两类：  情节性任务(episodic tasks) 指（强化学习的问题）会在有限步骤下结束。比如：">
+<meta name="keywords" content="机器学习,强化学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CodeForces-869c-The-Intriguing-Obsession">
-<meta property="og:url" content="http://sun000.cn/2017/10/08/CodeForces-869c-The-Intriguing-Obsession/index.html">
+<meta property="og:title" content="Reinforcement-Learning-3-算法介绍">
+<meta property="og:url" content="http://sun000.cn/2018/07/18/Reinforcement-Learning-3-算法介绍/index.html">
 <meta property="og:site_name" content="sun000&#39;s blog">
-<meta property="og:description" content="题目链接 题目 —This is not playing but duty as allies of justice, Nii-chan! — Not allies but justice itself, Onii-chan! With hands joined, go everywhere at a speed faster than our thoughts! This time, the F">
+<meta property="og:description" content="前两篇博客把Reinforcement Learning的基本概念，以及所规约成的数学问题介绍了一下，这篇博客我们主要来讲一讲解决当前数学问题的方法。 在这之前我们先明确几个强化学习的术语 强化学习的术语 学习任务可分为两类：  情节性任务(episodic tasks) 指（强化学习的问题）会在有限步骤下结束。比如：围棋。 连续性任务(continuing tasks) 指（强化学习的问题）有无">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://sun000.cn/myImg/cf-869c.jpg">
-<meta property="og:updated_time" content="2018-03-08T03:50:44.827Z">
+<meta property="og:image" content="http://sun000.cn/myImg/RL3_1.png">
+<meta property="og:updated_time" content="2018-07-18T13:39:00.629Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CodeForces-869c-The-Intriguing-Obsession">
-<meta name="twitter:description" content="题目链接 题目 —This is not playing but duty as allies of justice, Nii-chan! — Not allies but justice itself, Onii-chan! With hands joined, go everywhere at a speed faster than our thoughts! This time, the F">
-<meta name="twitter:image" content="http://sun000.cn/myImg/cf-869c.jpg">
+<meta name="twitter:title" content="Reinforcement-Learning-3-算法介绍">
+<meta name="twitter:description" content="前两篇博客把Reinforcement Learning的基本概念，以及所规约成的数学问题介绍了一下，这篇博客我们主要来讲一讲解决当前数学问题的方法。 在这之前我们先明确几个强化学习的术语 强化学习的术语 学习任务可分为两类：  情节性任务(episodic tasks) 指（强化学习的问题）会在有限步骤下结束。比如：围棋。 连续性任务(continuing tasks) 指（强化学习的问题）有无">
+<meta name="twitter:image" content="http://sun000.cn/myImg/RL3_1.png">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://sun000.cn/2017/10/08/CodeForces-869c-The-Intriguing-Obsession/"/>
+  <link rel="canonical" href="http://sun000.cn/2018/07/18/Reinforcement-Learning-3-算法介绍/"/>
 
 
 
 
 
-  <title> CodeForces-869c-The-Intriguing-Obsession | sun000's blog </title>
+  <title> Reinforcement-Learning-3-算法介绍 | sun000's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -301,7 +301,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://sun000.cn/2017/10/08/CodeForces-869c-The-Intriguing-Obsession/">
+    <link itemprop="mainEntityOfPage" href="http://sun000.cn/2018/07/18/Reinforcement-Learning-3-算法介绍/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sun000">
@@ -322,7 +322,7 @@
             
             
               
-                CodeForces-869c-The-Intriguing-Obsession
+                Reinforcement-Learning-3-算法介绍
               
             
           </h2>
@@ -337,8 +337,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-08T13:12:59+08:00">
-                2017-10-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-18T21:09:02+08:00">
+                2018-07-18
               </time>
             
 
@@ -360,8 +360,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ACM/" itemprop="url" rel="index">
-                    <span itemprop="name">ACM</span>
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
                   </a>
                 </span>
 
@@ -377,7 +377,7 @@
 
           
           
-             <span id="/2017/10/08/CodeForces-869c-The-Intriguing-Obsession/" class="leancloud_visitors" data-flag-title="CodeForces-869c-The-Intriguing-Obsession">
+             <span id="/2018/07/18/Reinforcement-Learning-3-算法介绍/" class="leancloud_visitors" data-flag-title="Reinforcement-Learning-3-算法介绍">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -406,50 +406,163 @@
       
 
       
-        <h3 id="题目链接"><a href="http://codeforces.com/problemset/problem/869/C" target="_blank" rel="noopener">题目链接</a></h3>
-<h3 id="题目">题目</h3>
-<p>—This is not playing but duty as allies of justice, Nii-chan!</p>
-<p>— Not allies but justice itself, Onii-chan!</p>
-<p>With hands joined, go everywhere at a speed faster than our thoughts! This time, the Fire Sisters — Karen and Tsukihi — is heading for somewhere they've never reached — water-surrounded islands!</p>
-<p>There are three clusters of islands, conveniently coloured red, blue and purple. The clusters consist of <em>a</em>, <em>b</em> and <em>c</em> distinct islands respectively.</p>
-<p>Bridges have been built between some (possibly all or none) of the islands. A bridge bidirectionally connects two different islands and has length 1. For any two islands of the same colour, either they shouldn't be reached from each other through bridges, or the shortest distance between them is at least 3, apparently in order to prevent oddities from spreading quickly inside a cluster.</p>
-<p>The Fire Sisters are ready for the unknown, but they'd also like to test your courage. And you're here to figure out the number of different ways to build all bridges under the constraints, and give the answer modulo 998 244 353. Two ways are considered different if a pair of islands exist, such that there's a bridge between them in one of them, but not in the other.</p>
-<h3 id="input">Input</h3>
-<p>The first and only line of input contains three space-separated integers <em>a</em>, <em>b</em> and <em>c</em> (1 ≤ <em>a</em>, <em>b</em>, <em>c</em> ≤ 5 000) — the number of islands in the red, blue and purple clusters, respectively.</p>
-<h3 id="output">Output</h3>
-<p>Output one line containing an integer — the number of different ways to build bridges, modulo 998 244 353.</p>
-<h3 id="examples">Examples</h3>
-<h4 id="input-1">input</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 1 1</span><br></pre></td></tr></table></figure>
-<h4 id="output-1">output</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">8</span><br></pre></td></tr></table></figure>
-<h4 id="input-2">input</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 2 2</span><br></pre></td></tr></table></figure>
-<h4 id="output-2">output</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">63</span><br></pre></td></tr></table></figure>
-<h4 id="input-3">input</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 3 5</span><br></pre></td></tr></table></figure>
-<h4 id="output-3">output</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3264</span><br></pre></td></tr></table></figure>
-<h4 id="input-4">input</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">6 2 9</span><br></pre></td></tr></table></figure>
-<h4 id="output-4">output</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">813023575</span><br></pre></td></tr></table></figure>
-<h3 id="note">Note</h3>
-<p>In the first example, there are 3 bridges that can possibly be built, and no setup of bridges violates the restrictions. Thus the answer is 23 = 8.</p>
-<p>In the second example, the upper two structures in the figure below are instances of valid ones, while the lower two are invalid due to the blue and purple clusters, respectively.</p>
+        <p>前两篇博客把Reinforcement Learning的基本概念，以及所规约成的数学问题介绍了一下，这篇博客我们主要来讲一讲解决当前数学问题的方法。</p>
+<p>在这之前我们先明确几个强化学习的术语</p>
+<h3 id="强化学习的术语">强化学习的术语</h3>
+<h4 id="学习任务可分为两类">学习任务可分为两类：</h4>
+<ul>
+<li>情节性任务(episodic tasks) 指（强化学习的问题）会在有限步骤下结束。比如：围棋。</li>
+<li>连续性任务(continuing tasks) 指（强化学习的问题）有无限步骤。一个特征是：没有结束。比如：让一个立在指尖上的长棍不倒。（</li>
+</ul>
+<h4 id="学习的方法">学习的方法：</h4>
+<ul>
+<li>online-policy方法(online-policy methods) 评估的策略和优化的策略是同一个。</li>
+<li>offline-policy方法(offline-policy methods) 评估的策略和优化的策略不是同一个。意味着优化策略使用来自外部的模拟数据。</li>
+</ul>
+<h4 id="学习的算法">学习的算法：</h4>
+<ul>
+<li>预测算法(predication algorithms) 计算每个状态的价值v(s)。然后预测(可以得到最大回报的)最优行动。</li>
+<li>控制算法(predication algorithms) 计算每个状态下每个行动的价值q(s,a)。</li>
+</ul>
+<h4 id="学习的方法-1">学习的方法：</h4>
+<ul>
+<li><p>列表方法(tabular methods) 指使用表格存储每个状态（或者状态-行动）的价值。</p></li>
+<li><p>近似方法(approximation methods) 指使用一个函数来计算状态（或者状态-行动）的价值。</p></li>
+<li><p>模型(model) 环境的模型。可以模拟环境，模拟行动的结果。 Dynamic Programming need a model。</p></li>
+<li><p>基于模型的方法(model-base methods) 通过模型来模拟。可以模拟行动，获得（状态或者行动）价值。</p></li>
+</ul>
+<blockquote>
+<p>注：这个模拟叫做模型模拟。</p>
+</blockquote>
+<ul>
+<li>无模型的方法(model-free methods) 使用试错法(trial-and-error)来获得（状态或者行动）价值。</li>
+</ul>
+<blockquote>
+<p>注：这个模拟叫做试错、试验、模拟等。</p>
+<p>无模型的方法，可以用于有模型的环境。</p>
+</blockquote>
+<ul>
+<li><p>引导性(bootstrapping) （状态或者行动）价值是根据其它的（状态或者行动）价值计算得到的。</p></li>
+<li><p>取样性(sampling) （状态或者行动）价值，或者部分值（比如：奖赏）是取样得到的。 引导性和取样性并不是对立的。可以是取样的，并且是引导的。</p></li>
+</ul>
+<h4 id="强化学习分类">强化学习分类</h4>
 <div class="figure">
-<img src="/myImg/cf-869c.jpg" alt="img">
-<p class="caption">img</p>
+<img src="/myImg/RL3_1.png">
+
 </div>
-<h3 id="分析">分析</h3>
-<p>由于任意两种颜色的影响是独立的，所以可以综合考虑任意两种颜色之间的连接情况，然后把三个数乘起来，就是最后的答案。</p>
-<p>考虑两种颜色之间的方案数目。</p>
-<p>dp[i][j]表示的是两种颜色分别为i个和j个之间的颜色，则现在考虑i表示的颜色增加了一个点，则这个点和j表示的颜色相连的方案数目是<span class="math inline">\(j * dp[i][j - 1]\)</span>,若不与j中任意一个颜色相连则是<span class="math inline">\(dp[i][j]\)</span></p>
-<p>则<span class="math display">\[dp[i + 1][j] = j * dp[i ][j - 1] + dp[i ][j]\]</span></p>
-<p>即<span class="math display">\[dp[i][j] = j * dp[i - 1][j - 1] + dp[i - 1][j]\]</span></p>
-<h3 id="代码">代码</h3>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> MOD = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">5e3</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> dp[MAXN][MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; MAXN; i++)</span><br><span class="line">        dp[i][<span class="number">0</span>] = dp[<span class="number">0</span>][i] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; MAXN; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; MAXN; j++) &#123;</span><br><span class="line">            dp[i][j] = (j * <span class="number">1L</span>L * dp[i - <span class="number">1</span>][j - <span class="number">1</span>] + dp[i - <span class="number">1</span>][j]) % MOD;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    init();</span><br><span class="line">    <span class="keyword">int</span> a, b, c;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;a, &amp;b, &amp;c);</span><br><span class="line">    <span class="keyword">int</span> ans = ((<span class="number">1L</span>L *  dp[a][b] * dp[a][c]) % MOD) * dp[b][c] % MOD;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="如何选择算法">如何选择算法</h3>
+<blockquote>
+<ul>
+<li>如果有一个模型，可以获得价值函数v(s)或者q(s,a)的值 → 动态规划方法</li>
+<li>如果可以模拟一个完整的情节 → 蒙特卡罗方法</li>
+<li>如果需要在模拟一个情节中间就要学习策略 → 时序差分方法</li>
+<li>λ-return用来优化近似方法中的误差。</li>
+<li>资格迹(Eligibility traces)用来优化近似方法中的，价值函数的微分。</li>
+<li>预测方法是求状态价值方法V(s)或者<span class="math inline">\(\hat{V}(s, \theta )\)</span></li>
+<li>控制方法是求行动价值方法Q(s,a)或者<span class="math inline">\(\hat{Q}(s, a, \theta)\)</span></li>
+<li>策略梯度方法(Policy Gradient Methods)是求策略方法<span class="math inline">\(\pi(a|s,\theta)\)</span></li>
+</ul>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th align="center">算法类别</th>
+<th align="center">需要模型</th>
+<th align="center">引导性</th>
+<th align="center">情节性任务</th>
+<th align="center">连续性任务</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">动态规划方法</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">-</td>
+<td align="center">-</td>
+</tr>
+<tr class="even">
+<td align="center">蒙特卡罗方法</td>
+<td align="center">N</td>
+<td align="center">N</td>
+<td align="center">Y</td>
+<td align="center">N</td>
+</tr>
+<tr class="odd">
+<td align="center">时序差分方法</td>
+<td align="center">N</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+</tr>
+<tr class="even">
+<td align="center">策略梯度方法</td>
+<td align="center">N</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+<td align="center">Y</td>
+</tr>
+</tbody>
+</table>
+<h3 id="算法列表">算法列表</h3>
+<p>这里只是做简要的介绍，其中几个主流算法会单独编写博客讲解。</p>
+<h4 id="动态规划dynamic-programming">动态规划(Dynamic Programming)</h4>
+<p>动态规划是基于模型的方法。</p>
+<blockquote>
+<p>注：一个常见的考虑是将每个action的reward设为-1，期望的结果<span class="math inline">\(V(S_t)\)</span>为0。</p>
+</blockquote>
+<ul>
+<li>Iterative policy evaluation 使用随机策略<span class="math inline">\(\pi(a|s)\)</span>来迭代计算<span class="math inline">\(v(s)\)</span></li>
+<li>Policy iteration (using iterative policy evaluation) 通过使用迭代策略<span class="math inline">\(\pi(s)\)</span>来优化了计算<span class="math inline">\(V(s)\)</span>部分。但是，还是使用了期望值。</li>
+<li>Value iteration 优化了整个流程，直接用行动的最大回报作为<span class="math inline">\(V(s)\)</span>的值。</li>
+</ul>
+<h4 id="蒙特卡罗方法monte-carlo-method">蒙特卡罗方法(Monte Carlo Method)</h4>
+<ul>
+<li>First-visit MC policy evaluation (returns V≈v) 在每个情节中，记录状态s第一个G。v(s)=avg(G(s))</li>
+<li>Monte Carlo ES (Exploring Starts) 从一个特定起始点的蒙特卡罗方法。 变成了计算q(s,a)。</li>
+<li>On-policy first-visit MC control (for ϵ-soft policies) 在探索中使用了ϵ-soft策略。</li>
+<li>Incremental off-policy every-visit MC policy evaluation 支持off-policy。</li>
+<li>Off-policy every-visit MC control (returns π≈π∗) 使用了贪婪策略来支持off-policy。</li>
+</ul>
+<h4 id="时序差分方法temporal-difference-learning">时序差分方法(Temporal-Difference Learning)</h4>
+<p>时序差分方法的思想是：</p>
+<ol style="list-style-type: decimal">
+<li>在一个情节进行过程中学习。 比如：计算到公司的时间问题。早上晚起了10分钟，可以认为会比以往晚到10分钟。而不用完成从家到公司整个过程。</li>
+<li>视为蒙特卡罗方法的通用化。蒙特卡罗方法是步数为完成情节的TD算法。</li>
+</ol>
+<ul>
+<li>Tabular TD(0) for estimating vπ 计算v(s)的单步TD算法。</li>
+<li>Sarsa: An on-policy TD control algorithm 计算q(s,a)的单步TD算法。</li>
+<li>Q-learning: An off-policy TD control algorithm 是一个突破性算法。但是存在一个最大化偏差(Maximization Bias)问题。</li>
+<li>Double Q-learning 解决了最大化偏差(Maximization Bias)问题。</li>
+</ul>
+<h4 id="多步时序差分方法">多步时序差分方法</h4>
+<ul>
+<li><p>n-step TD for estimating V≈vπ 计算v(s)的多步TD算法。</p></li>
+<li><p>n-step Sarsa for estimating Q≈q∗, or Q≈qπ for a given π 计算q(s,a)的多步TD算法。</p></li>
+<li><p>Off-policy n-step Sarsa for estimating Q≈q∗, or Q≈qπ for a given π 考虑到重要样本，把ρ带入到Sarsa算法中，形成一个off-policy的方法。 ρ - 重要样本比率(importance sampling ratio)</p></li>
+</ul>
+<p><span class="math display">\[\rho \leftarrow \prod_{\tau + 1}^{min(\tau+n-1,T-1)}\frac{\pi(A_t|S_t)}{\mu(A_t|S_t)},(\rho_{\tau+n}^{\tau+1})\]</span></p>
+<ul>
+<li><p>n-step Tree Backup for estimating Q≈q∗, or Q≈qπ for a given π Tree Backup Algorithm的思想是每步都求行动价值的期望值。 求行动价值的期望值意味着对所有可能的行动a都评估一次。</p></li>
+<li><p>Off-policy n-step Q(σ) for estimating Q≈q∗, or Q≈qπfor a given π Q(σ)结合了Sarsa(importance sampling), Expected Sarsa, Tree Backup算法，并考虑了重要样本。 当σ=1时，使用了重要样本的Sarsa算法。 当σ=0时，使用了Tree Backup的行动期望值算法。</p></li>
+</ul>
+<h4 id="基于模型的算法">基于模型的算法</h4>
+<p>这里的思想是：通过体验来直接优化策略和优化模型（再优化策略）。</p>
+<ul>
+<li>Random-sample one-step tabular Q-planning 通过从模型中获取奖赏值，计算q(s,a)。</li>
+<li>Tabular Dyna-Q 如果n=0，就是Q-learning算法。Dyna-Q的算法的优势在于性能上的提高。 主要原因是通过建立模型，减少了执行行动的操作，模型学习到了Model(S,A)←R,S′。</li>
+<li>Prioritized sweeping for a deterministic environment 提供了一种性能的优化，只评估那些误差大于一定值θ的策略价值。</li>
+</ul>
+<h4 id="近似预测方法">近似预测方法</h4>
+<p>预测方法就是求v(s)。 $$</p>
+<p>$$</p>
+<ul>
+<li>Gradient Monte Carlo Algorithm for Approximating v^≈vπ 蒙特卡罗方法对应的近似预测方法。</li>
+<li>Semi-gradient TD(0) for estimating v^≈vπ 单步TD方法对应的近似预测方法。 之所以叫半梯度递减的原因是TD(0)和n-steps TD计算价值的公式不是精确的（而蒙特卡罗方法是精确的）。</li>
+<li>n-step semi-gradient TD for estimating v^≈vπ 多步TD方法对应的近似预测方法。</li>
+<li>LSTD for estimating v^≈vπ (O(n2) version)</li>
+</ul>
 
       
     </div>
@@ -478,7 +591,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://sun000.cn/2017/10/08/CodeForces-869c-The-Intriguing-Obsession/" title="CodeForces-869c-The-Intriguing-Obsession">http://sun000.cn/2017/10/08/CodeForces-869c-The-Intriguing-Obsession/</a>
+      <a href="http://sun000.cn/2018/07/18/Reinforcement-Learning-3-算法介绍/" title="Reinforcement-Learning-3-算法介绍">http://sun000.cn/2018/07/18/Reinforcement-Learning-3-算法介绍/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -504,11 +617,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/ACM/" rel="tag"># ACM</a>
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
           
-            <a href="/tags/DP/" rel="tag"># DP</a>
-          
-            <a href="/tags/构造/" rel="tag"># 构造</a>
+            <a href="/tags/强化学习/" rel="tag"># 强化学习</a>
           
         </div>
       
@@ -522,8 +633,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/12/HDU5242-Game/" rel="next" title="HDU5242-Game">
-                <i class="fa fa-chevron-left"></i> HDU5242-Game
+              <a href="/2018/07/18/Reinforcement-Learning-2-有限马尔科夫决策过程/" rel="next" title="Reinforcement-Learning-2-有限马尔科夫决策过程&Bellman方程">
+                <i class="fa fa-chevron-left"></i> Reinforcement-Learning-2-有限马尔科夫决策过程&Bellman方程
               </a>
             
           </div>
@@ -531,10 +642,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/10/08/CodeForces-868C-Qualification-Rounds/" rel="prev" title="CodeForces-868C-Qualification-Rounds">
-                CodeForces-868C-Qualification-Rounds <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -692,7 +799,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目链接"><span class="nav-number">1.</span> <span class="nav-text">题目链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#input"><span class="nav-number">3.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#output"><span class="nav-number">4.</span> <span class="nav-text">Output</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#examples"><span class="nav-number">5.</span> <span class="nav-text">Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#input-1"><span class="nav-number">5.1.</span> <span class="nav-text">input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#output-1"><span class="nav-number">5.2.</span> <span class="nav-text">output</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#input-2"><span class="nav-number">5.3.</span> <span class="nav-text">input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#output-2"><span class="nav-number">5.4.</span> <span class="nav-text">output</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#input-3"><span class="nav-number">5.5.</span> <span class="nav-text">input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#output-3"><span class="nav-number">5.6.</span> <span class="nav-text">output</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#input-4"><span class="nav-number">5.7.</span> <span class="nav-text">input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#output-4"><span class="nav-number">5.8.</span> <span class="nav-text">output</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#note"><span class="nav-number">6.</span> <span class="nav-text">Note</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">7.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">8.</span> <span class="nav-text">代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#强化学习的术语"><span class="nav-number">1.</span> <span class="nav-text">强化学习的术语</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#学习任务可分为两类"><span class="nav-number">1.1.</span> <span class="nav-text">学习任务可分为两类：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#学习的方法"><span class="nav-number">1.2.</span> <span class="nav-text">学习的方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#学习的算法"><span class="nav-number">1.3.</span> <span class="nav-text">学习的算法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#学习的方法-1"><span class="nav-number">1.4.</span> <span class="nav-text">学习的方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#强化学习分类"><span class="nav-number">1.5.</span> <span class="nav-text">强化学习分类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何选择算法"><span class="nav-number">2.</span> <span class="nav-text">如何选择算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法列表"><span class="nav-number">3.</span> <span class="nav-text">算法列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动态规划dynamic-programming"><span class="nav-number">3.1.</span> <span class="nav-text">动态规划(Dynamic Programming)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#蒙特卡罗方法monte-carlo-method"><span class="nav-number">3.2.</span> <span class="nav-text">蒙特卡罗方法(Monte Carlo Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#时序差分方法temporal-difference-learning"><span class="nav-number">3.3.</span> <span class="nav-text">时序差分方法(Temporal-Difference Learning)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多步时序差分方法"><span class="nav-number">3.4.</span> <span class="nav-text">多步时序差分方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于模型的算法"><span class="nav-number">3.5.</span> <span class="nav-text">基于模型的算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#近似预测方法"><span class="nav-number">3.6.</span> <span class="nav-text">近似预测方法</span></a></li></ol></li></ol></div>
             
 
           </div>
