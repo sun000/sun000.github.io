@@ -84,16 +84,16 @@
 <meta name="description" content="前言 强化学习 (Reinforcement Learning) 是一类用于复杂场景的机器学习算法，被广泛应用在机器控制任务中。近几年来，随着神经网络的重新兴起，强化学习也被逐渐应用在一些新的领域，比如自动驾驶，计算机视觉等。Alpha GO 战胜人类棋手标志着机器学习特别是强化学习正在逐渐成熟，成为能够推动人工智能取">
 <meta name="keywords" content="机器学习,强化学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Reinforcement-Learning-基本概念">
-<meta property="og:url" content="http://sun000.cn/2018/07/18/Reinforcement-Learning-基本概念/index.html">
+<meta property="og:title" content="Reinforcement-Learning-1-基本概念">
+<meta property="og:url" content="http://sun000.cn/2018/07/18/Reinforcement-Learning-1-基本概念/index.html">
 <meta property="og:site_name" content="sun000&#39;s blog">
 <meta property="og:description" content="前言 强化学习 (Reinforcement Learning) 是一类用于复杂场景的机器学习算法，被广泛应用在机器控制任务中。近几年来，随着神经网络的重新兴起，强化学习也被逐渐应用在一些新的领域，比如自动驾驶，计算机视觉等。Alpha GO 战胜人类棋手标志着机器学习特别是强化学习正在逐渐成熟，成为能够推动人工智能取得突破的重要方向之一。本文旨在简单的介绍一些强化学习的基本概念，更加详细的介绍会">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://sun000.cn/myImg/RL1_1.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL1_2.png">
-<meta property="og:updated_time" content="2018-07-18T02:14:32.667Z">
+<meta property="og:updated_time" content="2018-07-18T03:05:58.209Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Reinforcement-Learning-基本概念">
+<meta name="twitter:title" content="Reinforcement-Learning-1-基本概念">
 <meta name="twitter:description" content="前言 强化学习 (Reinforcement Learning) 是一类用于复杂场景的机器学习算法，被广泛应用在机器控制任务中。近几年来，随着神经网络的重新兴起，强化学习也被逐渐应用在一些新的领域，比如自动驾驶，计算机视觉等。Alpha GO 战胜人类棋手标志着机器学习特别是强化学习正在逐渐成熟，成为能够推动人工智能取得突破的重要方向之一。本文旨在简单的介绍一些强化学习的基本概念，更加详细的介绍会">
 <meta name="twitter:image" content="http://sun000.cn/myImg/RL1_1.png">
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://sun000.cn/2018/07/18/Reinforcement-Learning-基本概念/"/>
+  <link rel="canonical" href="http://sun000.cn/2018/07/18/Reinforcement-Learning-1-基本概念/"/>
 
 
 
 
 
-  <title> Reinforcement-Learning-基本概念 | sun000's blog </title>
+  <title> Reinforcement-Learning-1-基本概念 | sun000's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -302,7 +302,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://sun000.cn/2018/07/18/Reinforcement-Learning-基本概念/">
+    <link itemprop="mainEntityOfPage" href="http://sun000.cn/2018/07/18/Reinforcement-Learning-1-基本概念/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sun000">
@@ -323,7 +323,7 @@
             
             
               
-                Reinforcement-Learning-基本概念
+                Reinforcement-Learning-1-基本概念
               
             
           </h2>
@@ -378,7 +378,7 @@
 
           
           
-             <span id="/2018/07/18/Reinforcement-Learning-基本概念/" class="leancloud_visitors" data-flag-title="Reinforcement-Learning-基本概念">
+             <span id="/2018/07/18/Reinforcement-Learning-1-基本概念/" class="leancloud_visitors" data-flag-title="Reinforcement-Learning-1-基本概念">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -448,7 +448,7 @@
 <li>不会直接指示选择哪种行动（actions）</li>
 <li>一系列的actions和奖励信号（reward signals）都会影响之后较长的时间。</li>
 </ol>
-<p>增强学习是机器学习中一个非常活跃且有趣的领域，相比其他学习方法，增强学习更接近生物学习的本质，因此有望获得更高的智能，这一点在棋类游戏中已经得到体现。Tesauro(1995)描述的TD-Gammon程序，使用增强学习成为了世界级的西洋双陆棋选手。这个程序经过150万个自生成的对弈训练后，已经近似达到了人类最佳选手的水平，并在和人类顶级高手的较量中取得40 盘仅输1盘的好成绩。</p>
+<p>强化学习是机器学习中一个非常活跃且有趣的领域，相比其他学习方法，增强学习更接近生物学习的本质，因此有望获得更高的智能，这一点在棋类游戏中已经得到体现。Tesauro(1995)描述的TD-Gammon程序，使用增强学习成为了世界级的西洋双陆棋选手。这个程序经过150万个自生成的对弈训练后，已经近似达到了人类最佳选手的水平，并在和人类顶级高手的较量中取得40 盘仅输1盘的好成绩。</p>
 <h2 id="参考">参考</h2>
 <p>[1] R.Sutton et al. Reinforcement learning: An introduction , 1998</p>
 <p>[2] UCL Course on RL</p>
@@ -480,7 +480,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://sun000.cn/2018/07/18/Reinforcement-Learning-基本概念/" title="Reinforcement-Learning-基本概念">http://sun000.cn/2018/07/18/Reinforcement-Learning-基本概念/</a>
+      <a href="http://sun000.cn/2018/07/18/Reinforcement-Learning-1-基本概念/" title="Reinforcement-Learning-1-基本概念">http://sun000.cn/2018/07/18/Reinforcement-Learning-1-基本概念/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
@@ -531,6 +531,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/18/Reinforcement-Learning-2-有限马尔科夫决策过程/" rel="prev" title="Reinforcement-Learning-2-有限马尔科夫决策过程">
+                Reinforcement-Learning-2-有限马尔科夫决策过程 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -602,7 +606,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">58</span>
+                <span class="site-state-item-count">59</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -624,7 +628,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">61</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
