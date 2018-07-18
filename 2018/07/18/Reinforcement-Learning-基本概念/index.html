@@ -87,14 +87,14 @@
 <meta property="og:title" content="Reinforcement-Learning-基本概念">
 <meta property="og:url" content="http://sun000.cn/2018/07/18/Reinforcement-Learning-基本概念/index.html">
 <meta property="og:site_name" content="sun000&#39;s blog">
-<meta property="og:description" content="前言 强化学习 (Reinforcement Learning) 是一类用于复杂场景的机器学习算法，被广泛应用在机器控制任务中。近几年来，随着神经网络的重新兴起，强化学习也被逐渐应用在一些新的领域，比如自动驾驶，计算机视觉等。Alpha GO 战胜人类棋手标志着机器学习特别是强化学习正在逐渐成熟，成为能够推动人工智能取得突破的重要方向之一。本文旨在介绍强化学习中策略梯度（Policy Gradie">
+<meta property="og:description" content="前言 强化学习 (Reinforcement Learning) 是一类用于复杂场景的机器学习算法，被广泛应用在机器控制任务中。近几年来，随着神经网络的重新兴起，强化学习也被逐渐应用在一些新的领域，比如自动驾驶，计算机视觉等。Alpha GO 战胜人类棋手标志着机器学习特别是强化学习正在逐渐成熟，成为能够推动人工智能取得突破的重要方向之一。本文旨在简单的介绍一些强化学习的基本概念，更加详细的介绍会">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://sun000.cn/myImg/RL1_1.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL1_2.png">
-<meta property="og:updated_time" content="2018-07-18T01:55:06.907Z">
+<meta property="og:updated_time" content="2018-07-18T02:10:53.759Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reinforcement-Learning-基本概念">
-<meta name="twitter:description" content="前言 强化学习 (Reinforcement Learning) 是一类用于复杂场景的机器学习算法，被广泛应用在机器控制任务中。近几年来，随着神经网络的重新兴起，强化学习也被逐渐应用在一些新的领域，比如自动驾驶，计算机视觉等。Alpha GO 战胜人类棋手标志着机器学习特别是强化学习正在逐渐成熟，成为能够推动人工智能取得突破的重要方向之一。本文旨在介绍强化学习中策略梯度（Policy Gradie">
+<meta name="twitter:description" content="前言 强化学习 (Reinforcement Learning) 是一类用于复杂场景的机器学习算法，被广泛应用在机器控制任务中。近几年来，随着神经网络的重新兴起，强化学习也被逐渐应用在一些新的领域，比如自动驾驶，计算机视觉等。Alpha GO 战胜人类棋手标志着机器学习特别是强化学习正在逐渐成熟，成为能够推动人工智能取得突破的重要方向之一。本文旨在简单的介绍一些强化学习的基本概念，更加详细的介绍会">
 <meta name="twitter:image" content="http://sun000.cn/myImg/RL1_1.png">
 
 
@@ -408,24 +408,30 @@
 
       
         <h2 id="前言">前言</h2>
-<p>强化学习 (Reinforcement Learning) 是一类用于复杂场景的机器学习算法，被广泛应用在机器控制任务中。近几年来，随着神经网络的重新兴起，强化学习也被逐渐应用在一些新的领域，比如自动驾驶，计算机视觉等。Alpha GO 战胜人类棋手标志着机器学习特别是强化学习正在逐渐成熟，成为能够推动人工智能取得突破的重要方向之一。本文旨在介绍强化学习中策略梯度（Policy Gradient）方法的基本原理及相关概念，并着重介绍作者在学习过程中遇到的一些难点，如目标函数和实现技术。</p>
+<p>强化学习 (Reinforcement Learning) 是一类用于复杂场景的机器学习算法，被广泛应用在机器控制任务中。近几年来，随着神经网络的重新兴起，强化学习也被逐渐应用在一些新的领域，比如自动驾驶，计算机视觉等。Alpha GO 战胜人类棋手标志着机器学习特别是强化学习正在逐渐成熟，成为能够推动人工智能取得突破的重要方向之一。本文旨在简单的介绍一些强化学习的基本概念，更加详细的介绍会在以后的博客中更新。</p>
 <h2 id="强化学习">强化学习</h2>
-<p>当前的机器学习算法可以分为3种：有监督的学习（Supervised Learning）、无监督的学习（Unsupervised Learning）和强化学习（Reinforcement Learning），结构图如下所示： </p>
+<p>目前的节气学习算法主要有3种：</p>
+<ol style="list-style-type: decimal">
+<li><p>监督学习（Supervised Learning）</p></li>
+<li><p>无监督学习（Unsupervised Learning）</p></li>
+<li><p>强化学习（Reinforcement Learning）</p></li>
+</ol>
+<p>结构图如下所示： </p>
 <div class="figure">
 <img src="/myImg/RL1_1.png">
 
 </div>
-<p>强化学习是机器学习的一个分支，但是它与我们常见监督式学习不太一样。从学习方式上讲强化学习更加接近人类的学习，记得作者小时候玩新的电子游戏的时候，虽然看不懂屏幕的提示，但是经过自己的摸索也能掌握游戏方法，这个摸索的过程其实就是通过试错逐渐了解</p>
+<p>强化学习是机器学习的一个分支，但是它与我们常见监督式学习不太一样。从学习方式上讲强化学习更加接近人类的学习，就像打游戏一样，比如饥荒：一开始玩家什么都不懂，只知道要活下去，没有任何提示。玩法只能通过玩家的不断的尝试，通过<strong>试错学习</strong>，然后根据<strong>环境</strong>给予的反馈，判断当前的尝试的效益，最后终结出一套游戏的策略，成为一名饥荒老司机。</p>
 <h3 id="强化学习的基本构成">强化学习的基本构成</h3>
 <div class="figure">
 <img src="/myImg/RL1_2.png">
 
 </div>
-<p><strong>主体</strong>（Agent）：指能够通过动作与环境交互的对象，强化学习中主体通常是运行中的算法，比如在游戏中的主体是用于控制本方球拍的算法</p>
-<p><strong>环境</strong>（Environment）：指主体动作作用的对象， 比如游戏本身。</p>
-<p><strong>动作</strong> （Action）: 指所有可能作用于环境上的操作，比如游戏中算法控制球拍上下移动。</p>
-<p><strong>状态</strong> （State）: 指可被主体感知的关于环境的信息，比如游戏中屏幕显示的球和球拍的位置以及移动方向和速度信息。</p>
-<p><strong>奖励</strong> （Reward）: 指由环境回馈给主体的描述上一个动作效果的信息，比如游戏中球拍动作导致双方的得分变化。</p>
+<p><strong>主体</strong>（Agent）：能够通过动作与环境交互的对象，强化学习中主体通常是运行中的算法，比如在饥荒游戏中的主体是玩家控制的角色，可以到处搞破坏</p>
+<p><strong>环境</strong>（Environment）：主体动作作用的对象， 比如游戏本身，饥荒游戏中的环境变化，角色的各项属性的变化。</p>
+<p><strong>动作</strong> （Action）: 指所有可能作用于环境上的操作，比如游戏中控制角色砍树、采矿、抓蜜蜂等。</p>
+<p><strong>状态</strong> （State）: 指可被主体感知的关于环境的信息，比如游戏中自然环境的状态以及角色的健康情况</p>
+<p><strong>奖励</strong> （Reward）: 指由环境回馈给主体的描述上一个动作效果的信息，比如角色吃了一个食物，饱腹感上升、吃了药之后，血量回复</p>
 <p>强化学习的过程是一个通过和环境交互获得反馈，再根据反馈调整动作以期使总奖励最大化的过程，这个是一个多步 (multi timestep) 的交互的过程，每一步交互都会影响其后的所有步骤。强化学习中的一次交互是指主体对环境施加一个动作，环境的状态发生改变并且回馈给主体一个奖励（奖励既可以是正向的，如本方得分增加；也可以是负向的，如对方得分增加）。强化学习的目标就是寻找一个最优的策略使得整个学习过程（从开始状态到终结状态）获得的奖励最大化。</p>
 <p>在实现上，强化学习是一个通过多个轮次逐渐优化算法的参数从而增强学习效果的过程，每个轮次包含两部分：前向反馈（feed forward）和反向传播（back propagation）。处于初始状态的主体根据算法的当前参数生成动作作用于环境，环境返回给主体新的状态和对动作的奖励，在轮次结束后算法通过汇总所有在本轮收集到的反馈调整算法的参数开始下一轮的学习，直到学习的效果不再增强。</p>
 <h3 id="rl与有监督学习无监督学习的比较">RL与有监督学习、无监督学习的比较</h3>
@@ -515,8 +521,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/17/深度增强学习（DRL）漫谈-从DQN到AlphaGo/" rel="next" title="深度增强学习（DRL）漫谈-从DQN到AlphaGo">
-                <i class="fa fa-chevron-left"></i> 深度增强学习（DRL）漫谈-从DQN到AlphaGo
+              <a href="/2018/07/17/深度增强学习（DRL）漫谈-从DQN到AlphaGo/" rel="next" title="深度强化学习（DRL）漫谈-从DQN到AlphaGo">
+                <i class="fa fa-chevron-left"></i> 深度强化学习（DRL）漫谈-从DQN到AlphaGo
               </a>
             
           </div>
