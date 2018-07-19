@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://sun000.cn/myImg/RL4_3.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL4_4.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL4_5.png">
-<meta property="og:updated_time" content="2018-07-19T13:17:41.108Z">
+<meta property="og:updated_time" content="2018-07-19T13:20:25.289Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reinforcement-Learning-4-动态规划方法(Dynamic-Programming)">
 <meta name="twitter:description" content="这次来讲一讲RL中最重要的算法之一，动态规划算法。 学习过算法的都应该知道这个算法，我们再来回顾一下动态规划算法。 动态规划 主要思想：将一个复杂的问题分解成多个子问题，将子问题的解结合在一起就构成了原问题的解，它常常适合于解决具有如下两种属性的问题：  优化的子结构：优化解常常可以分解成子问题； 子问题有重叠：即子问题总是重复出现，该子问题的解可以保存下来重复利用。   那么我们来看一看为什么强">
@@ -499,6 +499,10 @@
 </div>
 <p>Policy iteration 其实就是由两个连续的交互过程构成的：policy evaluation 和 policy improvement，在异步 DP 方法中，这两个过程是交错的。</p>
 <p>这里用 Generalized Policy Iteration （GPI）来代表这种一般化的思想，几乎所有的增强学习方法都可以描述为 GPI。在 GPI 中，policy evaluation 和 policy improvement 既是竞争的也是合作的。 </p>
+<h3 id="参考">参考</h3>
+<p>[1] Reinforcement Learning: An Introduction, Richard S. Sutton and Andrew G. Barto</p>
+<p>[2] UCL Course on RL</p>
+<p>[3] https://blog.csdn.net/coffee_cream/article/details/62892546</p>
 
       
     </div>
@@ -741,7 +745,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划"><span class="nav-number">1.</span> <span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略评价policy-evaluation"><span class="nav-number">2.</span> <span class="nav-text">策略评价(policy Evaluation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略提升policy-improvement"><span class="nav-number">3.</span> <span class="nav-text">策略提升(Policy Improvement)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略迭代policy-iteration"><span class="nav-number">4.</span> <span class="nav-text">策略迭代(policy iteration)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#值迭代value-iteration"><span class="nav-number">5.</span> <span class="nav-text">值迭代(Value Iteration)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步的动态编程asynchronous-dynamic-programming"><span class="nav-number">6.</span> <span class="nav-text">异步的动态编程(Asynchronous Dynamic Programming )</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#广义的策略迭代generalized-policy-iteration"><span class="nav-number">7.</span> <span class="nav-text">广义的策略迭代(Generalized Policy Iteration)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划"><span class="nav-number">1.</span> <span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略评价policy-evaluation"><span class="nav-number">2.</span> <span class="nav-text">策略评价(policy Evaluation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略提升policy-improvement"><span class="nav-number">3.</span> <span class="nav-text">策略提升(Policy Improvement)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略迭代policy-iteration"><span class="nav-number">4.</span> <span class="nav-text">策略迭代(policy iteration)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#值迭代value-iteration"><span class="nav-number">5.</span> <span class="nav-text">值迭代(Value Iteration)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步的动态编程asynchronous-dynamic-programming"><span class="nav-number">6.</span> <span class="nav-text">异步的动态编程(Asynchronous Dynamic Programming )</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#广义的策略迭代generalized-policy-iteration"><span class="nav-number">7.</span> <span class="nav-text">广义的策略迭代(Generalized Policy Iteration)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
