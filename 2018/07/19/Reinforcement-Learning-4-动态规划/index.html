@@ -90,7 +90,7 @@
 <meta property="og:description" content="这次来讲一讲RL中最重要的算法之一，动态规划算法。 学习过算法的都应该知道这个算法，我们再来回顾一下动态规划算法。 动态规划 主要思想：将一个复杂的问题分解成多个子问题，将子问题的解结合在一起就构成了原问题的解，它常常适合于解决具有如下两种属性的问题：  优化的子结构：优化解常常可以分解成子问题； 子问题有重叠：即子问题总是重复出现，该子问题的解可以保存下来重复利用。   那么我们来看一看为什么强">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://sun000.cn/myImg/RL4_1.png">
-<meta property="og:updated_time" content="2018-07-19T12:25:45.261Z">
+<meta property="og:updated_time" content="2018-07-19T12:55:33.712Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reinforcement-Learning-4-动态规划方法(Dynamic-Programming)">
 <meta name="twitter:description" content="这次来讲一讲RL中最重要的算法之一，动态规划算法。 学习过算法的都应该知道这个算法，我们再来回顾一下动态规划算法。 动态规划 主要思想：将一个复杂的问题分解成多个子问题，将子问题的解结合在一起就构成了原问题的解，它常常适合于解决具有如下两种属性的问题：  优化的子结构：优化解常常可以分解成子问题； 子问题有重叠：即子问题总是重复出现，该子问题的解可以保存下来重复利用。   那么我们来看一看为什么强">
@@ -446,6 +446,25 @@
 <img src="\myImg\RL4_1.png">
 
 </div>
+<h3 id="策略提升policy-improvement">策略提升(Policy Improvement)</h3>
+<p>上一节中是计算每个policy 的 value function，它的目的当然是为了找到更好的 policy，假设我们已经有了某个<span class="math inline">\(\pi\)</span>的值函数<span class="math inline">\(V^\pi\)</span>，那我们肯定想知道是否可以通过对规则<span class="math inline">\(\pi\)</span>改进来得到更好的规则，改进的方式就是在改变在某个状态时的行为选择概率，即<span class="math inline">\(a=\pi(s)\)</span>，我们肯定会想，在状态s时，我们依据当前的<span class="math inline">\(V^\pi(s)\)</span>到底是好还是不好呢？是否可以改进呢？</p>
+<p>那我们可以采用比较<span class="math inline">\(Q^\pi(s,a)\)</span>与<span class="math inline">\(V^\pi(s)\)</span>的方法，若<span class="math inline">\(Q^\pi(s,a)\)</span>比<span class="math inline">\(V^\pi(s)\)</span>大，那么也就是说在s状态下采用a这一个action得到的reward的期望比原来的策略<span class="math inline">\(\pi\)</span>要更加好。即：“那么采用在状态 s 时选择行为 a，之后还遵从规则 π”就要比“无论什么状态下都遵从规则 π”要好。</p>
+<p>通常将这种理论称为是 policy improvement theorem，假设一对任意的规则 π 与 π′，若对所有的 s∈S 都有： </p>
+<p><span class="math display">\[Q^\pi(s, \pi&#39;(s)) \geq V^\pi(s)\]</span></p>
+<p>也就是</p>
+<p><span class="math display">\[V^{\pi&#39;}(s) \geq V^\pi(s) \]</span></p>
+<p>那么非常显然，这个状态下我们要用新的策略<span class="math inline">\(\pi&#39;\)</span></p>
+<p>那么很容易想到对所有的状态都这么考虑一遍，那么就可以得到当前这个<span class="math inline">\(V^\pi\)</span>下最好的策略了。得到更新公式：</p>
+<p><span class="math inline">\(\pi&#39;(s)=argmax_aQ^\pi(s,a)\)</span></p>
+<p><span class="math inline">\(=argmax_aE[r(s&#39;|s,a)+\gamma V^{\pi&#39;}(s&#39;)|s_0=s,a_0=a ]\)</span></p>
+<p><span class="math inline">\(=argmax_a\sum_{s&#39; \in S}p(s&#39;|s,a)[r(s&#39;|s,a)+\gamma V^{\pi&#39;}(s&#39;)]\)</span></p>
+<p>最后我们来说明这个公式的最优性。</p>
+<p>假设这个贪婪的规则<span class="math inline">\(\pi&#39;\)</span>并不比规则<span class="math inline">\(\pi\)</span>好，而是两者相当，则<span class="math inline">\(V^\pi=V^{\pi&#39;}\)</span>，则根据上式有：</p>
+<p><span class="math inline">\(V^{\pi&#39;}=max_aE[r(s&#39;|s,a) + \gamma V^{\pi&#39;}(s&#39;)|s_0=s]\)</span></p>
+<p><span class="math inline">\(=max_a\sum_{s&#39;\in S}p(s&#39;|s,a)[r(s&#39;|s,a)+\gamma V^{\pi&#39;}(s&#39;)]\)</span></p>
+<p>这个方程与 Bellman 优化方程相同，因此<span class="math inline">\(V^{\pi&#39;}\)</span>一定是 V*，因此规则<span class="math inline">\(\pi&#39;\)</span>与规则<span class="math inline">\(\pi\)</span>一定都是 optimal policies。因此，除非该规则已经是optimal policies，否则 policy improvement 过程一定会给出一个严格更好的规则。</p>
+<p>最后我们把上面提到的DP算法的两部分组合到一起。</p>
+<h3 id="策略迭代policy-iteration">策略迭代(policy iteration)</h3>
 
       
     </div>
@@ -688,7 +707,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划"><span class="nav-number">1.</span> <span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略评价policy-evaluation"><span class="nav-number">2.</span> <span class="nav-text">策略评价(policy Evaluation)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划"><span class="nav-number">1.</span> <span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略评价policy-evaluation"><span class="nav-number">2.</span> <span class="nav-text">策略评价(policy Evaluation)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略提升policy-improvement"><span class="nav-number">3.</span> <span class="nav-text">策略提升(Policy Improvement)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略迭代policy-iteration"><span class="nav-number">4.</span> <span class="nav-text">策略迭代(policy iteration)</span></a></li></ol></div>
             
 
           </div>
