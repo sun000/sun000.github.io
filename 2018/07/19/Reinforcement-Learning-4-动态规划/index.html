@@ -92,9 +92,9 @@
 <meta property="og:image" content="http://sun000.cn/myImg/RL4_1.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL4_2.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL4_3.png">
-<meta property="og:image" content="http://sun000.cn/myImg/Rl4_4.png">
+<meta property="og:image" content="http://sun000.cn/myImg/RL4_4.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL4_5.png">
-<meta property="og:updated_time" content="2018-07-19T13:14:57.526Z">
+<meta property="og:updated_time" content="2018-07-19T13:17:41.108Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reinforcement-Learning-4-动态规划方法(Dynamic-Programming)">
 <meta name="twitter:description" content="这次来讲一讲RL中最重要的算法之一，动态规划算法。 学习过算法的都应该知道这个算法，我们再来回顾一下动态规划算法。 动态规划 主要思想：将一个复杂的问题分解成多个子问题，将子问题的解结合在一起就构成了原问题的解，它常常适合于解决具有如下两种属性的问题：  优化的子结构：优化解常常可以分解成子问题； 子问题有重叠：即子问题总是重复出现，该子问题的解可以保存下来重复利用。   那么我们来看一看为什么强">
@@ -485,7 +485,7 @@
 <p><span class="math inline">\(=max_a\sum p(s&#39;|s, \pi(s))[r(s&#39;|s,\pi(s))+\gamma V_k(s&#39;)]\)</span></p>
 <p>对任意的 v0，序列 {vk} 最终都可以收敛到 V*。 算法的伪代码如下：</p>
 <div class="figure">
-<img src="\myImg\Rl4_4.png">
+<img src="\myImg\RL4_4.png">
 
 </div>
 <p>所有的 truncated policy iteration 算法都可以视为是 sweep 序列，其中一些使用的是 policy evaluation backups，另一些使用的是 value iteration backups。</p>
