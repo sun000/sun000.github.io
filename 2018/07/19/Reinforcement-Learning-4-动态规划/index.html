@@ -81,15 +81,20 @@
 
 
 
+<meta name="description" content="这次来讲一讲RL中最重要的算法之一，动态规划算法。 学习过算法的都应该知道这个算法，我们再来回顾一下动态规划算法。 动态规划 主要思想：将一个复杂的问题分解成多个子问题，将子问题的解结合在一起就构成了原问题的解，它常常适合于解决具有如下两种属性的问题：  优化的子结构：优化解常常可以分解成子问题； 子问题有重叠：即子问">
 <meta name="keywords" content="机器学习,DP,强化学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Reinforcement-Learning-4-动态规划方法(Dynamic-Programming)">
 <meta property="og:url" content="http://sun000.cn/2018/07/19/Reinforcement-Learning-4-动态规划/index.html">
 <meta property="og:site_name" content="sun000&#39;s blog">
+<meta property="og:description" content="这次来讲一讲RL中最重要的算法之一，动态规划算法。 学习过算法的都应该知道这个算法，我们再来回顾一下动态规划算法。 动态规划 主要思想：将一个复杂的问题分解成多个子问题，将子问题的解结合在一起就构成了原问题的解，它常常适合于解决具有如下两种属性的问题：  优化的子结构：优化解常常可以分解成子问题； 子问题有重叠：即子问题总是重复出现，该子问题的解可以保存下来重复利用。   那么我们来看一看为什么强">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-19T02:28:34.542Z">
+<meta property="og:image" content="http://sun000.cn/myImg/RL4_1.png">
+<meta property="og:updated_time" content="2018-07-19T12:20:09.250Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reinforcement-Learning-4-动态规划方法(Dynamic-Programming)">
+<meta name="twitter:description" content="这次来讲一讲RL中最重要的算法之一，动态规划算法。 学习过算法的都应该知道这个算法，我们再来回顾一下动态规划算法。 动态规划 主要思想：将一个复杂的问题分解成多个子问题，将子问题的解结合在一起就构成了原问题的解，它常常适合于解决具有如下两种属性的问题：  优化的子结构：优化解常常可以分解成子问题； 子问题有重叠：即子问题总是重复出现，该子问题的解可以保存下来重复利用。   那么我们来看一看为什么强">
+<meta name="twitter:image" content="http://sun000.cn/myImg/RL4_1.png">
 
 
 
@@ -401,7 +406,46 @@
       
 
       
-        
+        <p>这次来讲一讲RL中最重要的算法之一，动态规划算法。</p>
+<p>学习过算法的都应该知道这个算法，我们再来回顾一下动态规划算法。</p>
+<h3 id="动态规划">动态规划</h3>
+<p>主要思想：将一个复杂的问题分解成多个子问题，将子问题的解结合在一起就构成了原问题的解，它常常适合于解决具有如下两种属性的问题：</p>
+<ul>
+<li>优化的子结构：优化解常常可以分解成子问题；</li>
+<li>子问题有重叠：即子问题总是重复出现，该子问题的解可以保存下来重复利用。 </li>
+</ul>
+<p>那么我们来看一看为什么强化学习可以用动态规划来解决。</p>
+<p>马尔科夫决策过程的特点：</p>
+<ul>
+<li>需要求解的 Bellman 方程提供了递归的分解形式；</li>
+<li>Value function 需要存储和重用之前的解。</li>
+</ul>
+<p>震惊！马尔科决策过程竟然可以规约成一个动态规划问题。</p>
+<p>我们再来看一看reinforcement learning的优化目标，由<strong>Bellman最优性方程</strong>得到：</p>
+<p><span class="math display">\[V*(s)=max_aE[r(s&#39;|s)+\gamma V*(s&#39;)|S_0=s]\]</span></p>
+<p><span class="math display">\[=max_{a \in A(s)}\sum p(s&#39;|s, \pi(s))[r(s&#39;|s, \pi(s) + \gamma V^\pi(s&#39;)]\]</span></p>
+<p><span class="math display">\[Q*(s, a)=E[r(s&#39;|s,a)+\gamma max_{a&#39;}Q*(s&#39;,a&#39;)|s_0=s,a_0=a]\]</span></p>
+<p><span class="math display">\[=\sum p(s&#39;|s, \pi(s))[r(s&#39;|s,\pi(s))+\gamma max_{a\in A(s)}Q*(s&#39;,a&#39;)]\]</span></p>
+<p>其中优化目标（最优策略，上面的V*和Q*分别是最优策略对应的值函数）为：</p>
+<p><span class="math display">\[\pi*(s)=argmax_\pi(V^\pi(s))\]</span></p>
+<p>方程给出来了啥都好说。</p>
+<p>DP算法主要分2部分，我们分开来讲。</p>
+<h3 id="策略评价policy-evaluation">策略评价(policy Evaluation)</h3>
+<p>在DP中，policy evaluation指的是对任意规则<span class="math inline">\(\pi\)</span>计算 state-value 函数 <span class="math inline">\(V^\pi\)</span>，也可以将这个称作是预测问题（prediction problem)</p>
+<p>还记得在介绍MDP是说的<span class="math inline">\(V^\pi\)</span>的Bellman方程形式吗？</p>
+<p><span class="math inline">\(V^\pi(s)=E_\pi[G_t|S_t=s]\)</span></p>
+<p><span class="math inline">\(=\sum_a\pi(a|s)\sum_{s&#39;,r}p(s&#39;, r|s,a)[r+\gamma V^\pi(s&#39;)], \forall s\in S\)</span></p>
+<p>从最后一个式子中可以看出，<span class="math inline">\(V^\pi(s)\)</span> 的计算还要依赖于<span class="math inline">\(V^\pi(s&#39;)\)</span>，但是实际上我们并不知道<span class="math inline">\(V^\pi(s&#39;)\)</span>,不要慌，问题不大。这里借用了统计学里面的一个概念Bootstraping（自助法）。我们用一个估计去近似另一个估计，最终这个<span class="math inline">\(V^\pi\)</span>会在迭代中收敛，虽然有可能收敛到局部最优解，但是我们有<span class="math inline">\(\epsilon-greedy\)</span>，不过这都是后话了。</p>
+<p>那么好，对于这种情况，我采用迭代的方法，不断地更新和逼近真实值。这里可以考虑一个近似的值函数序列 v0,v1,v2,⋯，其中每个值函数都是从 S+ 向 R 的映射，其中初始的近似值 v0 是任意选择的（终止状态的值为 0），之后的计算都是利用<span class="math inline">\(V^\pi\)</span>的 Bellman 方程来进行更新的： </p>
+<p><span class="math inline">\(V_{k+1}(s)=E_\pi[r(s&#39;|s)+\gamma V_k(s&#39;)|S_0=s]\)</span></p>
+<p><span class="math inline">\(=\sum \pi(a|s)\sum_{s&#39;\in S}p(s&#39;|s,a)[r(s&#39;|s,a)+\gamma V_k(s&#39;)]\)</span></p>
+<p>当 <span class="math inline">\(k \rightarrow \infty\)</span>时，序列 {vk} 会收敛于 vπ，这个算法就称为是 iterative policy evaluation。整个过程可以描述为:</p>
+<p><span class="math display">\[V_0 \rightarrow V_1 \rightarrow V_2 \rightarrow ... \rightarrow V_\pi\]</span> </p>
+<p>为了从<span class="math inline">\(V_k\)</span>得到近似的<span class="math inline">\(V_{k+1}\)</span>，iterative policy evaluation 需要对每一个状态 s 做同样的操作：将 s 旧的 value 值换成计算得到的新的 value 值，将这种操作可以称为是 full backup，迭代策略评估的每一次迭代过程都需要把每个状态的 value 备份起来。  　　迭代算法常用的停止准则是检测最大的状态变化量，整个过程的伪代码如下： </p>
+<div class="figure">
+<img src="\myImg\RL4_1.png">
+
+</div>
 
       
     </div>
@@ -533,8 +577,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -625,6 +678,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划"><span class="nav-number">1.</span> <span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略评价policy-evaluation"><span class="nav-number">2.</span> <span class="nav-text">策略评价(policy Evaluation)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
