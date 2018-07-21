@@ -91,10 +91,11 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_1.png">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_2.png">
+<meta property="og:image" content="http://sun000.cn/myImg/Exposure_6.png">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_3.png">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_4.png">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_5.png">
-<meta property="og:updated_time" content="2018-07-21T07:20:58.726Z">
+<meta property="og:updated_time" content="2018-07-21T07:28:13.553Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Exposure:A White-Box Photo Post-Processing Framework">
 <meta name="twitter:description" content="模型网络结构         有一点非常重要，Critic和Discriminator是同一个网络，为了便于区分所以分开画，实际上是一个网络  The discriminator is referred to as the “critic” in [Arjovsky et al. 2017]. We use the term “discriminator” here to distinguish">
@@ -423,9 +424,28 @@
 <blockquote>
 <p>The discriminator is referred to as the “critic” in [Arjovsky et al. 2017]. We use the term “discriminator” here to distinguish it from the critic in our actor-critic framework.</p>
 </blockquote>
-<p>上图注释：</p>
+<p>上图注释</p>
 <p>RAW：待处理的图像的RGB原始形式</p>
-<p>RAW在channel加上state形成新的状态s，进入Trajectory Buffer</p>
+<p>RAW在channel加上state形成新的状态s(S=RAW+state)，进入Trajectory Buffer</p>
+<p>state主要包括：图片的亮度、对比度、饱和度、滤镜使用情况，已经处理的步数</p>
+<p>penalty主要包括两点</p>
+<ul>
+<li>Exploitation vs. exploration</li>
+</ul>
+<blockquote>
+<p>we penalize π 1 if its action proposal distribution is too concentrated, i.e., has low entropy.</p>
+</blockquote>
+<div class="figure">
+<img src="\myImg\Exposure_6.png">
+
+</div>
+<ul>
+<li>重复使用相同滤镜</li>
+</ul>
+<blockquote>
+<p>if the agent uses a ﬁlter twice, the second usage will incur an additional penalty of −1.</p>
+</blockquote>
+<h3 id="训练过程">训练过程</h3>
 <p>对抗生成网络的Generator和Discriminator是分开训练的</p>
 <ul>
 <li>Generator训练过程中的每一次迭代：</li>
@@ -435,7 +455,7 @@
 <ul>
 <li><span class="math inline">\(\pi_1\)</span>输出选择每一个Filter的概率pdf，然后根据pdf用轮盘赌的方式选择一个Filter（<span class="math inline">\(a_1\)</span>）</li>
 <li><span class="math inline">\(\pi_2\)</span>是多个共享shared层（图一中框起来的部分）的神经网络，用于选择每种Filter的参数，由<span class="math inline">\(\pi_1\)</span>的输出<span class="math inline">\(a_1\)</span>选择相应的Filter所对应的神经网络，得到参数<span class="math inline">\(a_2\)</span></li>
-<li><span class="math inline">\(a=(a_1,a_2)\)</span>就是policy在当前状态s下所选择的action，将action作用于S产生新的S'（S'包含的信息包括处理后的图像，及其亮度、对比度、饱和度、滤镜使用情况、操作步数），同时产生相应的penalty，并根据是否达到处理步数上限，将新的S'放回到Trajectory Buffer当中，Trajectory Buffer重新读入一些RAW图像，保证Trajector Buffer的size不变</li>
+<li><span class="math inline">\(a=(a_1,a_2)\)</span>就是policy在当前状态s下所选择的action，将action作用于S产生新的S'，同时产生相应的penalty，并根据是否达到处理步数上限，将新的S'放回到Trajectory Buffer当中，Trajectory Buffer重新读入一些RAW图像，保证Trajector Buffer的size不变</li>
 </ul></li>
 <li><p>将之前的S和处理后得到的S'同时输入到Critic网络中得到两组Value值<span class="math inline">\(V^{\pi(S)}，V^{\pi(S‘)}\)</span></p></li>
 <li><p>Discriminator训练过程中的每一次迭代</p></li>
@@ -443,6 +463,7 @@
 <li><p>最后训练过程中Generator和Discriminator是交替训练的</p></li>
 <li><p>每一次train的迭代中，先训练Generator若干个迭代，人后再训练Discriminator若干个迭代</p></li>
 </ul>
+<h3 id="损失函数">损失函数</h3>
 <p>网络结构说明白了，那么来讲一讲训练过程中的优化目标，我们先来训练Generator</p>
 <ul>
 <li>Generator</li>
@@ -512,23 +533,19 @@
 <p>又因为log[1-D(s)]与-log[D(s)]变化相同</p>
 <p>所以我们就有了损失函数(整体取负号)</p>
 <p><span class="math display">\[loss=\sum_{s \in fake}log[D(t)]- \sum_{t \in real}log[D(s)]\]</span></p>
-<p>又因为WGAN中的要去掉Discriminator最后一层的sigmoid（这里就很巧妙了，使Discriminator能用Critic来代替），那么相应的loss函数里就要去掉log，最后我们得到：</p></li>
+<p>又因为WGAN中的要去掉Discriminator最后一层的sigmoid（这里就很巧妙了，使Discriminator能用Critic来代替），那么相应的loss函数里就要去掉log，当然还有其他改变，但是这里只说loss的变化，那么最后我们得到：</p></li>
 <li><p>损失函数</p>
 <p><span class="math display">\[D_{loss}=D^\pi(s&#39;)-D^\pi(t)\]</span></p></li>
 </ul>
-<p>​</p>
-<p>​</p>
-<h2 id="模型亮点">模型亮点</h2>
+<h3 id="模型亮点">模型亮点</h3>
 <ul>
 <li>白盒化处理过程</li>
 <li>像素无关</li>
 <li>不需要paired数据</li>
 </ul>
-<h2 id="改进点">改进点</h2>
+<h3 id="改进点">改进点</h3>
 <p>这里只是我个人的理解，觉得需要改进的地方</p>
-<ol style="list-style-type: decimal">
-<li>实验结果量化，论文中对实验结果的评估主要分为两部分（Histogram Intersection，User Rating）其中Histogram Intersection是计算filtered image与RAW image在亮度、对比度、饱和度上的直方图交叉核。单凭这一点过于草率，因为文中还对比了CycleGAN和Pix2Pix模型，该评估方法下，论文的模型效果与CycleGAN接近，并明显弱于Pix2Pix模型。当然作者为了说明自己的模型比另两个模型厉害，放出了一张经过三个模型处理后的图片。我们可以轻易的看出作者的模型处理出来的图像清晰度碾压另两个，但是作者并没有做出定量的比较，仅凭一张图片的效果要来说明自己的效果更好显然有些牵强，并且这里用直方图交叉核的方法来比较并体现不出作者模型的优势，所以我个人认为仅凭这一个评估标准来评测不是很合理。包括还有User Rating，虽然能说明一些问题。但是User Rating的评判标准也是完全不能定量的。</li>
-</ol>
+<p>实验结果量化，论文中对实验结果的评估主要分为两部分（Histogram Intersection，User Rating）其中Histogram Intersection是计算filtered image与RAW image在亮度、对比度、饱和度上的直方图交叉核。单凭这一点过于草率，因为文中还对比了CycleGAN和Pix2Pix模型，该评估方法下，论文的模型效果与CycleGAN接近，并明显弱于Pix2Pix模型。当然作者为了说明自己的模型比另两个模型厉害，放出了一张经过三个模型处理后的图片。我们可以轻易的看出作者的模型处理出来的图像清晰度碾压另两个，但是作者并没有做出定量的比较，仅凭一张图片的效果要来说明自己的效果更好显然有些牵强，并且这里用直方图交叉核的方法来比较并体现不出作者模型的优势，所以我个人认为仅凭这一个评估标准来评测不是很合理。包括还有User Rating，虽然能说明一些问题。但是User Rating的评判标准也是完全不能定量的。</p>
 
       
     </div>
@@ -767,7 +784,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型网络结构"><span class="nav-number">1.</span> <span class="nav-text">模型网络结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型亮点"><span class="nav-number"></span> <span class="nav-text">模型亮点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进点"><span class="nav-number"></span> <span class="nav-text">改进点</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型网络结构"><span class="nav-number">1.</span> <span class="nav-text">模型网络结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练过程"><span class="nav-number">2.</span> <span class="nav-text">训练过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#损失函数"><span class="nav-number">3.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型亮点"><span class="nav-number">4.</span> <span class="nav-text">模型亮点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改进点"><span class="nav-number">5.</span> <span class="nav-text">改进点</span></a></li></ol></div>
             
 
           </div>
