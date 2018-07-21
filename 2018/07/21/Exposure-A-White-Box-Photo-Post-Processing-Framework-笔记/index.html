@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_3.png">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_4.png">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_5.png">
-<meta property="og:updated_time" content="2018-07-21T08:18:47.481Z">
+<meta property="og:updated_time" content="2018-07-21T08:25:05.838Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Exposure:A White-Box Photo Post-Processing Framework">
 <meta name="twitter:description" content="模型网络结构         有一点非常重要，Critic和Discriminator是同一个网络，为了便于区分所以分开画，实际上是一个网络  The discriminator is referred to as the “critic” in [Arjovsky et al. 2017]. We use the term “discriminator” here to distinguish">
@@ -460,7 +460,8 @@
 <h4 id="discriminator">Discriminator</h4>
 <p>训练过程中的每一次迭代：</p>
 <ul>
-<li><p>固定住Generator，然后分别将处理过的图像和Target中的图像输入到Discriminator中输出<span class="math inline">\(D^\pi(s&#39;),D^\pi(t)\)</span>，这里虽然是说将处理过的图像出入到Discriminator中，但实际上从Trajectoy Buffer中直接选择新的图像，经过Generator然后用来训练Discriminator效果是一样的，只是由于Critic和Discriminator是用一个网络所以<span class="math inline">\(V^\pi(s&#39;)=D^\pi(s&#39;)\)</span>,这样就可以在训练Generator的时候缓存下<span class="math inline">\(V^\pi(s&#39;)\)</span>，减少计算量。</p></li>
+<li>在传统的GAN中，分别训练Generator和Discriminator的时候，是要将另一个网络固定的，不固定的话很难训练，因为这两个网络是要达到相反的结果的。但是这里Actor-Critic和WGAN结合就很巧妙，这里虽然看上去是固定住对方的，但是由于Critic和Discriminator是同一个网络，所以在训练Discriminator的时候也同时优化了Critic。</li>
+<li>分别将处理过的图像和Target中的图像输入到Discriminator中输出<span class="math inline">\(D^\pi(s&#39;),D^\pi(t)\)</span>，这里虽然是说将处理过的图像出入到Discriminator中，但实际上从Trajectoy Buffer中直接选择新的图像，经过Generator然后用来训练Discriminator效果是一样的，只是由于Critic和Discriminator是用一个网络所以<span class="math inline">\(V^\pi(s&#39;)=D^\pi(s&#39;)\)</span>,这样就可以在训练Generator的时候缓存下<span class="math inline">\(V^\pi(s&#39;)\)</span>，减少计算量。</li>
 <li><p>最后训练过程中Generator和Discriminator是交替训练的</p></li>
 <li><p>每一次train的迭代中，先训练Generator若干个迭代，然后再训练Discriminator若干个迭代</p></li>
 </ul>
