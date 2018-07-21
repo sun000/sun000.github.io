@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_3.png">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_4.png">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_5.png">
-<meta property="og:updated_time" content="2018-07-21T07:51:55.649Z">
+<meta property="og:updated_time" content="2018-07-21T08:18:47.481Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Exposure:A White-Box Photo Post-Processing Framework">
 <meta name="twitter:description" content="模型网络结构         有一点非常重要，Critic和Discriminator是同一个网络，为了便于区分所以分开画，实际上是一个网络  The discriminator is referred to as the “critic” in [Arjovsky et al. 2017]. We use the term “discriminator” here to distinguish">
@@ -489,6 +489,7 @@
 </blockquote>
 <p>则</p>
 <p><span class="math display">\[C_{loss}=\frac{1}{2}[Q-V^\pi(s)]^2\]</span></p></li>
+<li><p><strong>注意到Critic和Discriminator是同一个网络，在强化学习的框架中最大化<span class="math inline">\(V^\pi(s&#39;)\)</span>的同时，也优化了WGAN网络中的Generator，因为在WGAN中Generator的损失函数恰好是Critic中的<span class="math inline">\(V^\pi(s&#39;)\)</span>取一个负号，达到欺骗Discriminator的作用。</strong></p></li>
 <li><p>Actor</p>
 <p>Actor机遇策略梯度，由于直接选择滤镜及其参数的策略是不可微的，不能反向传播，所以又要将Actor分成两部分</p>
 <ul>
