@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_3.png">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_4.png">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_5.png">
-<meta property="og:updated_time" content="2018-07-21T07:41:57.279Z">
+<meta property="og:updated_time" content="2018-07-21T07:43:23.744Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Exposure:A White-Box Photo Post-Processing Framework">
 <meta name="twitter:description" content="模型网络结构         有一点非常重要，Critic和Discriminator是同一个网络，为了便于区分所以分开画，实际上是一个网络  The discriminator is referred to as the “critic” in [Arjovsky et al. 2017]. We use the term “discriminator” here to distinguish">
@@ -448,26 +448,19 @@
 <h3 id="训练过程">训练过程</h3>
 <p>对抗生成网络的Generator和Discriminator是分开训练的</p>
 <ul>
-<li><p>Generator训练过程中的每一次迭代：</p>
-<ul>
+<li><p>Generator训练过程中的每一次迭代：</p></li>
 <li><p>Trajectory Buffer中取一个batch的s作为S，其中的s不需要来自同一个处理过程（同一张图片）</p></li>
-<li><p>将S同时送入Actor网络</p></li>
-</ul>
-<p>Actor由两部分组成分别是<span class="math inline">\(\pi_1,\pi_2\)</span>，</p>
-<pre><code>* $\pi_1$输出选择每一个Filter的概率pdf，然后根据pdf用轮盘赌的方式选择一个Filter（$a_1$）
-* $\pi_2$是多个共享shared层（图一中框起来的部分）的神经网络，用于选择每种Filter的参数，由$\pi_1$的输出$a_1$选择相应的Filter所对应的神经网络，得到参数$a_2$
-* $a=(a_1,a_2)$就是policy在当前状态s下所选择的action，将action作用于S产生新的S&#39;，同时产生相应的penalty，并根据是否达到处理步数上限，将新的S&#39;放回到Trajectory Buffer当中，Trajectory Buffer重新读入一些RAW图像，保证Trajector Buffer的size不变</code></pre>
+<li><p>将S同时送入Actor网络，Actor由两部分组成分别是<span class="math inline">\(\pi_1,\pi_2\)</span>，</p>
 <ul>
-<li>将之前的S和处理后得到的S'同时输入到Critic网络中得到两组Value值<span class="math inline">\(V^{\pi(S)}，V^{\pi(S‘)}\)</span></li>
+<li><span class="math inline">\(\pi_1\)</span>输出选择每一个Filter的概率pdf，然后根据pdf用轮盘赌的方式选择一个Filter（<span class="math inline">\(a_1\)</span>）</li>
+<li><span class="math inline">\(\pi_2\)</span>是多个共享shared层（图一中框起来的部分）的神经网络，用于选择每种Filter的参数，由<span class="math inline">\(\pi_1\)</span>的输出<span class="math inline">\(a_1\)</span>选择相应的Filter所对应的神经网络，得到参数<span class="math inline">\(a_2\)</span></li>
+<li><span class="math inline">\(a=(a_1,a_2)\)</span>就是policy在当前状态s下所选择的action，将action作用于S产生新的S'，同时产生相应的penalty，并根据是否达到处理步数上限，将新的S'放回到Trajectory Buffer当中，Trajectory Buffer重新读入一些RAW图像，保证Trajector Buffer的size不变</li>
 </ul></li>
-<li><p>Discriminator训练过程中的每一次迭代</p>
-<ul>
-<li>固定住Generator，然后分别将处理过的图像和Target中的图像输入到Discriminator中输出<span class="math inline">\(D^\pi(s&#39;),D^\pi(t)\)</span>，这里虽然是说将处理过的图像出入到Discriminator中，但实际上从Trajectoy Buffer中直接选择新的图像，经过Generator然后用来训练Discriminator效果是一样的，只是由于Critic和Discriminator是用一个网络所以<span class="math inline">\(V^\pi(s&#39;)=D^\pi(s&#39;)\)</span>,这样就可以在训练Generator的时候缓存下<span class="math inline">\(V^\pi(s&#39;)\)</span>，减少计算量。</li>
-</ul></li>
-<li><p>最后训练过程中Generator和Discriminator是交替训练的</p>
-<ul>
-<li>每一次train的迭代中，先训练Generator若干个迭代，人后再训练Discriminator若干个迭代</li>
-</ul></li>
+<li><p>将之前的S和处理后得到的S'同时输入到Critic网络中得到两组Value值<span class="math inline">\(V^{\pi(S)}，V^{\pi(S‘)}\)</span></p></li>
+<li><p>Discriminator训练过程中的每一次迭代</p></li>
+<li><p>固定住Generator，然后分别将处理过的图像和Target中的图像输入到Discriminator中输出<span class="math inline">\(D^\pi(s&#39;),D^\pi(t)\)</span>，这里虽然是说将处理过的图像出入到Discriminator中，但实际上从Trajectoy Buffer中直接选择新的图像，经过Generator然后用来训练Discriminator效果是一样的，只是由于Critic和Discriminator是用一个网络所以<span class="math inline">\(V^\pi(s&#39;)=D^\pi(s&#39;)\)</span>,这样就可以在训练Generator的时候缓存下<span class="math inline">\(V^\pi(s&#39;)\)</span>，减少计算量。</p></li>
+<li><p>最后训练过程中Generator和Discriminator是交替训练的</p></li>
+<li><p>每一次train的迭代中，先训练Generator若干个迭代，人后再训练Discriminator若干个迭代</p></li>
 </ul>
 <h3 id="损失函数">损失函数</h3>
 <p>网络结构说明白了，那么来讲一讲训练过程中的优化目标，我们先来训练Generator</p>
