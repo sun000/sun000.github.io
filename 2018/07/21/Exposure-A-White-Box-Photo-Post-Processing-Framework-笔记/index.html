@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_3.png">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_4.png">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_5.png">
-<meta property="og:updated_time" content="2018-07-21T07:43:23.744Z">
+<meta property="og:updated_time" content="2018-07-21T07:46:08.852Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Exposure:A White-Box Photo Post-Processing Framework">
 <meta name="twitter:description" content="模型网络结构         有一点非常重要，Critic和Discriminator是同一个网络，为了便于区分所以分开画，实际上是一个网络  The discriminator is referred to as the “critic” in [Arjovsky et al. 2017]. We use the term “discriminator” here to distinguish">
@@ -447,43 +447,39 @@
 </blockquote>
 <h3 id="训练过程">训练过程</h3>
 <p>对抗生成网络的Generator和Discriminator是分开训练的</p>
+<h4 id="generator">Generator</h4>
+<p>训练过程中的每一次迭代：</p>
 <ul>
-<li><p>Generator训练过程中的每一次迭代：</p></li>
 <li><p>Trajectory Buffer中取一个batch的s作为S，其中的s不需要来自同一个处理过程（同一张图片）</p></li>
-<li><p>将S同时送入Actor网络，Actor由两部分组成分别是<span class="math inline">\(\pi_1,\pi_2\)</span>，</p>
-<ul>
+<li><p>将S同时送入Actor网络，Actor由两部分组成分别是<span class="math inline">\(\pi_1,\pi_2\)</span>，</p></li>
 <li><span class="math inline">\(\pi_1\)</span>输出选择每一个Filter的概率pdf，然后根据pdf用轮盘赌的方式选择一个Filter（<span class="math inline">\(a_1\)</span>）</li>
 <li><span class="math inline">\(\pi_2\)</span>是多个共享shared层（图一中框起来的部分）的神经网络，用于选择每种Filter的参数，由<span class="math inline">\(\pi_1\)</span>的输出<span class="math inline">\(a_1\)</span>选择相应的Filter所对应的神经网络，得到参数<span class="math inline">\(a_2\)</span></li>
-<li><span class="math inline">\(a=(a_1,a_2)\)</span>就是policy在当前状态s下所选择的action，将action作用于S产生新的S'，同时产生相应的penalty，并根据是否达到处理步数上限，将新的S'放回到Trajectory Buffer当中，Trajectory Buffer重新读入一些RAW图像，保证Trajector Buffer的size不变</li>
-</ul></li>
+<li><p><span class="math inline">\(a=(a_1,a_2)\)</span>就是policy在当前状态s下所选择的action，将action作用于S产生新的S'，同时产生相应的penalty，并根据是否达到处理步数上限，将新的S'放回到Trajectory Buffer当中，Trajectory Buffer重新读入一些RAW图像，保证Trajector Buffer的size不变</p></li>
 <li><p>将之前的S和处理后得到的S'同时输入到Critic网络中得到两组Value值<span class="math inline">\(V^{\pi(S)}，V^{\pi(S‘)}\)</span></p></li>
-<li><p>Discriminator训练过程中的每一次迭代</p></li>
+</ul>
+<h4 id="discriminator">Discriminator</h4>
+<p>训练过程中的每一次迭代：</p>
+<ul>
 <li><p>固定住Generator，然后分别将处理过的图像和Target中的图像输入到Discriminator中输出<span class="math inline">\(D^\pi(s&#39;),D^\pi(t)\)</span>，这里虽然是说将处理过的图像出入到Discriminator中，但实际上从Trajectoy Buffer中直接选择新的图像，经过Generator然后用来训练Discriminator效果是一样的，只是由于Critic和Discriminator是用一个网络所以<span class="math inline">\(V^\pi(s&#39;)=D^\pi(s&#39;)\)</span>,这样就可以在训练Generator的时候缓存下<span class="math inline">\(V^\pi(s&#39;)\)</span>，减少计算量。</p></li>
 <li><p>最后训练过程中Generator和Discriminator是交替训练的</p></li>
 <li><p>每一次train的迭代中，先训练Generator若干个迭代，人后再训练Discriminator若干个迭代</p></li>
 </ul>
 <h3 id="损失函数">损失函数</h3>
 <p>网络结构说明白了，那么来讲一讲训练过程中的优化目标，我们先来训练Generator</p>
-<ul>
-<li>Generator</li>
-</ul>
+<h4 id="generator-1">Generator</h4>
 <p>Genetrator用的是Reinforcemnet Learning中的Actor-Critic模型，这个模型简单的讲就是结合了基于值和基于策略的强化学习方法的优点，Actor模型用策略梯度方法来生成policy去选择action，然后Critci模型用时序差分（TD）算法来估计Value也就是长期的Rewards的期望。</p>
 <p>那么Generator又要分成Actor和Critit模型来说,先说Critic</p>
 <ul>
-<li>Critic（这里会引入Reinforcement Learning中的时序差分（TD）算法，不单独介绍了）
-<ul>
+<li>Critic（这里会引入Reinforcement Learning中的时序差分（TD）算法，不单独介绍了）</li>
 <li><p>Critic是用TD算法来估计Actor的输出的长期Rewards的期望的</p></li>
-<li><p>那么先来定义Actor所产生的action的reward</p></li>
-</ul>
+<li><p>那么先来定义Actor所产生的action的reward</p>
 <blockquote>
 <p>we set the reward as the incremental improvement in the quality score (modeled by a discriminator network in the following subsection) plus penalty terms</p>
 </blockquote>
 <p><span class="math display">\[R=V^\pi(s&#39;)-V^\pi(s)-penalty\]</span></p>
 <p>那么Q值（Reinforcement Learning中的定义）</p>
-<p><span class="math display">\[Q=R+\gamma V^\pi(s&#39;)\]</span>z</p>
-<ul>
-<li>则根据论文中提到的公式</li>
-</ul>
+<p><span class="math display">\[Q=R+\gamma V^\pi(s&#39;)\]</span>z</p></li>
+<li><p>则根据论文中提到的公式</p>
 <div class="figure">
 <img src="\myImg\Exposure_3.png">
 
@@ -492,23 +488,26 @@
 <p>whereδ is the temporal difference (TD) error:<span class="math inline">\(\delta = r(s,a)+\gamma V(p(s,a))-V (s)\)</span></p>
 </blockquote>
 <p>则</p>
-<p><span class="math display">\[C_{loss}=\frac{1}{2}[Q-V^\pi(s)]^2\]</span></p>
-<ul>
-<li>Actor</li>
-</ul>
+<p><span class="math display">\[C_{loss}=\frac{1}{2}[Q-V^\pi(s)]^2\]</span></p></li>
+<li><p>Actor</p>
 <p>Actor机遇策略梯度，由于直接选择滤镜及其参数的策略是不可微的，不能反向传播，所以又要讲Actor分成两部分</p>
 <ul>
-<li><p>选择滤镜的部分<span class="math inline">\(\pi_1\)</span>,由于滤镜数量是实现设定好的，这里用softmax作为激活函数，然后搭配Cross_entropy作为loss可以给出离散的策略梯度（Stochastic policy）：</p>
+<li>选择滤镜的部分<span class="math inline">\(\pi_1\)</span>,由于滤镜数量是实现设定好的，这里用softmax作为激活函数，然后搭配Cross_entropy作为loss可以给出离散的策略梯度（Stochastic policy）：</li>
+</ul>
 <div class="figure">
 <img src="\myImg\Exposure_4.png">
 
-</div></li>
-<li><p>然后是选择参数，根据前面选的Filter进入相关的参数选择网络，计算出相关参数，对应的连续的策略梯度（Deterministic policy）</p>
+</div>
+<ul>
+<li>然后是选择参数，根据前面选的Filter进入相关的参数选择网络，计算出相关参数，对应的连续的策略梯度（Deterministic policy）</li>
+</ul>
 <div class="figure">
 <img src="\myImg\Exposure_5.png">
 
-</div></li>
-<li><p>那么将策略梯度积分一下，就能得到Generator的长期Rewards期望了，注意</p>
+</div>
+<ul>
+<li>那么将策略梯度积分一下，就能得到Generator的长期Rewards期望了，注意</li>
+</ul>
 <blockquote>
 <p>For calculating the gradient of π 1 in Eqn. 6, the Q-value Q(s,a) can be substituted by the advantage A(s,a), which effectively reduces sample variance and can conveniently be computed as the TD error δ</p>
 </blockquote>
@@ -518,8 +517,9 @@
 <p>Generator是要最大化<span class="math inline">\(J(\pi)\)</span>,则与之对应的minimize的损失函数为</p>
 <p><span class="math display">\[G_{loss}=-J(\pi)=selected*log(pdf)*\delta -Q\]</span></p>
 <p>好现在来训练Discriminator</p></li>
-</ul></li>
-<li><p>Discriminator这里用的是WGAN中对Discriminator的定义</p>
+</ul>
+<h4 id="discriminator-1">Discriminator</h4>
+<p>这里用的是WGAN中对Discriminator的定义</p>
 <ul>
 <li>简单的介绍下WGAN的loss的由来</li>
 </ul>
@@ -532,8 +532,7 @@
 <ul>
 <li>损失函数</li>
 </ul>
-<p><span class="math display">\[D_{loss}=D^\pi(s&#39;)-D^\pi(t)\]</span></p></li>
-</ul>
+<p><span class="math display">\[D_{loss}=D^\pi(s&#39;)-D^\pi(t)\]</span></p>
 <h3 id="模型亮点">模型亮点</h3>
 <ul>
 <li>白盒化处理过程</li>
@@ -781,7 +780,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型网络结构"><span class="nav-number">1.</span> <span class="nav-text">模型网络结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练过程"><span class="nav-number">2.</span> <span class="nav-text">训练过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#损失函数"><span class="nav-number">3.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型亮点"><span class="nav-number">4.</span> <span class="nav-text">模型亮点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改进点"><span class="nav-number">5.</span> <span class="nav-text">改进点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型网络结构"><span class="nav-number">1.</span> <span class="nav-text">模型网络结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练过程"><span class="nav-number">2.</span> <span class="nav-text">训练过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#generator"><span class="nav-number">2.1.</span> <span class="nav-text">Generator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#discriminator"><span class="nav-number">2.2.</span> <span class="nav-text">Discriminator</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#损失函数"><span class="nav-number">3.</span> <span class="nav-text">损失函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#generator-1"><span class="nav-number">3.1.</span> <span class="nav-text">Generator</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#discriminator-1"><span class="nav-number">3.2.</span> <span class="nav-text">Discriminator</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型亮点"><span class="nav-number">4.</span> <span class="nav-text">模型亮点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改进点"><span class="nav-number">5.</span> <span class="nav-text">改进点</span></a></li></ol></div>
             
 
           </div>
