@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Reinforcement-Learning-5-蒙特卡罗方法(Monte-Carlo)]]></title>
     <url>%2F2018%2F07%2F19%2FReinforcement-Learning-5-%E8%92%99%E7%89%B9%E5%8D%A1%E7%BD%97%2F</url>
-    <content type="text"><![CDATA[]]></content>
+    <content type="text"><![CDATA[最近没什么时间，先留个坑吧。以后填上，还有TD, policy gradient, actor-critic以后再来补上。]]></content>
       <categories>
         <category>机器学习</category>
       </categories>
@@ -217,8 +217,8 @@
         <category>机试</category>
       </categories>
       <tags>
-        <tag>LeetCode</tag>
         <tag>二分</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -593,12 +593,12 @@
         <category>ACM</category>
       </categories>
       <tags>
-        <tag>DP</tag>
         <tag>图论</tag>
+        <tag>DP</tag>
+        <tag>贪心</tag>
         <tag>BITSET</tag>
         <tag>背包</tag>
         <tag>并查集</tag>
-        <tag>贪心</tag>
       </tags>
   </entry>
   <entry>
