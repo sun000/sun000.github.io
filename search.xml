@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Exposure:A White-Box Photo Post-Processing Framework 笔记]]></title>
+    <url>%2F2018%2F07%2F21%2FExposure-A-White-Box-Photo-Post-Processing-Framework-%E7%AC%94%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[ha ???]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>强化学习</tag>
+        <tag>计算机视觉</tag>
+        <tag>生成对抗网络</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Reinforcement-Learning-5-蒙特卡罗方法(Monte-Carlo)]]></title>
     <url>%2F2018%2F07%2F19%2FReinforcement-Learning-5-%E8%92%99%E7%89%B9%E5%8D%A1%E7%BD%97%2F</url>
     <content type="text"><![CDATA[最近没什么时间，先留个坑吧。以后填上，还有TD, policy gradient, actor-critic以后再来补上。]]></content>
