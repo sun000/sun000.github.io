@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Exposure:A White-Box Photo Post-Processing Framework]]></title>
     <url>%2F2018%2F07%2F21%2FExposure-A-White-Box-Photo-Post-Processing-Framework-%E7%AC%94%E8%AE%B0%2F</url>
-    <content type="text"><![CDATA[模型网络结构 模型亮点 白盒化处理过程 像素无关 不需要paired数据 改进点 这里只是我个人的理解，觉得需要改进的地方 实验结果量化，论文中对实验结果的评估主要分为两部分（Histogram Intersection，User Rating） 其中Histogram Intersection是计算filtered image与RAW image在亮度、对比度、饱和度上的直方图交叉核。单凭这一点过于草率，因为文中还对比了CycleGAN和Pix2Pix模型，该评估方法下，论文的模型效果与CycleGAN接近，并明显弱于Pix2Pix模型。当然作者为了说明自己的模型比另两个模型厉害，放出了一张经过三个模型处理后的图片。我们可以轻易的看出作者的模型处理出来的图像清晰度碾压另两个，但是作者并没有做出定量的比较，仅凭一张图片的效果要来说明自己的效果更好显然有些牵强，并且这里用直方图交叉核的方法来比较并体现不出作者模型的优势，所以我个人认为仅凭这一个评估标准来评测不是很合理。包括还有User Rating，虽然能说明一些问题。但是User Rating的评判标准也是完全不能定量的。]]></content>
+    <content type="text"><![CDATA[模型网络结构 模型亮点 白盒化处理过程 像素无关 不需要paired数据 改进点 这里只是我个人的理解，觉得需要改进的地方 实验结果量化，论文中对实验结果的评估主要分为两部分（Histogram Intersection，User Rating）其中Histogram Intersection是计算filtered image与RAW image在亮度、对比度、饱和度上的直方图交叉核。单凭这一点过于草率，因为文中还对比了CycleGAN和Pix2Pix模型，该评估方法下，论文的模型效果与CycleGAN接近，并明显弱于Pix2Pix模型。当然作者为了说明自己的模型比另两个模型厉害，放出了一张经过三个模型处理后的图片。我们可以轻易的看出作者的模型处理出来的图像清晰度碾压另两个，但是作者并没有做出定量的比较，仅凭一张图片的效果要来说明自己的效果更好显然有些牵强，并且这里用直方图交叉核的方法来比较并体现不出作者模型的优势，所以我个人认为仅凭这一个评估标准来评测不是很合理。包括还有User Rating，虽然能说明一些问题。但是User Rating的评判标准也是完全不能定量的。]]></content>
       <categories>
         <category>论文笔记</category>
       </categories>
