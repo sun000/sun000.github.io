@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="sun000&#39;s blog">
 <meta property="og:description" content="基本思想 蒙特卡罗方法又叫统计模拟方法，它使用随机数（或伪随机数）来解决计算的问题，是一类重要的数值计算方法。该方法的名字来源于世界著名的赌城蒙特卡罗，而蒙特卡罗方法正是以概率为基础的方法。 一个简单的例子可以解释蒙特卡罗方法，假设我们需要计算一个不规则图形的面积，那么图形的不规则程度和分析性计算（比如积分）的复杂程度是成正比的。而采用蒙特卡罗方法是怎么计算的呢？首先你把图形放到一个已知面积的方框">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-23T12:42:51.043Z">
+<meta property="og:updated_time" content="2018-07-23T12:55:10.480Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reinforcement-Learning-5-蒙特卡罗方法(Monte-Carlo)">
 <meta name="twitter:description" content="基本思想 蒙特卡罗方法又叫统计模拟方法，它使用随机数（或伪随机数）来解决计算的问题，是一类重要的数值计算方法。该方法的名字来源于世界著名的赌城蒙特卡罗，而蒙特卡罗方法正是以概率为基础的方法。 一个简单的例子可以解释蒙特卡罗方法，假设我们需要计算一个不规则图形的面积，那么图形的不规则程度和分析性计算（比如积分）的复杂程度是成正比的。而采用蒙特卡罗方法是怎么计算的呢？首先你把图形放到一个已知面积的方框">
@@ -411,7 +411,19 @@
 <p>之前已经讲过了DP算法，和DP不同的是，MC算法不需要对环境有完整的模型。甚至可以说MC算法是一种基于经验的算法，在其他地方听过Monte-Carlo算法的就可以很容易理解，MC在RL是通过很多的sample然后求平均，来估计策略的。</p>
 <p>在本文中，我们讲的MC算法都是在<code>eposode task</code>上的，什么是<code>episode task</code>？</p>
 <p><code>episode task</code>：无论采用什么策略<span class="math inline">\(\pi\)</span>，总是会在有限步数内到达终止状态并取得相应的Reward，最简单的例子就比如AlphaGo下的围棋，围棋总是会结束的，最终总有输赢（不会下围棋，我不知道有没有和棋，不过都会结束）。</p>
-<h3 id="蒙特卡罗估计monte-carlo-prediction">蒙特卡罗估计(Monte-Carlo-Prediction)</h3>
+<h3 id="蒙特卡罗策略估计monte-carlo-policy-evalution">蒙特卡罗策略估计(Monte-Carlo-Policy-Evalution)</h3>
+<h3 id="动作值函数的蒙特卡罗估计monte-carlo-estimation-of-action-value">动作值函数的蒙特卡罗估计(Monte-Carlo-Estimation-Of-Action-Value)</h3>
+<h3 id="持续探索maintaining-exploration">持续探索(Maintaining-Exploration)</h3>
+<h3 id="蒙特卡罗控制monte-carlo-control">蒙特卡罗控制(MOnte-Carlo-Control)</h3>
+<h3 id="离线学习off-policy-learning">离线学习(Off-Policy-Learning)</h3>
+<h3 id="总结">总结</h3>
+<h3 id="参考">参考</h3>
+<p>[1] Reinforcement Learning: An Introduction, Richard S. Sutton and Andrew G. Barto </p>
+<p>[2] UCL Course on RL</p>
+<p>[3] https://blog.csdn.net/coffee_cream/article/details/66972281</p>
+<p>[4] https://blog.csdn.net/songrotek/article/details/51381873</p>
+<p>[5] https://www.cnblogs.com/jinxulin/p/3560737.html</p>
+<p>[6] https://zhuanlan.zhihu.com/p/25743759</p>
 
       
     </div>
@@ -654,7 +666,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本思想"><span class="nav-number">1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reinforcement-learning中的monte-carlo"><span class="nav-number">2.</span> <span class="nav-text">Reinforcement Learning中的Monte-Carlo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#蒙特卡罗估计monte-carlo-prediction"><span class="nav-number">3.</span> <span class="nav-text">蒙特卡罗估计(Monte-Carlo-Prediction)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本思想"><span class="nav-number">1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reinforcement-learning中的monte-carlo"><span class="nav-number">2.</span> <span class="nav-text">Reinforcement Learning中的Monte-Carlo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#蒙特卡罗策略估计monte-carlo-policy-evalution"><span class="nav-number">3.</span> <span class="nav-text">蒙特卡罗策略估计(Monte-Carlo-Policy-Evalution)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动作值函数的蒙特卡罗估计monte-carlo-estimation-of-action-value"><span class="nav-number">4.</span> <span class="nav-text">动作值函数的蒙特卡罗估计(Monte-Carlo-Estimation-Of-Action-Value)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#持续探索maintaining-exploration"><span class="nav-number">5.</span> <span class="nav-text">持续探索(Maintaining-Exploration)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#蒙特卡罗控制monte-carlo-control"><span class="nav-number">6.</span> <span class="nav-text">蒙特卡罗控制(MOnte-Carlo-Control)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离线学习off-policy-learning"><span class="nav-number">7.</span> <span class="nav-text">离线学习(Off-Policy-Learning)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">9.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
