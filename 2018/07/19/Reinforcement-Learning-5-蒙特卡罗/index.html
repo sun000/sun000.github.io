@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="最近没什么时间，先留个坑吧。以后填上，还有TD, policy gradient, actor-critic以后再来补上。">
+<meta name="description" content="基本思想 蒙特卡罗方法又叫统计模拟方法，它使用随机数（或伪随机数）来解决计算的问题，是一类重要的数值计算方法。该方法的名字来源于世界著名的赌城蒙特卡罗，而蒙特卡罗方法正是以概率为基础的方法。 一个简单的例子可以解释蒙特卡罗方法，假设我们需要计算一个不规则图形的面积，那么图形的不规则程度和分析性计算（比如积分）的复杂程度">
 <meta name="keywords" content="机器学习,强化学习,蒙特卡罗">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Reinforcement-Learning-5-蒙特卡罗方法(Monte-Carlo)">
 <meta property="og:url" content="http://sun000.cn/2018/07/19/Reinforcement-Learning-5-蒙特卡罗/index.html">
 <meta property="og:site_name" content="sun000&#39;s blog">
-<meta property="og:description" content="最近没什么时间，先留个坑吧。以后填上，还有TD, policy gradient, actor-critic以后再来补上。">
+<meta property="og:description" content="基本思想 蒙特卡罗方法又叫统计模拟方法，它使用随机数（或伪随机数）来解决计算的问题，是一类重要的数值计算方法。该方法的名字来源于世界著名的赌城蒙特卡罗，而蒙特卡罗方法正是以概率为基础的方法。 一个简单的例子可以解释蒙特卡罗方法，假设我们需要计算一个不规则图形的面积，那么图形的不规则程度和分析性计算（比如积分）的复杂程度是成正比的。而采用蒙特卡罗方法是怎么计算的呢？首先你把图形放到一个已知面积的方框">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-21T01:37:55.369Z">
+<meta property="og:updated_time" content="2018-07-23T12:42:51.043Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reinforcement-Learning-5-蒙特卡罗方法(Monte-Carlo)">
-<meta name="twitter:description" content="最近没什么时间，先留个坑吧。以后填上，还有TD, policy gradient, actor-critic以后再来补上。">
+<meta name="twitter:description" content="基本思想 蒙特卡罗方法又叫统计模拟方法，它使用随机数（或伪随机数）来解决计算的问题，是一类重要的数值计算方法。该方法的名字来源于世界著名的赌城蒙特卡罗，而蒙特卡罗方法正是以概率为基础的方法。 一个简单的例子可以解释蒙特卡罗方法，假设我们需要计算一个不规则图形的面积，那么图形的不规则程度和分析性计算（比如积分）的复杂程度是成正比的。而采用蒙特卡罗方法是怎么计算的呢？首先你把图形放到一个已知面积的方框">
 
 
 
@@ -404,7 +404,14 @@
       
 
       
-        <p>最近没什么时间，先留个坑吧。以后填上，还有TD, policy gradient, actor-critic以后再来补上。</p>
+        <h3 id="基本思想">基本思想</h3>
+<p>蒙特卡罗方法又叫统计模拟方法，它使用随机数（或伪随机数）来解决计算的问题，是一类重要的数值计算方法。该方法的名字来源于世界著名的赌城蒙特卡罗，而蒙特卡罗方法正是以概率为基础的方法。</p>
+<p>一个简单的例子可以解释蒙特卡罗方法，假设我们需要计算一个不规则图形的面积，那么图形的不规则程度和分析性计算（比如积分）的复杂程度是成正比的。而采用蒙特卡罗方法是怎么计算的呢？首先你把图形放到一个已知面积的方框内，然后假想你有一些豆子，把豆子均匀地朝这个方框内撒，散好后数这个图形之中有多少颗豆子，再根据图形内外豆子的比例来计算面积。当你的豆子越小，撒的越多的时候，结果就越精确。</p>
+<h3 id="reinforcement-learning中的monte-carlo">Reinforcement Learning中的Monte-Carlo</h3>
+<p>之前已经讲过了DP算法，和DP不同的是，MC算法不需要对环境有完整的模型。甚至可以说MC算法是一种基于经验的算法，在其他地方听过Monte-Carlo算法的就可以很容易理解，MC在RL是通过很多的sample然后求平均，来估计策略的。</p>
+<p>在本文中，我们讲的MC算法都是在<code>eposode task</code>上的，什么是<code>episode task</code>？</p>
+<p><code>episode task</code>：无论采用什么策略<span class="math inline">\(\pi\)</span>，总是会在有限步数内到达终止状态并取得相应的Reward，最简单的例子就比如AlphaGo下的围棋，围棋总是会结束的，最终总有输赢（不会下围棋，我不知道有没有和棋，不过都会结束）。</p>
+<h3 id="蒙特卡罗估计monte-carlo-prediction">蒙特卡罗估计(Monte-Carlo-Prediction)</h3>
 
       
     </div>
@@ -536,8 +543,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -628,6 +644,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本思想"><span class="nav-number">1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reinforcement-learning中的monte-carlo"><span class="nav-number">2.</span> <span class="nav-text">Reinforcement Learning中的Monte-Carlo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#蒙特卡罗估计monte-carlo-prediction"><span class="nav-number">3.</span> <span class="nav-text">蒙特卡罗估计(Monte-Carlo-Prediction)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

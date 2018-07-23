@@ -16,7 +16,7 @@
   <entry>
     <title><![CDATA[Reinforcement-Learning-5-蒙特卡罗方法(Monte-Carlo)]]></title>
     <url>%2F2018%2F07%2F19%2FReinforcement-Learning-5-%E8%92%99%E7%89%B9%E5%8D%A1%E7%BD%97%2F</url>
-    <content type="text"><![CDATA[最近没什么时间，先留个坑吧。以后填上，还有TD, policy gradient, actor-critic以后再来补上。]]></content>
+    <content type="text"><![CDATA[基本思想 蒙特卡罗方法又叫统计模拟方法，它使用随机数（或伪随机数）来解决计算的问题，是一类重要的数值计算方法。该方法的名字来源于世界著名的赌城蒙特卡罗，而蒙特卡罗方法正是以概率为基础的方法。 一个简单的例子可以解释蒙特卡罗方法，假设我们需要计算一个不规则图形的面积，那么图形的不规则程度和分析性计算（比如积分）的复杂程度是成正比的。而采用蒙特卡罗方法是怎么计算的呢？首先你把图形放到一个已知面积的方框内，然后假想你有一些豆子，把豆子均匀地朝这个方框内撒，散好后数这个图形之中有多少颗豆子，再根据图形内外豆子的比例来计算面积。当你的豆子越小，撒的越多的时候，结果就越精确。 Reinforcement Learning中的Monte-Carlo 之前已经讲过了DP算法，和DP不同的是，MC算法不需要对环境有完整的模型。甚至可以说MC算法是一种基于经验的算法，在其他地方听过Monte-Carlo算法的就可以很容易理解，MC在RL是通过很多的sample然后求平均，来估计策略的。 在本文中，我们讲的MC算法都是在eposode task上的，什么是episode task？ episode task：无论采用什么策略\(\pi\)，总是会在有限步数内到达终止状态并取得相应的Reward，最简单的例子就比如AlphaGo下的围棋，围棋总是会结束的，最终总有输赢（不会下围棋，我不知道有没有和棋，不过都会结束）。 蒙特卡罗估计(Monte-Carlo-Prediction)]]></content>
       <categories>
         <category>机器学习</category>
       </categories>
