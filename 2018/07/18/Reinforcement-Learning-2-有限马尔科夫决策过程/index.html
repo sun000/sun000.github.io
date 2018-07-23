@@ -81,23 +81,23 @@
 
 
 
-<meta name="description" content="上一篇博客稍微介绍了一些强化学的基本概念，这次在讲有限马尔科夫决策过程（Finite Markov Decision Processes）之前，先对强化学习的模型来一个更详细的介绍。 基本概念 1. 规则（policy） Policy 定义了 agents 在特定的时间特定的环境下的行为方式，可以视为是从环境状态到行为">
+<meta name="description" content="上一篇博客稍微介绍了一些强化学习的基本概念，这次在讲有限马尔科夫决策过程（Finite Markov Decision Processes）之前，先对强化学习的模型来一个更详细的介绍。 基本概念 1. 规则（policy） Policy 定义了 agents 在特定的时间特定的环境下的行为方式，可以视为是从环境状态到行">
 <meta name="keywords" content="机器学习,强化学习,MDP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Reinforcement-Learning-2-有限马尔科夫决策过程&amp;Bellman方程">
 <meta property="og:url" content="http://sun000.cn/2018/07/18/Reinforcement-Learning-2-有限马尔科夫决策过程/index.html">
 <meta property="og:site_name" content="sun000&#39;s blog">
-<meta property="og:description" content="上一篇博客稍微介绍了一些强化学的基本概念，这次在讲有限马尔科夫决策过程（Finite Markov Decision Processes）之前，先对强化学习的模型来一个更详细的介绍。 基本概念 1. 规则（policy） Policy 定义了 agents 在特定的时间特定的环境下的行为方式，可以视为是从环境状态到行为的映射，常用 π来表示。policy 可以分为两类：  确定性的 policy（">
+<meta property="og:description" content="上一篇博客稍微介绍了一些强化学习的基本概念，这次在讲有限马尔科夫决策过程（Finite Markov Decision Processes）之前，先对强化学习的模型来一个更详细的介绍。 基本概念 1. 规则（policy） Policy 定义了 agents 在特定的时间特定的环境下的行为方式，可以视为是从环境状态到行为的映射，常用 π来表示。policy 可以分为两类：  确定性的 policy">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://sun000.cn/myImg/RL1_2.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL2_1.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL2_2.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL2_3.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL2_4.png">
-<meta property="og:updated_time" content="2018-07-18T09:18:11.473Z">
+<meta property="og:updated_time" content="2018-07-21T11:04:52.848Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reinforcement-Learning-2-有限马尔科夫决策过程&amp;Bellman方程">
-<meta name="twitter:description" content="上一篇博客稍微介绍了一些强化学的基本概念，这次在讲有限马尔科夫决策过程（Finite Markov Decision Processes）之前，先对强化学习的模型来一个更详细的介绍。 基本概念 1. 规则（policy） Policy 定义了 agents 在特定的时间特定的环境下的行为方式，可以视为是从环境状态到行为的映射，常用 π来表示。policy 可以分为两类：  确定性的 policy（">
+<meta name="twitter:description" content="上一篇博客稍微介绍了一些强化学习的基本概念，这次在讲有限马尔科夫决策过程（Finite Markov Decision Processes）之前，先对强化学习的模型来一个更详细的介绍。 基本概念 1. 规则（policy） Policy 定义了 agents 在特定的时间特定的环境下的行为方式，可以视为是从环境状态到行为的映射，常用 π来表示。policy 可以分为两类：  确定性的 policy">
 <meta name="twitter:image" content="http://sun000.cn/myImg/RL1_2.png">
 
 
@@ -410,7 +410,7 @@
       
 
       
-        <p>上一篇博客稍微介绍了一些强化学的基本概念，这次在讲有限马尔科夫决策过程（Finite Markov Decision Processes）之前，先对强化学习的模型来一个更详细的介绍。</p>
+        <p>上一篇博客稍微介绍了一些强化学习的基本概念，这次在讲有限马尔科夫决策过程（Finite Markov Decision Processes）之前，先对强化学习的模型来一个更详细的介绍。</p>
 <h3 id="基本概念">基本概念</h3>
 <h4 id="规则policy">1. 规则（policy）</h4>
 <p>Policy 定义了 agents 在特定的时间特定的环境下的行为方式，可以视为是从环境状态到行为的映射，常用 π来表示。policy 可以分为两类：</p>

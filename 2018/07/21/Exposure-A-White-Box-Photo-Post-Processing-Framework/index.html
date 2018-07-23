@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_3.png">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_4.png">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_5.png">
-<meta property="og:updated_time" content="2018-07-21T08:38:14.104Z">
+<meta property="og:updated_time" content="2018-07-23T04:53:27.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Exposure:A White-Box Photo Post-Processing Framework">
 <meta name="twitter:description" content="模型网络结构         有一点非常重要，Critic和Discriminator是同一个网络，为了便于区分所以分开画，实际上是一个网络  The discriminator is referred to as the “critic” in [Arjovsky et al. 2017]. We use the term “discriminator” here to distinguish">
@@ -529,7 +529,7 @@
 <p><span class="math display">\[\sum_{t \in real}log[D(t)]+\sum_{s \in fake}log[1-D(s)]\]</span></p>
 <p>又因为log[1-D(s)]与-log[D(s)]变化相同</p>
 <p>所以我们就有了损失函数(整体取负号)</p>
-<p><span class="math display">\[loss=\sum_{s \in fake}log[D(t)]- \sum_{t \in real}log[D(s)]\]</span></p>
+<p><span class="math display">\[loss=\sum_{s&#39; \in fake}log[D(s&#39;)]- \sum_{t \in real}log[D(t)]\]</span></p>
 <p>又因为WGAN中的要去掉Discriminator最后一层的sigmoid（这里就很巧妙了，使Discriminator能用Critic来代替），那么相应的loss函数里就要去掉log，当然还有其他改变，但是这里只说loss的变化，那么最后我们得到：</p>
 <ul>
 <li>损失函数</li>
