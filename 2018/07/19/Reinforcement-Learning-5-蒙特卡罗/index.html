@@ -91,7 +91,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://sun000.cn/myImg/RL5_1.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL5_2.png">
-<meta property="og:updated_time" content="2018-07-24T02:14:03.532Z">
+<meta property="og:updated_time" content="2018-07-24T02:54:20.283Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reinforcement-Learning-5-蒙特卡罗方法(Monte-Carlo)">
 <meta name="twitter:description" content="基本思想 蒙特卡罗方法又叫统计模拟方法，它使用随机数（或伪随机数）来解决计算的问题，是一类重要的数值计算方法。该方法的名字来源于世界著名的赌城蒙特卡罗，而蒙特卡罗方法正是以概率为基础的方法。 一个简单的例子可以解释蒙特卡罗方法，假设我们需要计算一个不规则图形的面积，那么图形的不规则程度和分析性计算（比如积分）的复杂程度是成正比的。而采用蒙特卡罗方法是怎么计算的呢？首先你把图形放到一个已知面积的方框">
@@ -436,10 +436,17 @@
 <p><code>Every-Visit-MC</code>：还是以上图为例子，每次访问都要求return</p>
 <p><span class="math display">\[V(s)=\frac{G_{11}(s)+G_{12}(s)+...+G_{21}(s)+...}{N(s)}\]</span></p>
 <p>很显然，根据大数定律，当<span class="math inline">\(N(s) \rightarrow \infty\)</span>时<span class="math inline">\(V(s) \rightarrow V^\pi(s)\)</span></p>
-<p>该方法有一个重要的属性：每一个状态都是独立的，不依赖于其他状态的估计。并且可以简单看出，对每个单一状态的Value的计算成本与状态的数量是无关的，因为不用得到整个模型的所有状态，这一点从伪代码里也可以简单的看出来，因此<strong>MC算法也可以说是Model-free的算法</strong>。</p>
+<p>该方法有一个重要的属性：每一个状态都是独立的，不依赖于其他状态的估计。并且可以简单看出，对每个单一状态的Value的计算成本与状态的数量是无关的，因为不用得到整个模型的所有状态，这一点从伪代码里也可以简单的看出来。</p>
 <h3 id="动作值函数的蒙特卡罗估计monte-carlo-estimation-of-action-value">动作值函数的蒙特卡罗估计(Monte-Carlo-Estimation-Of-Action-Value)</h3>
+<p>当给定一个模型的时候，我们只需要state-value就能确定一个policy <span class="math inline">\(\pi\)</span> ,这个时候只要选择能够到达获得最多reward的state的action就可以了。但是如果没有模型，也就是不知道<span class="math inline">\(p(s&#39;|s,a)\)</span>的时候。求<span class="math inline">\(V^\pi\)</span>并不能得到policy <span class="math inline">\(\pi\)</span>。所以这个时候，我们需要通过求动作值函数来来求解最优policy。也就是估计动作值函数<span class="math inline">\(Q^\pi(s,a )\)</span>。</p>
+<p>估计<span class="math inline">\(Q^\pi(s, a)\)</span>的方法与估计<span class="math inline">\(V^\pi(s)\)</span>的方法类似：在一个 episode 中，一对 s,a 称为是被 visit 过只的是在该 episode 中，agent 经历过 s 状态且选择执行了行为 a。 </p>
+<p>同样，这里的MC预测方法也可以分成两种：first-visit MC 与 every-visit MC，其中 first-visit MC 方法是对 (s,a)的所有 first visits 进行平均，而 every-visit MC 方法是对 (s,a) 的所有 visits 进行平均。当 visit 的次数趋于无穷时，这些方法也是成平方收敛的。  　　这里唯一复杂的地方在于，有可能有很多 state-action 对从未被 visit 过，这样就没有 returns 来进行平均，就无法对该 state-action 对进行评估，这其实就可以归结于是一般的 maintaining exploration 问题，也就是在指导 agent 的行为时要保持一定的探索精神。其中一种解决方法是 exploring starts，不明思议，该方法就是通过每一个 episode 的起点来做到 exploration 的，也就是每一对 state−action pair 都会以非零的概率被选中作为 episode 的起点，exploring starts 方法有时有用，但不具有一般性，很多时候受问题或者环境的约束无法实现，另外一种可行的方法是采用一种随机的规则，对每个状态所有的行为被选中的概率都是非零的。下一节内容中暂且假设采用的是 exploring starts 方案。</p>
 <h3 id="持续探索maintaining-exploration">持续探索(Maintaining-Exploration)</h3>
-<h3 id="蒙特卡罗控制monte-carlo-control">蒙特卡罗控制(MOnte-Carlo-Control)</h3>
+<p>前面我们讲到，我们通过一些样本来估计Q和V，并且在未来执行估值最大的动作。这里就存在一个问题，假设在某个确定状态<span class="math inline">\(s_0\)</span>下，能执行<span class="math inline">\(a_0, a_1,a_2\)</span>这三个动作，如果Agent已经估计了两个Q函数值，如<span class="math inline">\(Q(s_0,a_0), Q(s_0,a_1)\)</span>，且<span class="math inline">\(Q(s_0,a_0)&gt;Q(s_0,a_1)\)</span>，那么它在未来将只会执行一个确定的动作<span class="math inline">\(a_0\)</span>。这样我们就无法更新<span class="math inline">\(Q(s_0,a_1)\)</span>的估值和获得<span class="math inline">\(Q(s_0,a_2)\)</span>的估值了。这样的后果是，我们无法保证<span class="math inline">\(Q(s_0,a_0)\)</span>就是<span class="math inline">\(s_0\)</span>下最大的Q函数。</p>
+<p>具体实现方式很简单，就是用<em>soft</em> policies来替换确定性策略，使所有的动作都有可能被执行。比如其中的一种方法是ε-greedy policy，即在所有的状态下，用1-ε的概率来执行当前的最优动作<span class="math inline">\(a_0\)</span>，ε的概率来执行其他动作<span class="math inline">\(a_1, a_2\)</span>。这样我们就可以获得所有动作的估计值，然后通过慢慢减少ε值，最终使算法收敛，并得到最优策略。</p>
+<p>简单起见，在下面MC控制中，我们使用exploring start，即仅在第一步令所有的a都有一个非零的概率被选中。</p>
+<p>在动态规划方法中，为了保证值函数的收敛性，算法会对状态空间中的状态进行逐个扫描。无模型的方法充分评估策略值函数的前提是每个状态都能被访问到。因此，在蒙特卡洛方法中必须采用一定的方法保证每个状态都能被访问到。exploring start则是一种简单的的方法。</p>
+<h3 id="蒙特卡罗控制monte-carlo-control">蒙特卡罗控制(Monte-Carlo-Control)</h3>
 <h3 id="离线学习off-policy-learning">离线学习(Off-Policy-Learning)</h3>
 <h3 id="总结">总结</h3>
 <h3 id="参考">参考</h3>
@@ -691,7 +698,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本思想"><span class="nav-number">1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reinforcement-learning中的monte-carlo"><span class="nav-number">2.</span> <span class="nav-text">Reinforcement Learning中的Monte-Carlo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#蒙特卡罗策略估计monte-carlo-policy-evalution"><span class="nav-number">3.</span> <span class="nav-text">蒙特卡罗策略估计(Monte-Carlo-Policy-Evalution)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动作值函数的蒙特卡罗估计monte-carlo-estimation-of-action-value"><span class="nav-number">4.</span> <span class="nav-text">动作值函数的蒙特卡罗估计(Monte-Carlo-Estimation-Of-Action-Value)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#持续探索maintaining-exploration"><span class="nav-number">5.</span> <span class="nav-text">持续探索(Maintaining-Exploration)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#蒙特卡罗控制monte-carlo-control"><span class="nav-number">6.</span> <span class="nav-text">蒙特卡罗控制(MOnte-Carlo-Control)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离线学习off-policy-learning"><span class="nav-number">7.</span> <span class="nav-text">离线学习(Off-Policy-Learning)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">9.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本思想"><span class="nav-number">1.</span> <span class="nav-text">基本思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reinforcement-learning中的monte-carlo"><span class="nav-number">2.</span> <span class="nav-text">Reinforcement Learning中的Monte-Carlo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#蒙特卡罗策略估计monte-carlo-policy-evalution"><span class="nav-number">3.</span> <span class="nav-text">蒙特卡罗策略估计(Monte-Carlo-Policy-Evalution)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动作值函数的蒙特卡罗估计monte-carlo-estimation-of-action-value"><span class="nav-number">4.</span> <span class="nav-text">动作值函数的蒙特卡罗估计(Monte-Carlo-Estimation-Of-Action-Value)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#持续探索maintaining-exploration"><span class="nav-number">5.</span> <span class="nav-text">持续探索(Maintaining-Exploration)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#蒙特卡罗控制monte-carlo-control"><span class="nav-number">6.</span> <span class="nav-text">蒙特卡罗控制(Monte-Carlo-Control)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离线学习off-policy-learning"><span class="nav-number">7.</span> <span class="nav-text">离线学习(Off-Policy-Learning)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">9.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
