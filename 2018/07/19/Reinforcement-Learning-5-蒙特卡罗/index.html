@@ -89,16 +89,13 @@
 <meta property="og:site_name" content="sun000&#39;s blog">
 <meta property="og:description" content="基本思想 蒙特卡罗方法又叫统计模拟方法，它使用随机数（或伪随机数）来解决计算的问题，是一类重要的数值计算方法。该方法的名字来源于世界著名的赌城蒙特卡罗，而蒙特卡罗方法正是以概率为基础的方法。 一个简单的例子可以解释蒙特卡罗方法，假设我们需要计算一个不规则图形的面积，那么图形的不规则程度和分析性计算（比如积分）的复杂程度是成正比的。而采用蒙特卡罗方法是怎么计算的呢？首先你把图形放到一个已知面积的方框">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://sun000.cn/myimg/RL5_1.png">
-<meta property="og:image" content="https://www.zhihu.com/equation?tex=s">
+<meta property="og:image" content="http://sun000.cn/myImg/RL5_1.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL5_2.png">
-<meta property="og:image" content="https://www.zhihu.com/equation?tex=s">
-<meta property="og:image" content="https://www.zhihu.com/equation?tex=G_%7B11%7D">
-<meta property="og:updated_time" content="2018-07-24T02:11:47.056Z">
+<meta property="og:updated_time" content="2018-07-24T02:14:03.532Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reinforcement-Learning-5-蒙特卡罗方法(Monte-Carlo)">
 <meta name="twitter:description" content="基本思想 蒙特卡罗方法又叫统计模拟方法，它使用随机数（或伪随机数）来解决计算的问题，是一类重要的数值计算方法。该方法的名字来源于世界著名的赌城蒙特卡罗，而蒙特卡罗方法正是以概率为基础的方法。 一个简单的例子可以解释蒙特卡罗方法，假设我们需要计算一个不规则图形的面积，那么图形的不规则程度和分析性计算（比如积分）的复杂程度是成正比的。而采用蒙特卡罗方法是怎么计算的呢？首先你把图形放到一个已知面积的方框">
-<meta name="twitter:image" content="http://sun000.cn/myimg/RL5_1.png">
+<meta name="twitter:image" content="http://sun000.cn/myImg/RL5_1.png">
 
 
 
@@ -421,11 +418,11 @@
 <p>这一节主要讲基于<code>state-value</code>（<span class="math inline">\(V^\pi(s)\)</span>）的蒙特卡罗学习方法。就如之前说的，蒙特卡罗是多次采样，然后求经过状态s的平均return <span class="math inline">\(G_t\)</span>(（当然每条路径都要走到终止状态）。MC算法又可以分为两种实现方式<code>Firse-Visit-MC</code>和<code>Every-Visit-MC</code>。<code>First_Visit</code>是在每条决策序列中，只记录第一次到达状态s时所获得的reward，而<code>Every-Visit</code>则是同一轮决策序列中每一个经过状态s都要记录。</p>
 <p>假设当经过s的采样有无从多次，那么显然状态s所收获的rewards的平均值趋近并收敛于<span class="math inline">\(V^\pi(s)\)</span>，<code>First-Visit MC</code> 的伪代码如下图所示，其每个返回值是对<span class="math inline">\(V^\pi(s)\)</span>的独立同分布估的计，并且带有有限的方差（方差会很大），<strong>每个平均值本身都是一个无偏估计</strong>，误差的标准偏差为<span class="math inline">\(\frac{1}{\sqrt n}\)</span>(其中 n 为 returns 的数量)，这个估计可以说是成平方收敛的（converge quadratically）。 </p>
 <div class="figure">
-<img src="\myimg\RL5_1.png">
+<img src="\myImg\RL5_1.png">
 
 </div>
 <p>之前讲到了MC算法是基于经验<code>experience</code>学习的，那么什么是<code>experience</code> 呢?</p>
-<p>当要评估智能体的当前策略时，我们可以利用策略产生很多次试验，每次试验都是从任意的初始状态开始直到终止状态，比如一次试验(anepisode)为：<span class="math inline">\(S_1,A_1,R_2,...S_T\)</span>计算一次试验中状态<img src="https://www.zhihu.com/equation?tex=s" alt="s">处的折扣回报返回值为：</p>
+<p>当要评估智能体的当前策略时，我们可以利用策略产生很多次试验，每次试验都是从任意的初始状态开始直到终止状态，比如一次试验(anepisode)为：<span class="math inline">\(S_1,A_1,R_2,...S_T\)</span>计算一次试验中状态s处的折扣回报返回值为：</p>
 <p><span class="math display">\[G_t=R_{t+1}+\gamma R_{t+2}+...+\gamma^{T-1}R_T\]</span></p>
 <p>所谓经验，是指利用该策略做很多次试验，产生很多组数据。这里一幕是一次试验的意思。如下图所示</p>
 <div class="figure">
@@ -434,7 +431,7 @@
 </div>
 <p>然后来计算平均return：</p>
 <p>这个概念很简单，平均就是求均值。这里分为<code>First-Visis-MC</code>和<code>Every-Visit-MC</code></p>
-<p><code>First-Visis-MC</code>:如上图中第一次试验所示，计算状态<img src="https://www.zhihu.com/equation?tex=s" alt="s">处的均值时只利用<img src="https://www.zhihu.com/equation?tex=G_%7B11%7D" alt="G_{11}"> 。因此第一次访问蒙特卡罗方法的计算公式为：</p>
+<p><code>First-Visis-MC</code>:如上图中第一次试验所示，计算状态s处的均值时只利用<span class="math inline">\(G_{11}\)</span>。因此第一次访问蒙特卡罗方法的计算公式为：</p>
 <p><span class="math display">\[V(s)=\frac{G_{11}(s)+G_{21}(s)+...}{N(s)}\]</span></p>
 <p><code>Every-Visit-MC</code>：还是以上图为例子，每次访问都要求return</p>
 <p><span class="math display">\[V(s)=\frac{G_{11}(s)+G_{12}(s)+...+G_{21}(s)+...}{N(s)}\]</span></p>
