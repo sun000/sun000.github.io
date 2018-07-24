@@ -91,7 +91,15 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://sun000.cn/myImg/RL5_1.png">
 <meta property="og:image" content="http://sun000.cn/myImg/RL5_2.png">
-<meta property="og:updated_time" content="2018-07-24T02:54:20.283Z">
+<meta property="og:image" content="http://sun000.cn/myImg/RL4_2.png">
+<meta property="og:image" content="http://sun000.cn/myImg/RL5_3.png">
+<meta property="og:image" content="http://sun000.cn/myImg/RL5_4.png">
+<meta property="og:image" content="http://sun000.cn/myImg/RL5_5.png">
+<meta property="og:image" content="http://sun000.cn/myImg/RL5_6.png">
+<meta property="og:image" content="http://sun000.cn/myImg/RL5_7.png">
+<meta property="og:image" content="http://sun000.cn/myImg/RL5_8.png">
+<meta property="og:image" content="http://sun000.cn/myImg/RL5_9.png">
+<meta property="og:updated_time" content="2018-07-24T05:43:02.440Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reinforcement-Learning-5-蒙特卡罗方法(Monte-Carlo)">
 <meta name="twitter:description" content="基本思想 蒙特卡罗方法又叫统计模拟方法，它使用随机数（或伪随机数）来解决计算的问题，是一类重要的数值计算方法。该方法的名字来源于世界著名的赌城蒙特卡罗，而蒙特卡罗方法正是以概率为基础的方法。 一个简单的例子可以解释蒙特卡罗方法，假设我们需要计算一个不规则图形的面积，那么图形的不规则程度和分析性计算（比如积分）的复杂程度是成正比的。而采用蒙特卡罗方法是怎么计算的呢？首先你把图形放到一个已知面积的方框">
@@ -447,12 +455,90 @@
 <p>简单起见，在下面MC控制中，我们使用exploring start，即仅在第一步令所有的a都有一个非零的概率被选中。</p>
 <p>在动态规划方法中，为了保证值函数的收敛性，算法会对状态空间中的状态进行逐个扫描。无模型的方法充分评估策略值函数的前提是每个状态都能被访问到。因此，在蒙特卡洛方法中必须采用一定的方法保证每个状态都能被访问到。exploring start则是一种简单的的方法。</p>
 <h3 id="蒙特卡罗控制monte-carlo-control">蒙特卡罗控制(Monte-Carlo-Control)</h3>
+<p>在 DP 方法中我们知道，将 policy evaluation 与 policy improvement 相结合就构成了 policy iteration 过程，这里先回顾一下 DP 的 policy iteration 过程： </p>
+<div class="figure">
+<img src="\myImg\RL4_2.png">
+
+</div>
+<p>而在MC算法中，我们更常用的是一种基于<span class="math inline">\(Q(s,a)\)</span>的policy iteration,过程如下：</p>
+<div class="figure">
+<img src="\myImg\RL5_3.png">
+
+</div>
+<p>E： policy evaluation </p>
+<p>I： policy improvement </p>
+<p>和DP一样，这里的E同样也有两种方法。</p>
+<ol style="list-style-type: decimal">
+<li><p>在一个policy下测试多次，评估完全，然后更新policy，然后再做很多测试。</p></li>
+<li><p>不完全评估，每次测试一次完就评估，评估完就更新。</p></li>
+</ol>
+<p>引用David Sliver的PPT，就是下面这两种方法：</p>
+<div class="figure">
+<img src="\myImg\RL5_4.png">
+
+</div>
+<div class="figure">
+<img src="\myImg\RL5_5.png">
+
+</div>
+<p>这两种方法，最终都是会收敛的，但是显然第二种方法的速度会更快。</p>
+<p>那么再改进一点，就是改变greedy policy中ϵ的值，使得不断变小趋于0，这个时候最后得到的policy就是完全的最优policy了。 </p>
+<p>这个算法就叫做GLIE Monte-Carlo Control：</p>
+<div class="figure">
+<img src="\myImg\RL5_6.png">
+
+</div>
+<p>现在回到上一节讲的exploring start算法。采用不完全评估。</p>
+<p>为了保证 MC 方法的收敛性，我们做了两个假设：</p>
+<ol style="list-style-type: decimal">
+<li><p>我们获得的 episodes 具有 exploring starts</p></li>
+<li><p>policy evaluation 过程可以利用无限的 episodes 来完成</p></li>
+</ol>
+<p>而在实际过程中，这两个假设是采用一定的方法来移除的，针对（2）有两种方法来解决：  　　</p>
+<ol style="list-style-type: decimal">
+<li>认为在每个 policy evaluation 过程中可以逼近 <span class="math inline">\(Q^{\pi_k}\)</span>，通过测量和假设来获得估计误差的边界和概率，并在每个 policy evaluation 过程中采取充分的措施来保证他们的边界充分的小。然而这种方法在实际中需要非常多的 episodes。</li>
+<li>为了避免无限次的 episodes，可以放弃在返回到 policy improvement 之前完成 policy evaluation过程，也就是在每一个 evaluation 步骤中都让 value function 向 qπk 逼近，但并不期望可以在 value function 很多步后就可以非常接近  <span class="math inline">\(Q^{\pi_k}\)</span>。  　</li>
+</ol>
+<p>这里将采用了 exploring starts 的MC 方法称为是 Monte Carlo ES，算法的伪代码如下所示</p>
+<div class="figure">
+<img src="\myImg\RL5_7.png">
+
+</div>
+<p>针对假设（1）</p>
+<p>为了避免 exploring starts 的假设，唯一的方法就是保证所有的 actions 都可以被选中，通常有两种方法：on−policy 方法和 off−policy 方法：</p>
+<ol style="list-style-type: decimal">
+<li>on-policy 方法是通过评估和改善做决策的 policy</li>
+<li>off-policy 方法评估和改善的不是用来产生数据的 policy，在 off-policy 方法中一般使用 2 个policy，一个学习并成为 optimal policy，另外一个则更偏向于探索，用来产生行为，off-policy 方法将在下一节中进行介绍。这里先介绍的是 on-policy 方法。  　　</li>
+</ol>
+<p>在 on-policy 控制方法中，规则常常是 soft 的，即对所有的 s∈S 与 a∈A(s)，均有 π(a|s)&gt;0，也就是说在任一状态下，所有的行为都有可能被选中，这里先介绍其中一种方法 ε−greedy policies，它的含义是指，在 1−ε 的概率下会选择当前具有最大 action value 估计值的行为，而在 ε 的概率下会随机从所有行为中随机选择一种 action，因此，总的算下来，选择 greedy action 的概率是 <span class="math inline">\(1−ε+\frac{ε}{|A(s)|}\)</span>，而选择非 greedy action 的概率是 ε|A(s)|。ε-greedy policies 属于 ε-soft policies 中的一种，在某种意义上来说，在所有ε-soft policies 中，ε-greedy policies 属于最接近 greedy 的了。  　　</p>
+<p>On-policy first-visit MC control的伪代码如下所示：</p>
+<div class="figure">
+<img src="\myImg\RL5_8.png">
+
+</div>
 <h3 id="离线学习off-policy-learning">离线学习(Off-Policy-Learning)</h3>
+<p>这里的有很多的数学推导，我目前也没有完全掌握，这一部分在<a href="https://blog.csdn.net/coffee_cream/article/details/66972281" target="_blank" rel="noopener">参考[3]</a>当中讲的还算详细。在这里只做大致的介绍。</p>
+<p>那么上面的方法一直是基于当前的policy，为了探索状态空间，采用一个次优的策略ϵ−greedy policy来探索。那么是不是可以更直接的使用两个policy。一个policy用来探索空间，也就是behavior policy，另一个policy就是为了达到最优policy，叫做target policy。那么这种方法就叫做off policy learning。On-policy的方法比较简单，off-policy 方法需要更多的概念和标记，比较不好理解，而且，由于behaviour policy和target policy不相关，这种方法比较不容易收敛。但是off-policy更强大，更通用，实际上的on-policy方法就是off-policy方法的一个子集。比如，就可以使用off-policy从人类专家或者传统的控制算法来学习一个增强学习模型。 </p>
+<div class="figure">
+<img src="\myImg\RL5_9.png">
+
+</div>
 <h3 id="总结">总结</h3>
+<p>Monte Carlo 方法是利用采样得到的 episodes 进行学习得到 value function 和optimal policies，与 DP 方法相比，它具有以下优点：</p>
+<ol style="list-style-type: decimal">
+<li>它直接从与环境的交互中进行学习，不需要环境的动态模型；<br>
+</li>
+<li>它可以利用仿真或者采样模型，在很多实际应用中，仿真构建 sample episodes 很容易，而构建 DP 所需要的转换概率的确切模型很难；</li>
+<li>如果只希望得到一部分 states 的估计值，Monte Carlo 方法可以很容易的聚焦到这些 states 上，它只要不计算不关注的 states 即可，而 DP 方法中，对某个 state 的估计需要干涉到其他所有相关的 states，不如 Monte Carlo 方法简便。<br>
+</li>
+<li>当违背 Markov 属性时，Monte Carlo 方法受到的影响较小，因为它不需要基于后续状态的 value 估计值来更新 value 估计值，也就是说，<strong>它们不“bootstrap”。</strong>  　　 </li>
+</ol>
+<p>总的来说蒙特卡洛，这种基于统计学的方法算法简单，但是更多的只能用于虚拟环境能进行无限测试的情况。并且state 状态比较有限，离散的最好。基于这个方法，比如简单的五子棋（棋盘最好小一点），就可以用这个方法来玩玩了。</p>
+<p>不过，现在增强学习中，直接使用MC方法的情况比较少，而较多的采用TD算法族。但是如同DP一样，MC方法也是增强学习的基础之一，因此依然有学习的必要。</p>
 <h3 id="参考">参考</h3>
 <p>[1] Reinforcement Learning: An Introduction, Richard S. Sutton and Andrew G. Barto </p>
 <p>[2] UCL Course on RL</p>
-<p>[3] https://blog.csdn.net/coffee_cream/article/details/66972281</p>
+<p><strong>[3] https://blog.csdn.net/coffee_cream/article/details/66972281</strong></p>
 <p>[4] https://blog.csdn.net/songrotek/article/details/51381873</p>
 <p>[5] https://www.cnblogs.com/jinxulin/p/3560737.html</p>
 <p>[6] https://zhuanlan.zhihu.com/p/25743759</p>
