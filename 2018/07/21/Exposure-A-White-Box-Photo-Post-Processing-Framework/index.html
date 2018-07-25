@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_3.png">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_4.png">
 <meta property="og:image" content="http://sun000.cn/myImg/Exposure_5.png">
-<meta property="og:updated_time" content="2018-07-23T04:53:27.168Z">
+<meta property="og:updated_time" content="2018-07-25T05:50:09.022Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Exposure:A White-Box Photo Post-Processing Framework">
 <meta name="twitter:description" content="模型网络结构         有一点非常重要，Critic和Discriminator是同一个网络，为了便于区分所以分开画，实际上是一个网络  The discriminator is referred to as the “critic” in [Arjovsky et al. 2017]. We use the term “discriminator” here to distinguish">
@@ -455,7 +455,7 @@
 <li><span class="math inline">\(\pi_1\)</span>输出选择每一个Filter的概率pdf，然后根据pdf用轮盘赌的方式选择一个Filter（<span class="math inline">\(a_1\)</span>）</li>
 <li><span class="math inline">\(\pi_2\)</span>是多个共享shared层（图一中框起来的部分）的神经网络，用于选择每种Filter的参数，由<span class="math inline">\(\pi_1\)</span>的输出<span class="math inline">\(a_1\)</span>选择相应的Filter所对应的神经网络，得到参数<span class="math inline">\(a_2\)</span></li>
 <li><span class="math inline">\(a=(a_1,a_2)\)</span>就是policy在当前状态s下所选择的action，将action作用于S产生新的S'，同时产生相应的penalty，并根据是否达到处理步数上限，将新的S'放回到Trajectory Buffer当中，Trajectory Buffer重新读入一些RAW图像，保证Trajector Buffer的size不变</li>
-<li>将之前的S和处理后得到的S'同时输入到Critic网络中得到两组Value值<span class="math inline">\(V^{\pi(S)}，V^{\pi(S‘)}\)</span></li>
+<li>将之前的S和处理后得到的S'同时输入到Critic网络中得到两组Value值<span class="math inline">\(V^{\pi}(S)，V^{\pi}(S‘)\)</span></li>
 </ul>
 <h4 id="discriminator">Discriminator</h4>
 <p>训练过程中的每一次迭代：</p>
@@ -616,8 +616,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/19/Reinforcement-Learning-5-蒙特卡罗/" rel="next" title="Reinforcement-Learning-5-蒙特卡罗方法(Monte-Carlo)">
-                <i class="fa fa-chevron-left"></i> Reinforcement-Learning-5-蒙特卡罗方法(Monte-Carlo)
+              <a href="/2018/07/19/Reinforcement-Learning-9-Actor-Critic/" rel="next" title="Reinforcement-Learning-9-Actor-Critic">
+                <i class="fa fa-chevron-left"></i> Reinforcement-Learning-9-Actor-Critic
               </a>
             
           </div>
@@ -696,7 +696,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-count">67</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -718,7 +718,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">64</span>
+                <span class="site-state-item-count">67</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
