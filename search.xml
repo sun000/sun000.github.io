@@ -14,57 +14,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Reinforcement-Learning-9-Actor-Critic]]></title>
-    <url>%2F2018%2F07%2F19%2FReinforcement-Learning-9-Actor-Critic%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>强化学习</tag>
-        <tag>Actor-Critic</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Reinforcement-Learning-8-策略梯度方法(Policy-Gradient)]]></title>
-    <url>%2F2018%2F07%2F19%2FReinforcement-Learning-8-%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>强化学习</tag>
-        <tag>策略梯度</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Reinforcement-Learning-7-阶段总结]]></title>
-    <url>%2F2018%2F07%2F19%2FReinforcement-Learning-7-%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93%2F</url>
-    <content type="text"><![CDATA[]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>强化学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Reinforcement-Learning-6-时序差分方法(Temporal-Difference)]]></title>
-    <url>%2F2018%2F07%2F19%2FReinforcement-Learning-6-%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86%E6%96%B9%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[​]]></content>
-      <categories>
-        <category>机器学习</category>
-      </categories>
-      <tags>
-        <tag>机器学习</tag>
-        <tag>强化学习</tag>
-        <tag>TD</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Reinforcement-Learning-5-蒙特卡罗方法(Monte-Carlo)]]></title>
     <url>%2F2018%2F07%2F19%2FReinforcement-Learning-5-%E8%92%99%E7%89%B9%E5%8D%A1%E7%BD%97%2F</url>
     <content type="text"><![CDATA[基本思想 蒙特卡罗方法又叫统计模拟方法，它使用随机数（或伪随机数）来解决计算的问题，是一类重要的数值计算方法。该方法的名字来源于世界著名的赌城蒙特卡罗，而蒙特卡罗方法正是以概率为基础的方法。 一个简单的例子可以解释蒙特卡罗方法，假设我们需要计算一个不规则图形的面积，那么图形的不规则程度和分析性计算（比如积分）的复杂程度是成正比的。而采用蒙特卡罗方法是怎么计算的呢？首先你把图形放到一个已知面积的方框内，然后假想你有一些豆子，把豆子均匀地朝这个方框内撒，散好后数这个图形之中有多少颗豆子，再根据图形内外豆子的比例来计算面积。当你的豆子越小，撒的越多的时候，结果就越精确。 Reinforcement Learning中的Monte-Carlo 之前已经讲过了DP算法，和DP不同的是，MC算法不需要对环境有完整的模型。甚至可以说MC算法是一种基于经验的算法，在其他地方听过Monte-Carlo算法的就可以很容易理解，MC在RL是通过很多的sample然后求平均，来估计策略的。 在本文中，我们讲的MC算法都是在eposode task上的，什么是episode task？ episode task：无论采用什么策略\(\pi\)，总是会在有限步数内到达终止状态并取得相应的Reward，最简单的例子就比如AlphaGo下的围棋，围棋总是会结束的，最终总有输赢（不会下围棋，我不知道有没有和棋，不过都会结束）。 蒙特卡罗策略估计(Monte-Carlo-Policy-Evalution) 这一节主要讲基于state-value（\(V^\pi(s)\)）的蒙特卡罗学习方法。就如之前说的，蒙特卡罗是多次采样，然后求经过状态s的平均return \(G_t\)(（当然每条路径都要走到终止状态）。MC算法又可以分为两种实现方式Firse-Visit-MC和Every-Visit-MC。First_Visit是在每条决策序列中，只记录第一次到达状态s时所获得的reward，而Every-Visit则是同一轮决策序列中每一个经过状态s都要记录。 假设当经过s的采样有无从多次，那么显然状态s所收获的rewards的平均值趋近并收敛于\(V^\pi(s)\)，First-Visit MC 的伪代码如下图所示，其每个返回值是对\(V^\pi(s)\)的独立同分布估的计，并且带有有限的方差（方差会很大），每个平均值本身都是一个无偏估计，误差的标准偏差为\(\frac{1}{\sqrt n}\)(其中 n 为 returns 的数量)，这个估计可以说是成平方收敛的（converge quadratically）。 之前讲到了MC算法是基于经验experience学习的，那么什么是experience 呢? 当要评估智能体的当前策略时，我们可以利用策略产生很多次试验，每次试验都是从任意的初始状态开始直到终止状态，比如一次试验(anepisode)为：\(S_1,A_1,R_2,...S_T\)计算一次试验中状态s处的折扣回报返回值为： \[G_t=R_{t+1}+\gamma R_{t+2}+...+\gamma^{T-1}R_T\] 所谓经验，是指利用该策略做很多次试验，产生很多组数据。这里一幕是一次试验的意思。如下图所示 然后来计算平均return： 这个概念很简单，平均就是求均值。这里分为First-Visis-MC和Every-Visit-MC First-Visis-MC:如上图中第一次试验所示，计算状态s处的均值时只利用\(G_{11}\)。因此第一次访问蒙特卡罗方法的计算公式为： \[V(s)=\frac{G_{11}(s)+G_{21}(s)+...}{N(s)}\] Every-Visit-MC：还是以上图为例子，每次访问都要求return \[V(s)=\frac{G_{11}(s)+G_{12}(s)+...+G_{21}(s)+...}{N(s)}\] 很显然，根据大数定律，当\(N(s) \rightarrow \infty\)时\(V(s) \rightarrow V^\pi(s)\) 该方法有一个重要的属性：每一个状态都是独立的，不依赖于其他状态的估计。并且可以简单看出，对每个单一状态的Value的计算成本与状态的数量是无关的，因为不用得到整个模型的所有状态，这一点从伪代码里也可以简单的看出来。 动作值函数的蒙特卡罗估计(Monte-Carlo-Estimation-Of-Action-Value) 当给定一个模型的时候，我们只需要state-value就能确定一个policy \(\pi\) ,这个时候只要选择能够到达获得最多reward的state的action就可以了。但是如果没有模型，也就是不知道\(p(s&#39;|s,a)\)的时候。求\(V^\pi\)并不能得到policy \(\pi\)。所以这个时候，我们需要通过求动作值函数来来求解最优policy。也就是估计动作值函数\(Q^\pi(s,a )\)。 估计\(Q^\pi(s, a)\)的方法与估计\(V^\pi(s)\)的方法类似：在一个 episode 中，一对 s,a 称为是被 visit 过只的是在该 episode 中，agent 经历过 s 状态且选择执行了行为 a。 同样，这里的MC预测方法也可以分成两种：first-visit MC 与 every-visit MC，其中 first-visit MC 方法是对 (s,a)的所有 first visits 进行平均，而 every-visit MC 方法是对 (s,a) 的所有 visits 进行平均。当 visit 的次数趋于无穷时，这些方法也是成平方收敛的。 这里唯一复杂的地方在于，有可能有很多 state-action 对从未被 visit 过，这样就没有 returns 来进行平均，就无法对该 state-action 对进行评估，这其实就可以归结于是一般的 maintaining exploration 问题，也就是在指导 agent 的行为时要保持一定的探索精神。其中一种解决方法是 exploring starts，不明思议，该方法就是通过每一个 episode 的起点来做到 exploration 的，也就是每一对 state−action pair 都会以非零的概率被选中作为 episode 的起点，exploring starts 方法有时有用，但不具有一般性，很多时候受问题或者环境的约束无法实现，另外一种可行的方法是采用一种随机的规则，对每个状态所有的行为被选中的概率都是非零的。下一节内容中暂且假设采用的是 exploring starts 方案。 持续探索(Maintaining-Exploration) 前面我们讲到，我们通过一些样本来估计Q和V，并且在未来执行估值最大的动作。这里就存在一个问题，假设在某个确定状态\(s_0\)下，能执行\(a_0, a_1,a_2\)这三个动作，如果Agent已经估计了两个Q函数值，如\(Q(s_0,a_0), Q(s_0,a_1)\)，且\(Q(s_0,a_0)&gt;Q(s_0,a_1)\)，那么它在未来将只会执行一个确定的动作\(a_0\)。这样我们就无法更新\(Q(s_0,a_1)\)的估值和获得\(Q(s_0,a_2)\)的估值了。这样的后果是，我们无法保证\(Q(s_0,a_0)\)就是\(s_0\)下最大的Q函数。 具体实现方式很简单，就是用soft policies来替换确定性策略，使所有的动作都有可能被执行。比如其中的一种方法是ε-greedy policy，即在所有的状态下，用1-ε的概率来执行当前的最优动作\(a_0\)，ε的概率来执行其他动作\(a_1, a_2\)。这样我们就可以获得所有动作的估计值，然后通过慢慢减少ε值，最终使算法收敛，并得到最优策略。 简单起见，在下面MC控制中，我们使用exploring start，即仅在第一步令所有的a都有一个非零的概率被选中。 在动态规划方法中，为了保证值函数的收敛性，算法会对状态空间中的状态进行逐个扫描。无模型的方法充分评估策略值函数的前提是每个状态都能被访问到。因此，在蒙特卡洛方法中必须采用一定的方法保证每个状态都能被访问到。exploring start则是一种简单的的方法。 蒙特卡罗控制(Monte-Carlo-Control) 在 DP 方法中我们知道，将 policy evaluation 与 policy improvement 相结合就构成了 policy iteration 过程，这里先回顾一下 DP 的 policy iteration 过程： 而在MC算法中，我们更常用的是一种基于\(Q(s,a)\)的policy iteration,过程如下： E： policy evaluation I： policy improvement 和DP一样，这里的E同样也有两种方法。 在一个policy下测试多次，评估完全，然后更新policy，然后再做很多测试。 不完全评估，每次测试一次完就评估，评估完就更新。 引用David Sliver的PPT，就是下面这两种方法： 这两种方法，最终都是会收敛的，但是显然第二种方法的速度会更快。 那么再改进一点，就是改变greedy policy中ϵ的值，使得不断变小趋于0，这个时候最后得到的policy就是完全的最优policy了。 这个算法就叫做GLIE Monte-Carlo Control： 现在回到上一节讲的exploring start算法。采用不完全评估。 为了保证 MC 方法的收敛性，我们做了两个假设： 我们获得的 episodes 具有 exploring starts policy evaluation 过程可以利用无限的 episodes 来完成 而在实际过程中，这两个假设是采用一定的方法来移除的，针对（2）有两种方法来解决： 认为在每个 policy evaluation 过程中可以逼近 \(Q^{\pi_k}\)，通过测量和假设来获得估计误差的边界和概率，并在每个 policy evaluation 过程中采取充分的措施来保证他们的边界充分的小。然而这种方法在实际中需要非常多的 episodes。 为了避免无限次的 episodes，可以放弃在返回到 policy improvement 之前完成 policy evaluation过程，也就是在每一个 evaluation 步骤中都让 value function 向 qπk 逼近，但并不期望可以在 value function 很多步后就可以非常接近 \(Q^{\pi_k}\)。 这里将采用了 exploring starts 的MC 方法称为是 Monte Carlo ES，算法的伪代码如下所示 针对假设（1） 为了避免 exploring starts 的假设，唯一的方法就是保证所有的 actions 都可以被选中，通常有两种方法：on−policy 方法和 off−policy 方法： on-policy 方法是通过评估和改善做决策的 policy off-policy 方法评估和改善的不是用来产生数据的 policy，在 off-policy 方法中一般使用 2 个policy，一个学习并成为 optimal policy，另外一个则更偏向于探索，用来产生行为，off-policy 方法将在下一节中进行介绍。这里先介绍的是 on-policy 方法。 在 on-policy 控制方法中，规则常常是 soft 的，即对所有的 s∈S 与 a∈A(s)，均有 π(a|s)&gt;0，也就是说在任一状态下，所有的行为都有可能被选中，这里先介绍其中一种方法 ε−greedy policies，它的含义是指，在 1−ε 的概率下会选择当前具有最大 action value 估计值的行为，而在 ε 的概率下会随机从所有行为中随机选择一种 action，因此，总的算下来，选择 greedy action 的概率是 \(1−ε+\frac{ε}{|A(s)|}\)，而选择非 greedy action 的概率是 ε|A(s)|。ε-greedy policies 属于 ε-soft policies 中的一种，在某种意义上来说，在所有ε-soft policies 中，ε-greedy policies 属于最接近 greedy 的了。 On-policy first-visit MC control的伪代码如下所示： 离线学习(Off-Policy-Learning) 这里的有很多的数学推导，我目前也没有完全掌握，这一部分在参考[3]当中讲的还算详细。在这里只做大致的介绍。 那么上面的方法一直是基于当前的policy，为了探索状态空间，采用一个次优的策略ϵ−greedy policy来探索。那么是不是可以更直接的使用两个policy。一个policy用来探索空间，也就是behavior policy，另一个policy就是为了达到最优policy，叫做target policy。那么这种方法就叫做off policy learning。On-policy的方法比较简单，off-policy 方法需要更多的概念和标记，比较不好理解，而且，由于behaviour policy和target policy不相关，这种方法比较不容易收敛。但是off-policy更强大，更通用，实际上的on-policy方法就是off-policy方法的一个子集。比如，就可以使用off-policy从人类专家或者传统的控制算法来学习一个增强学习模型。 总结 Monte Carlo 方法是利用采样得到的 episodes 进行学习得到 value function 和optimal policies，与 DP 方法相比，它具有以下优点： 它直接从与环境的交互中进行学习，不需要环境的动态模型； 它可以利用仿真或者采样模型，在很多实际应用中，仿真构建 sample episodes 很容易，而构建 DP 所需要的转换概率的确切模型很难； 如果只希望得到一部分 states 的估计值，Monte Carlo 方法可以很容易的聚焦到这些 states 上，它只要不计算不关注的 states 即可，而 DP 方法中，对某个 state 的估计需要干涉到其他所有相关的 states，不如 Monte Carlo 方法简便。 当违背 Markov 属性时，Monte Carlo 方法受到的影响较小，因为它不需要基于后续状态的 value 估计值来更新 value 估计值，也就是说，它们不“bootstrap”。 总的来说蒙特卡洛，这种基于统计学的方法算法简单，但是更多的只能用于虚拟环境能进行无限测试的情况。并且state 状态比较有限，离散的最好。基于这个方法，比如简单的五子棋（棋盘最好小一点），就可以用这个方法来玩玩了。 不过，现在增强学习中，直接使用MC方法的情况比较少，而较多的采用TD算法族。但是如同DP一样，MC方法也是增强学习的基础之一，因此依然有学习的必要。 参考 [1] Reinforcement Learning: An Introduction, Richard S. Sutton and Andrew G. Barto [2] UCL Course on RL [3] https://blog.csdn.net/coffee_cream/article/details/66972281 [4] https://blog.csdn.net/songrotek/article/details/51381873 [5] https://www.cnblogs.com/jinxulin/p/3560737.html [6] https://zhuanlan.zhihu.com/p/25743759]]></content>
